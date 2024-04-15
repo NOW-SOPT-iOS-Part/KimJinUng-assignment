@@ -8,6 +8,7 @@
 import UIKit
 
 extension UITextField {
+    
     func addPadding(left: CGFloat? = nil, right: CGFloat? = nil) {
         if let left {
             leftView = UIView(frame: CGRect(x: 0, y: 0, width: left, height: 0))
@@ -32,9 +33,10 @@ extension UITextField {
         }
     }
     
-    func setPlaceholder(placeholder: String, fontColor: UIColor?, font: UIFont) {
-        attributedPlaceholder = NSAttributedString(string: placeholder,
-                                                        attributes: [.foregroundColor: fontColor!,
-                                                                     .font: font])
+    func setPlaceholder(placeholder: String, fontColor: UIColor?, font: UIFont?) {
+        attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [.foregroundColor: fontColor!, .font: font!]
+        )
     }
 }
