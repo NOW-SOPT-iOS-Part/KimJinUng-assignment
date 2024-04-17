@@ -8,7 +8,6 @@
 import UIKit
 
 extension UITextField {
-    
     func addPadding(left: CGFloat? = nil, right: CGFloat? = nil) {
         if let left {
             leftView = UIView(frame: CGRect(x: 0, y: 0, width: left, height: 0))
@@ -20,17 +19,25 @@ extension UITextField {
         }
     }
     
-    func setTextField(forBackgroundColor: UIColor, forBorderColor: UIColor, forBorderWidth: CGFloat, forCornerRadius: CGFloat? = nil) {
-        clipsToBounds = true
-        layer.borderColor = forBorderColor.cgColor
-        layer.borderWidth = forBorderWidth
-        backgroundColor = forBackgroundColor
-        
-        if let cornerRadius = forCornerRadius {
-            layer.cornerRadius = cornerRadius
-        }  else {
-            layer.cornerRadius = 0
-        }
+    func setText(
+        placeholder: String,
+        textColor: UIColor,
+        backgroundColor: UIColor,
+        placeholderColor: UIColor,
+        font: UIFont?
+    ) {
+        self.textColor = textColor
+        self.backgroundColor = backgroundColor
+        attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [.foregroundColor: placeholderColor, .font: font!]
+        )
+        self.font = font
+    }
+    
+    func setColor(textColor: UIColor, backgroundColor: UIColor) {
+        self.textColor = textColor
+        self.backgroundColor = backgroundColor
     }
     
     func setPlaceholder(placeholder: String, fontColor: UIColor?, font: UIFont?) {
@@ -38,5 +45,23 @@ extension UITextField {
             string: placeholder,
             attributes: [.foregroundColor: fontColor!, .font: font!]
         )
+    }
+    
+    func setAutoType(
+        autocapitalizationType: UITextAutocapitalizationType = .none,
+        autocorrectionType: UITextAutocorrectionType = .no
+    ) {
+        self.autocapitalizationType = autocapitalizationType
+        self.autocorrectionType = autocorrectionType
+    }
+    
+    func setLayer(
+        borderColor: UIColor,
+        borderWidth: CGFloat = 0,
+        cornerRadius: CGFloat = Constants.UI.cornerRadius
+    ) {
+        layer.borderColor = borderColor.cgColor
+        layer.cornerRadius = cornerRadius
+        layer.borderWidth = borderWidth
     }
 }

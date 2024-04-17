@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIColor {
-    
     enum GrayHexScale {
         case scale_191919, scale_2E2E2E, scale_626262, scale_9C9C9C, scale_D6D6D6
     }

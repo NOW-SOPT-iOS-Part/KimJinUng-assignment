@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIFont {
-    
     enum CustomWeight {
         case one, two, three, four, five, six, seven, eight, nine
         
