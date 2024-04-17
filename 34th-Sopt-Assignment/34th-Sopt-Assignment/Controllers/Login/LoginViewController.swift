@@ -80,19 +80,18 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
     
     private func disableLoginButton() {
         loginButton.do {
-            $0.backgroundColor = .basicBlack
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.gray4.cgColor
+            $0.setLayer(borderColor: .gray4, borderWidth: 1)
             $0.setTitleColor(.gray2, for: .normal)
+            $0.backgroundColor = .basicBlack
             $0.isEnabled = false
         }
     }
     
     private func enableLoginButton() {
         loginButton.do {
+            $0.setTitleColor(.basicWhite, for: .normal)
             $0.backgroundColor = .brandRed
             $0.layer.borderWidth = 0
-            $0.setTitleColor(.basicWhite, for: .normal)
             $0.isEnabled = true
         }
     }
@@ -266,10 +265,9 @@ extension LoginViewController {
                 titleColor: .gray2,
                 font: .pretendard(weight: .six, size: 14)
             )
+            $0.setLayer(borderColor: .gray4, borderWidth: 1)
+            $0.isEnabled = false
             $0.backgroundColor = .black
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.gray4.cgColor
-            $0.layer.cornerRadius = Constants.UI.cornerRadius
             $0.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         }
         
