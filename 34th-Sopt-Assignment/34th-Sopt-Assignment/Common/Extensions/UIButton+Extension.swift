@@ -14,6 +14,16 @@ extension UIButton {
         titleLabel?.font = font
     }
     
+    func setLayer(
+        borderColor: UIColor,
+        borderWidth: CGFloat = 0,
+        cornerRadius: CGFloat = Constants.UI.cornerRadius
+    ) {
+        layer.borderColor = borderColor.cgColor
+        layer.cornerRadius = cornerRadius
+        layer.borderWidth = borderWidth
+    }
+    
     func addUnderline() {
         let attributedString = NSMutableAttributedString(string: self.titleLabel?.text ?? "")
         attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
