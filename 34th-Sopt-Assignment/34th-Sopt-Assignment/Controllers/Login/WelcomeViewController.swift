@@ -61,6 +61,7 @@ extension WelcomeViewController {
     
     private func setUI() {
         view.backgroundColor = .basicBlack
+        navigationItem.hidesBackButton = true
         
         logoImageView.do {
             $0.image = UIImage(named: Constants.Image.logo)
