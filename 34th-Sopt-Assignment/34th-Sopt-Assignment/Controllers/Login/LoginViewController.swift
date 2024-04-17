@@ -9,14 +9,14 @@ import Then
 import UIKit
 import SnapKit
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, RegexCheckable, AlertShowable {
     
     // MARK: - Component
     
     private let titleLabel = UILabel()
     
     private let idTextField = UITextField()
-    
+
     private let idTextFieldRightView = UIView()
     
     private let idClearButton = UIButton()
@@ -43,6 +43,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Property
     
+    private var nickname: String?
     
     // MARK: - LifeCycle
     
@@ -52,40 +53,39 @@ final class LoginViewController: UIViewController {
         setUI()
         setViewHierarchy()
         setAutoLayout()
+        setDelegate()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    private func setDelegate() {
+        idTextField.delegate = self
+        pwTextField.delegate = self
     }
     
     // MARK: - Action
     
     @objc
-    private func textFieldClearButtonTapped(_ sender: UIButton) {
-        print(#function)
-        switch sender.tag {
-        case 0:
-            idTextField.text = ""
-        case 1:
-            pwTextField.text = ""
-        default:
-            break
+    private func textFieldEditingChanged(_ sender: UITextField) {
+        guard let idInput = idTextField.text, !idInput.isEmpty,
+              let pwInput = pwTextField.text, !pwInput.isEmpty
+        else {
+            disableLoginButton()
+            return
         }
+        enableLoginButton()
     }
     
-    @objc
-    private func pwShowButtonTapped(_ sender: UIButton) {
-        print(#function)
-        pwTextField.isSecureTextEntry.toggle()
-        switch pwTextField.isSecureTextEntry {
-        case true:
-            let image = UIImage(named: "eye_slash")
-            sender.setImage(image, for: .normal)
-        case false:
-            let image = UIImage(named: "eye")
-            sender.setImage(image, for: .normal)
+    private func disableLoginButton() {
+        loginButton.do {
+            $0.backgroundColor = .basicBlack
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.gray4.cgColor
+            $0.setTitleColor(.gray2, for: .normal)
+            $0.isEnabled = false
         }
-    }
-    
-    @objc
-    private func loginButtonTapped(_ sender: UIButton) {
-        print(#function)
     }
     
     private func enableLoginButton() {
@@ -97,14 +97,103 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    private func disableLoginButton() {
-        loginButton.do {
-            $0.backgroundColor = .black
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.gray4.cgColor
-            $0.setTitleColor(.gray2, for: .normal)
-            $0.isEnabled = false
+    @objc
+    private func textFieldClearButtonTapped(_ sender: UIButton) {
+        print(#function)
+        switch sender.tag {
+        case 0:
+            idTextField.text = nil
+            idTextField.insertText("")
+        case 1:
+            pwTextField.text = nil
+            pwTextField.insertText("")
+        default:
+            break
         }
+    }
+    
+    @objc
+    private func pwShowButtonTapped(_ sender: UIButton) {
+        print(#function)
+        pwTextField.isSecureTextEntry.toggle()
+        switch pwTextField.isSecureTextEntry {
+        case true:
+            sender.setImage(UIImage(named: Constants.Image.eye_slash), for: .normal)
+        case false:
+            sender.setImage(UIImage(named: Constants.Image.eye), for: .normal)
+        }
+    }
+    
+    @objc
+    private func loginButtonTapped(_ sender: UIButton) {
+        print(#function)
+        do {
+            let id = try checkID()
+            try checkPW()
+            moveToWelcome(with: id)
+        } catch {
+            let error = error as! AppError
+            showAlert(title: "\(error)", message: "\(error.message)")
+        }
+    }
+    
+    private func moveToWelcome(with id: String) {
+        guard let id = idTextField.text else { return }
+        let viewController = WelcomeViewController(id: id, nickname: nickname)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    private func checkID() throws -> String {
+        guard let input = idTextField.text,
+              checkFrom(input: input, regex: .id)
+        else {
+            throw AppError.login(error: .invalidID)
+        }
+        return input
+    }
+    
+    private func checkPW() throws {
+        guard let input = pwTextField.text,
+              checkFrom(input: input, regex: .pw)
+        else {
+            throw AppError.login(error: .invalidPW)
+        }
+    }
+    
+    @objc
+    private func makeNicknameButtonTapped(_ sender: UIButton) {
+        print(#function)
+        let viewController = MakeNicknameViewController()
+        viewController.delegate = self
+        viewController.modalPresentationStyle = .formSheet
+        if let sheet = viewController.sheetPresentationController {
+            sheet.do {
+                $0.detents = [.medium()]
+                $0.prefersGrabberVisible = true
+                $0.preferredCornerRadius = 24.0
+            }
+        }
+        present(viewController, animated: true)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 1
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+    }
+}
+
+// MARK: - MakeNicknameViewDelegate
+
+extension LoginViewController: MakeNicknameViewDelegate {
+    func configure(nickname: String) {
+        self.nickname = nickname
     }
 }
 
@@ -116,58 +205,57 @@ extension LoginViewController {
         view.backgroundColor = .basicBlack
         
         titleLabel.do {
-            $0.text = "TVING ID 로그인"
-            $0.textColor = .gray1
-            $0.font = .pretendard(weight: .five, size: 23)
+            $0.setText("TVING ID 로그인", color: .gray1, font: .pretendard(weight: .five, size: 23))
             $0.textAlignment = .center
         }
         
         idTextField.do {
-            $0.textColor = .basicWhite
-            $0.backgroundColor = .gray4
-            $0.keyboardType = .emailAddress
-            $0.layer.cornerRadius = 3
-            $0.addPadding(left: 20)
-            $0.rightView = idTextFieldRightView
-            $0.rightViewMode = .whileEditing
-            $0.setPlaceholder(
+            $0.setText(
                 placeholder: "아이디",
-                fontColor: .gray2,
+                textColor: .basicWhite,
+                backgroundColor: .gray4,
+                placeholderColor: .gray2,
                 font: .pretendard(weight: .six, size: 15)
             )
+            $0.setAutoType()
+            $0.setLayer(borderColor: .basicWhite)
+            $0.addPadding(left: 20)
+            $0.keyboardType = .emailAddress
+            $0.rightView = idTextFieldRightView
+            $0.rightViewMode = .whileEditing
+            $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         }
         
         idClearButton.do {
-            let image = UIImage(named: "x_circle")
-            $0.setImage(image, for: .normal)
+            $0.setImage(UIImage(named: Constants.Image.x_circle), for: .normal)
             $0.addTarget(self, action: #selector(textFieldClearButtonTapped), for: .touchUpInside)
             $0.tag = 0
         }
         
         pwTextField.do {
-            $0.textColor = .basicWhite
-            $0.backgroundColor = .gray4
-            $0.layer.cornerRadius = 3
-            $0.isSecureTextEntry = true
-            $0.addPadding(left: 20)
-            $0.rightView = pwTextFieldRightView
-            $0.rightViewMode = .whileEditing
-            $0.setPlaceholder(
+            $0.setText(
                 placeholder: "비밀번호",
-                fontColor: .gray2,
+                textColor: .basicWhite,
+                backgroundColor: .gray4,
+                placeholderColor: .gray2,
                 font: .pretendard(weight: .six, size: 15)
             )
+            $0.setAutoType()
+            $0.setLayer(borderColor: .basicWhite)
+            $0.addPadding(left: 20)
+            $0.isSecureTextEntry = true
+            $0.rightView = pwTextFieldRightView
+            $0.rightViewMode = .whileEditing
+            $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         }
         
         pwShowButton.do {
-            let image = UIImage(named: "eye_slash")
-            $0.setImage(image, for: .normal)
+            $0.setImage(UIImage(named: Constants.Image.eye_slash), for: .normal)
             $0.addTarget(self, action: #selector(pwShowButtonTapped), for: .touchUpInside)
         }
         
         pwClearButton.do {
-            let image = UIImage(named: "x_circle")
-            $0.setImage(image, for: .normal)
+            $0.setImage(UIImage(named: Constants.Image.x_circle), for: .normal)
             $0.addTarget(self, action: #selector(textFieldClearButtonTapped), for: .touchUpInside)
             $0.tag = 1
         }
@@ -181,6 +269,7 @@ extension LoginViewController {
             $0.backgroundColor = .black
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray4.cgColor
+            $0.layer.cornerRadius = Constants.UI.cornerRadius
             $0.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         }
         
@@ -219,6 +308,7 @@ extension LoginViewController {
                 font: .pretendard(weight: .four, size: 14)
             )
             $0.addUnderline()
+            $0.addTarget(self, action: #selector(makeNicknameButtonTapped), for: .touchUpInside)
         }
     }
     
@@ -246,12 +336,12 @@ extension LoginViewController {
             $0.top.equalTo(titleLabel.snp.bottom).offset(30)
             $0.leading.equalTo(safeArea.snp.leading).offset(20)
             $0.trailing.equalTo(safeArea.snp.trailing).offset(-20)
-            $0.height.equalTo(52)
+            $0.height.equalTo(Constants.UI.textFieldAndButtonHeight)
         }
         
         idTextFieldRightView.snp.makeConstraints {
             $0.width.equalTo(35)
-            $0.height.equalTo(52)
+            $0.height.equalTo(Constants.UI.textFieldAndButtonHeight)
         }
         
         idClearButton.snp.makeConstraints {
@@ -266,7 +356,7 @@ extension LoginViewController {
         
         pwTextFieldRightView.snp.makeConstraints {
             $0.width.equalTo(70)
-            $0.height.equalTo(52)
+            $0.height.equalTo(Constants.UI.textFieldAndButtonHeight)
         }
         
         pwShowButton.snp.makeConstraints {
