@@ -35,18 +35,6 @@ extension UITextField {
         self.font = font
     }
     
-    func setColor(textColor: UIColor, backgroundColor: UIColor) {
-        self.textColor = textColor
-        self.backgroundColor = backgroundColor
-    }
-    
-    func setPlaceholder(placeholder: String, fontColor: UIColor?, font: UIFont?) {
-        attributedPlaceholder = NSAttributedString(
-            string: placeholder,
-            attributes: [.foregroundColor: fontColor!, .font: font!]
-        )
-    }
-    
     func setAutoType(
         autocapitalizationType: UITextAutocapitalizationType = .none,
         autocorrectionType: UITextAutocorrectionType = .no
