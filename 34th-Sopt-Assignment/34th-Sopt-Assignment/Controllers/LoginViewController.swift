@@ -17,7 +17,17 @@ final class LoginViewController: UIViewController {
     
     private let idTextField = UITextField()
     
+    private let idTextFieldRightView = UIView()
+    
+    private let idClearButton = UIButton()
+    
     private let pwTextField = UITextField()
+    
+    private let pwTextFieldRightView = UIView()
+    
+    private let pwClearButton = UIButton()
+    
+    private let pwShowButton = UIButton()
     
     private let loginButton = UIButton()
     
@@ -47,8 +57,54 @@ final class LoginViewController: UIViewController {
     // MARK: - Action
     
     @objc
-    private func loginButtonTapped(_ button: UIButton) {
+    private func textFieldClearButtonTapped(_ sender: UIButton) {
         print(#function)
+        switch sender.tag {
+        case 0:
+            idTextField.text = ""
+        case 1:
+            pwTextField.text = ""
+        default:
+            break
+        }
+    }
+    
+    @objc
+    private func pwShowButtonTapped(_ sender: UIButton) {
+        print(#function)
+        pwTextField.isSecureTextEntry.toggle()
+        switch pwTextField.isSecureTextEntry {
+        case true:
+            let image = UIImage(named: "eye_slash")
+            sender.setImage(image, for: .normal)
+        case false:
+            let image = UIImage(named: "eye")
+            sender.setImage(image, for: .normal)
+        }
+    }
+    
+    @objc
+    private func loginButtonTapped(_ sender: UIButton) {
+        print(#function)
+    }
+    
+    private func enableLoginButton() {
+        loginButton.do {
+            $0.backgroundColor = .brandRed
+            $0.layer.borderWidth = 0
+            $0.setTitleColor(.basicWhite, for: .normal)
+            $0.isEnabled = true
+        }
+    }
+    
+    private func disableLoginButton() {
+        loginButton.do {
+            $0.backgroundColor = .black
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.gray4.cgColor
+            $0.setTitleColor(.gray2, for: .normal)
+            $0.isEnabled = false
+        }
     }
 }
 
@@ -67,9 +123,13 @@ extension LoginViewController {
         }
         
         idTextField.do {
+            $0.textColor = .basicWhite
             $0.backgroundColor = .gray4
+            $0.keyboardType = .emailAddress
             $0.layer.cornerRadius = 3
             $0.addPadding(left: 20)
+            $0.rightView = idTextFieldRightView
+            $0.rightViewMode = .whileEditing
             $0.setPlaceholder(
                 placeholder: "아이디",
                 fontColor: .gray2,
@@ -77,16 +137,39 @@ extension LoginViewController {
             )
         }
         
+        idClearButton.do {
+            let image = UIImage(named: "x_circle")
+            $0.setImage(image, for: .normal)
+            $0.addTarget(self, action: #selector(textFieldClearButtonTapped), for: .touchUpInside)
+            $0.tag = 0
+        }
+        
         pwTextField.do {
+            $0.textColor = .basicWhite
             $0.backgroundColor = .gray4
             $0.layer.cornerRadius = 3
             $0.isSecureTextEntry = true
             $0.addPadding(left: 20)
+            $0.rightView = pwTextFieldRightView
+            $0.rightViewMode = .whileEditing
             $0.setPlaceholder(
                 placeholder: "비밀번호",
                 fontColor: .gray2,
                 font: .pretendard(weight: .six, size: 15)
             )
+        }
+        
+        pwShowButton.do {
+            let image = UIImage(named: "eye_slash")
+            $0.setImage(image, for: .normal)
+            $0.addTarget(self, action: #selector(pwShowButtonTapped), for: .touchUpInside)
+        }
+        
+        pwClearButton.do {
+            let image = UIImage(named: "x_circle")
+            $0.setImage(image, for: .normal)
+            $0.addTarget(self, action: #selector(textFieldClearButtonTapped), for: .touchUpInside)
+            $0.tag = 1
         }
         
         loginButton.do {
@@ -144,6 +227,9 @@ extension LoginViewController {
             titleLabel, idTextField, pwTextField, loginButton, findIDButton,
             divider, findPWButton, helpButton, nicknameButton
         )
+        
+        idTextFieldRightView.addSubview(idClearButton)
+        pwTextFieldRightView.addSubviews(pwShowButton, pwClearButton)
     }
     
     // MARK: - AutoLayout
@@ -163,9 +249,35 @@ extension LoginViewController {
             $0.height.equalTo(52)
         }
         
+        idTextFieldRightView.snp.makeConstraints {
+            $0.width.equalTo(35)
+            $0.height.equalTo(52)
+        }
+        
+        idClearButton.snp.makeConstraints {
+            $0.width.height.equalTo(20)
+            $0.leading.centerY.equalTo(idTextFieldRightView)
+        }
+        
         pwTextField.snp.makeConstraints {
             $0.top.equalTo(idTextField.snp.bottom).offset(7)
             $0.leading.trailing.height.equalTo(idTextField)
+        }
+        
+        pwTextFieldRightView.snp.makeConstraints {
+            $0.width.equalTo(70)
+            $0.height.equalTo(52)
+        }
+        
+        pwShowButton.snp.makeConstraints {
+            $0.width.height.equalTo(20)
+            $0.leading.centerY.equalTo(pwTextFieldRightView)
+        }
+        
+        pwClearButton.snp.makeConstraints {
+            $0.width.height.equalTo(20)
+            $0.trailing.equalTo(pwTextFieldRightView.snp.trailing).offset(-20)
+            $0.centerY.equalTo(pwTextFieldRightView)
         }
         
         loginButton.snp.makeConstraints {
