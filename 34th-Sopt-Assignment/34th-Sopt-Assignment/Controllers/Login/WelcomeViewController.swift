@@ -60,7 +60,7 @@ extension WelcomeViewController {
     // MARK: - SetUI
     
     private func setUI() {
-        view.backgroundColor = .basicBlack
+        view.backgroundColor = .black
         navigationItem.hidesBackButton = true
         
         logoImageView.do {
@@ -74,7 +74,7 @@ extension WelcomeViewController {
                 \(nickname ?? id)님
                 반가워요!
                 """,
-                color: .basicWhite,
+                color: .white,
                 font: .pretendard(weight: .seven, size: 23)
             )
             $0.textAlignment = .center
@@ -84,10 +84,10 @@ extension WelcomeViewController {
         mainButton.do {
             $0.setTitle(
                 title: "메인으로",
-                titleColor: .basicWhite,
+                titleColor: .white,
                 font: .pretendard(weight: .six, size: 14)
             )
-            $0.backgroundColor = .brandRed
+            $0.backgroundColor = .tvingRed
             $0.layer.cornerRadius = Constants.UI.cornerRadius
             $0.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
         }

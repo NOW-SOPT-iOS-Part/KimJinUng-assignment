@@ -54,8 +54,8 @@ final class MakeNicknameViewController: UIViewController, RegexCheckable, AlertS
     }
     
     private func toggleSaveButton(_ flag: Bool) {
-        let titleColor: UIColor = flag ? .basicWhite : .gray2
-        let backgroundColor: UIColor = flag ? .brandRed : .basicBlack
+        let titleColor: UIColor = flag ? .white : .gray2
+        let backgroundColor: UIColor = flag ? .tvingRed : .black
         let borderWidth: CGFloat = flag ? 0 : 1
         
         saveButton.setTitleColor(titleColor, for: .normal)
@@ -96,14 +96,14 @@ extension MakeNicknameViewController {
         
         titleLabel.setText(
             "닉네임을 입력해주세요",
-            color: .basicBlack,
+            color: .black,
             font: .pretendard(weight: .five, size: 23)
         )
         
         nicknameTextField.do {
             $0.setText(
                 placeholder: "아요짱~",
-                textColor: .basicBlack,
+                textColor: .black,
                 backgroundColor: .grayFrom(hex: .scale_9C9C9C),
                 placeholderColor: .gray1,
                 font: .pretendard(weight: .six, size: 15)
@@ -117,7 +117,7 @@ extension MakeNicknameViewController {
             $0.setTitle(title: "저장하기", titleColor: .gray2, font: .pretendard(weight: .six, size: 14))
             $0.setLayer(borderColor: .gray4, borderWidth: 1, cornerRadius: 12)
             $0.isEnabled = false
-            $0.backgroundColor = .basicBlack
+            $0.backgroundColor = .black
             $0.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         }
     }

@@ -80,8 +80,8 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
     
     private func toggleLoginButton(_ flag: Bool) {
         let borderWidth: CGFloat = flag ? 0 : 1
-        let titleColor: UIColor = flag ? .basicWhite : .gray2
-        let backgroundColor: UIColor = flag ? .brandRed : .basicBlack
+        let titleColor: UIColor = flag ? .white : .gray2
+        let backgroundColor: UIColor = flag ? .tvingRed : .black
         
         loginButton.setTitleColor(titleColor, for: .normal)
         loginButton.backgroundColor = backgroundColor
@@ -187,7 +187,7 @@ extension LoginViewController {
     // MARK: - SetUI
     
     private func setUI() {
-        view.backgroundColor = .basicBlack
+        view.backgroundColor = .black
         
         titleLabel.do {
             $0.setText("TVING ID 로그인", color: .gray1, font: .pretendard(weight: .five, size: 23))
@@ -197,13 +197,13 @@ extension LoginViewController {
         idTextField.do {
             $0.setText(
                 placeholder: "아이디",
-                textColor: .basicWhite,
+                textColor: .white,
                 backgroundColor: .gray4,
                 placeholderColor: .gray2,
                 font: .pretendard(weight: .six, size: 15)
             )
             $0.setAutoType()
-            $0.setLayer(borderColor: .basicWhite)
+            $0.setLayer(borderColor: .white)
             $0.addPadding(left: 20)
             $0.keyboardType = .emailAddress
             $0.rightView = idTextFieldRightView
@@ -220,13 +220,13 @@ extension LoginViewController {
         pwTextField.do {
             $0.setText(
                 placeholder: "비밀번호",
-                textColor: .basicWhite,
+                textColor: .white,
                 backgroundColor: .gray4,
                 placeholderColor: .gray2,
                 font: .pretendard(weight: .six, size: 15)
             )
             $0.setAutoType()
-            $0.setLayer(borderColor: .basicWhite)
+            $0.setLayer(borderColor: .white)
             $0.addPadding(left: 20)
             $0.isSecureTextEntry = true
             $0.rightView = pwTextFieldRightView
