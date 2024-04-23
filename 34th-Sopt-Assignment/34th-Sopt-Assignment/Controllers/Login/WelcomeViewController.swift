@@ -55,11 +55,11 @@ final class WelcomeViewController: UIViewController {
     }
 }
 
-extension WelcomeViewController {
+private extension WelcomeViewController {
     
     // MARK: - SetUI
     
-    private func setUI() {
+    func setUI() {
         view.backgroundColor = .black
         navigationItem.hidesBackButton = true
         
@@ -93,13 +93,13 @@ extension WelcomeViewController {
         }
     }
     
-    private func setViewHierarchy() {
+    func setViewHierarchy() {
         view.addSubviews(logoImageView, welcomeLabel, mainButton)
     }
     
     // MARK: - AutoLayout
     
-    private func setAutoLayout() {
+    func setAutoLayout() {
         let safeArea = view.safeAreaLayoutGuide
         
         logoImageView.snp.makeConstraints {

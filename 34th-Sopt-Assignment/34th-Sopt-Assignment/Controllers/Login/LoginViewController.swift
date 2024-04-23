@@ -182,11 +182,11 @@ extension LoginViewController: MakeNicknameViewDelegate {
     }
 }
 
-extension LoginViewController {
+private extension LoginViewController {
     
     // MARK: - SetUI
     
-    private func setUI() {
+    func setUI() {
         view.backgroundColor = .black
         
         titleLabel.do {
@@ -296,7 +296,7 @@ extension LoginViewController {
         }
     }
     
-    private func setViewHierarchy() {
+    func setViewHierarchy() {
         view.addSubviews(
             titleLabel, idTextField, pwTextField, loginButton, findIDButton,
             divider, findPWButton, helpButton, nicknameButton
@@ -308,7 +308,7 @@ extension LoginViewController {
     
     // MARK: - AutoLayout
     
-    private func setAutoLayout() {
+    func setAutoLayout() {
         let safeArea = view.safeAreaLayoutGuide
         
         titleLabel.snp.makeConstraints {
@@ -328,7 +328,7 @@ extension LoginViewController {
         }
         
         idClearButton.snp.makeConstraints {
-            $0.width.height.equalTo(20)
+            $0.size.equalTo(20)
             $0.leading.centerY.equalTo(idTextFieldRightView)
         }
         
@@ -343,12 +343,12 @@ extension LoginViewController {
         }
         
         pwShowButton.snp.makeConstraints {
-            $0.width.height.equalTo(20)
+            $0.size.equalTo(20)
             $0.leading.centerY.equalTo(pwTextFieldRightView)
         }
         
         pwClearButton.snp.makeConstraints {
-            $0.width.height.equalTo(20)
+            $0.size.equalTo(20)
             $0.trailing.equalTo(pwTextFieldRightView.snp.trailing).offset(-20)
             $0.centerY.equalTo(pwTextFieldRightView)
         }

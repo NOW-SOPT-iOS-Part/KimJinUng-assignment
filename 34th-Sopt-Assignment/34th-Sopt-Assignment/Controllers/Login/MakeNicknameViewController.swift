@@ -87,11 +87,11 @@ final class MakeNicknameViewController: UIViewController, RegexCheckable, AlertS
     }
 }
 
-extension MakeNicknameViewController {
+private extension MakeNicknameViewController {
     
     // MARK: - SetUI
     
-    private func setUI() {
+    func setUI() {
         view.backgroundColor = .systemBackground
         
         titleLabel.setText(
@@ -122,13 +122,13 @@ extension MakeNicknameViewController {
         }
     }
     
-    private func setViewHierarchy() {
+    func setViewHierarchy() {
         view.addSubviews(titleLabel, nicknameTextField, saveButton)
     }
     
     // MARK: - AutoLayout
     
-    private func setAutoLayout() {
+    func setAutoLayout() {
         let safeArea = view.safeAreaLayoutGuide
         
         titleLabel.snp.makeConstraints {
