@@ -87,8 +87,8 @@ private extension WelcomeViewController {
                 titleColor: .white,
                 font: .pretendard(weight: .six, size: 14)
             )
+            $0.setLayer()
             $0.backgroundColor = .tvingRed
-            $0.layer.cornerRadius = Constants.UI.cornerRadius
             $0.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
         }
     }

@@ -19,7 +19,7 @@ final class MakeNicknameViewController: UIViewController, RegexCheckable, AlertS
     
     private let titleLabel = UILabel()
     
-    private let nicknameTextField = UITextField()
+    private let nicknameTextField = TvingTextField(placeholder: "닉네임", type: .nickname)
     
     private let saveButton = UIButton()
     
@@ -101,21 +101,12 @@ private extension MakeNicknameViewController {
         )
         
         nicknameTextField.do {
-            $0.setText(
-                placeholder: "아요짱~",
-                textColor: .black,
-                backgroundColor: .grayFrom(hex: .scale_9C9C9C),
-                placeholderColor: .gray1,
-                font: .pretendard(weight: .six, size: 15)
-            )
-            $0.addPadding(left: 25)
-            $0.layer.cornerRadius = Constants.UI.cornerRadius
             $0.addTarget(self, action: #selector(nicknameTextFieldEditingChanged), for: .editingChanged)
         }
         
         saveButton.do {
             $0.setTitle(title: "저장하기", titleColor: .gray2, font: .pretendard(weight: .six, size: 14))
-            $0.setLayer(borderColor: .gray4, borderWidth: 1, cornerRadius: 12)
+            $0.setLayer(borderWidth: 1, cornerRadius: 12)
             $0.isEnabled = false
             $0.backgroundColor = .black
             $0.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)

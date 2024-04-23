@@ -19,8 +19,8 @@ extension UIButton {
     }
     
     func setLayer(
-        borderColor: UIColor,
         borderWidth: CGFloat = 0,
+        borderColor: UIColor = .gray4,
         cornerRadius: CGFloat = Constants.UI.cornerRadius
     ) {
         layer.borderColor = borderColor.cgColor

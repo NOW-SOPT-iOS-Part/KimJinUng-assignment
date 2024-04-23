@@ -15,13 +15,13 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
     
     private let titleLabel = UILabel()
     
-    private let idTextField = UITextField()
+    private let idTextField = TvingTextField(placeholder: "아이디", type: .id)
     
     private let idTextFieldRightView = UIView()
     
     private let idClearButton = UIButton()
     
-    private let pwTextField = UITextField()
+    private let pwTextField = TvingTextField(placeholder: "비밀번호", type: .pw)
     
     private let pwTextFieldRightView = UIView()
     
@@ -152,11 +152,9 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
         viewController.delegate = self
         viewController.modalPresentationStyle = .formSheet
         if let sheet = viewController.sheetPresentationController {
-            sheet.do {
-                $0.detents = [.medium()]
-                $0.prefersGrabberVisible = true
-                $0.preferredCornerRadius = 24.0
-            }
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 24
         }
         present(viewController, animated: true)
     }
@@ -195,19 +193,7 @@ private extension LoginViewController {
         }
         
         idTextField.do {
-            $0.setText(
-                placeholder: "아이디",
-                textColor: .white,
-                backgroundColor: .gray4,
-                placeholderColor: .gray2,
-                font: .pretendard(weight: .six, size: 15)
-            )
-            $0.setAutoType()
-            $0.setLayer(borderColor: .white)
-            $0.addPadding(left: 20)
-            $0.keyboardType = .emailAddress
             $0.rightView = idTextFieldRightView
-            $0.rightViewMode = .whileEditing
             $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         }
         
@@ -218,19 +204,7 @@ private extension LoginViewController {
         }
         
         pwTextField.do {
-            $0.setText(
-                placeholder: "비밀번호",
-                textColor: .white,
-                backgroundColor: .gray4,
-                placeholderColor: .gray2,
-                font: .pretendard(weight: .six, size: 15)
-            )
-            $0.setAutoType()
-            $0.setLayer(borderColor: .white)
-            $0.addPadding(left: 20)
-            $0.isSecureTextEntry = true
             $0.rightView = pwTextFieldRightView
-            $0.rightViewMode = .whileEditing
             $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         }
         
@@ -251,7 +225,7 @@ private extension LoginViewController {
                 titleColor: .gray2,
                 font: .pretendard(weight: .six, size: 14)
             )
-            $0.setLayer(borderColor: .gray4, borderWidth: 1)
+            $0.setLayer(borderWidth: 1)
             $0.isEnabled = false
             $0.backgroundColor = .black
             $0.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
