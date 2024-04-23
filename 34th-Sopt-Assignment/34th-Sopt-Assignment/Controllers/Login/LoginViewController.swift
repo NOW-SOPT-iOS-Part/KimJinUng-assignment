@@ -16,7 +16,7 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
     private let titleLabel = UILabel()
     
     private let idTextField = UITextField()
-
+    
     private let idTextFieldRightView = UIView()
     
     private let idClearButton = UIButton()

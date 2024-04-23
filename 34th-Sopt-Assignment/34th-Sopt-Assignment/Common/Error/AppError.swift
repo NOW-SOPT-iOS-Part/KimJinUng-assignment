@@ -1,5 +1,5 @@
 //
-//  CommonError.swift
+//  AppError.swift
 //  34th-Sopt-Assignment
 //
 //  Created by 김진웅 on 4/18/24.
@@ -49,10 +49,10 @@ extension AppError {
             case .invalidID:
                 "올바른 이메일 형식이 아닙니다."
             case .invalidPW:
-            """
-            올바른 비밀번호 형식이 아닙니다.
-            8~10자 이내 영어, 특수기호만 사용해 주세요.
-            """
+                """
+                올바른 비밀번호 형식이 아닙니다.
+                8~10자 이내 영어, 특수기호만 사용해 주세요.
+                """
             }
         }
     }
