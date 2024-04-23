@@ -45,53 +45,45 @@ final class MakeNicknameViewController: UIViewController, RegexCheckable, AlertS
     
     @objc
     private func nicknameTextFieldEditingChanged(_ sender: UITextField) {
-        guard let input = sender.text,
-              !input.isEmpty
-        else {
-            disableSaveButton()
-            return
+        var flag = false
+        
+        if let input = sender.text, !input.isEmpty {
+            flag = true
         }
-        enableSaveButton()
+        toggleSaveButton(flag)
     }
     
-    private func disableSaveButton() {
-        saveButton.do {
-            $0.setLayer(borderColor: .gray4, borderWidth: 1, cornerRadius: 12)
-            $0.setTitleColor(.gray2, for: .normal)
-            $0.backgroundColor = .basicBlack
-            $0.isEnabled = false
-        }
-    }
-    
-    private func enableSaveButton() {
-        saveButton.do {
-            $0.setTitleColor(.basicWhite, for: .normal)
-            $0.backgroundColor = .brandRed
-            $0.layer.borderWidth = 0
-            $0.isEnabled = true
-        }
+    private func toggleSaveButton(_ flag: Bool) {
+        let titleColor: UIColor = flag ? .basicWhite : .gray2
+        let backgroundColor: UIColor = flag ? .brandRed : .basicBlack
+        let borderWidth: CGFloat = flag ? 0 : 1
+        
+        saveButton.setTitleColor(titleColor, for: .normal)
+        saveButton.backgroundColor = backgroundColor
+        saveButton.layer.borderWidth = borderWidth
+        saveButton.isEnabled = flag
     }
     
     @objc
     private func saveButtonTapped(_ sender: UIButton) {
-        print(#function)
         do {
-            let nickname = try checkNickname()
+            let nickname = try checkNickname(nicknameTextField.text)
             delegate?.configure(nickname: nickname)
             dismiss(animated: true)
+        } catch let appError as AppError {
+            showAlert(title: "\(appError)", message: "\(appError.message)")
         } catch {
-            let error = error as! AppError
-            showAlert(title: "\(error)", message: "\(error.message)")
+            print("\(error.localizedDescription)")
         }
     }
     
-    private func checkNickname() throws -> String {
-        guard let input = nicknameTextField.text,
-              checkFrom(input: input, regex: .nickname)
+    private func checkNickname(_ input: String?) throws -> String {
+        guard let nickname = input,
+              checkFrom(input: nickname, regex: .nickname)
         else {
             throw AppError.nickname
         }
-        return input
+        return nickname
     }
 }
 
@@ -153,7 +145,7 @@ extension MakeNicknameViewController {
         
         saveButton.snp.makeConstraints {
             $0.bottom.equalTo(safeArea.snp.bottom).offset(-10)
-            $0.leading.trailing.height.equalTo(nicknameTextField)
+            $0.horizontalEdges.height.equalTo(nicknameTextField)
         }
     }
 }

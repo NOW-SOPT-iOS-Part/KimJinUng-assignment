@@ -69,36 +69,28 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
     
     @objc
     private func textFieldEditingChanged(_ sender: UITextField) {
-        guard let idInput = idTextField.text, !idInput.isEmpty,
-              let pwInput = pwTextField.text, !pwInput.isEmpty
-        else {
-            disableLoginButton()
-            return
+        var flag = false
+        
+        if let idInput = idTextField.text, !idInput.isEmpty,
+           let pwInput = pwTextField.text, !pwInput.isEmpty {
+            flag = true
         }
-        enableLoginButton()
+        toggleLoginButton(flag)
     }
     
-    private func disableLoginButton() {
-        loginButton.do {
-            $0.setLayer(borderColor: .gray4, borderWidth: 1)
-            $0.setTitleColor(.gray2, for: .normal)
-            $0.backgroundColor = .basicBlack
-            $0.isEnabled = false
-        }
-    }
-    
-    private func enableLoginButton() {
-        loginButton.do {
-            $0.setTitleColor(.basicWhite, for: .normal)
-            $0.backgroundColor = .brandRed
-            $0.layer.borderWidth = 0
-            $0.isEnabled = true
-        }
+    private func toggleLoginButton(_ flag: Bool) {
+        let borderWidth: CGFloat = flag ? 0 : 1
+        let titleColor: UIColor = flag ? .basicWhite : .gray2
+        let backgroundColor: UIColor = flag ? .brandRed : .basicBlack
+        
+        loginButton.setTitleColor(titleColor, for: .normal)
+        loginButton.backgroundColor = backgroundColor
+        loginButton.layer.borderWidth = borderWidth
+        loginButton.isEnabled = flag
     }
     
     @objc
     private func textFieldClearButtonTapped(_ sender: UIButton) {
-        print(#function)
         switch sender.tag {
         case 0:
             idTextField.text = nil
@@ -113,26 +105,21 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
     
     @objc
     private func pwShowButtonTapped(_ sender: UIButton) {
-        print(#function)
         pwTextField.isSecureTextEntry.toggle()
-        switch pwTextField.isSecureTextEntry {
-        case true:
-            sender.setImage(UIImage(named: Constants.Image.eye_slash), for: .normal)
-        case false:
-            sender.setImage(UIImage(named: Constants.Image.eye), for: .normal)
-        }
+        let image = UIImage(resource: pwTextField.isSecureTextEntry ? .eyeSlash : .eye)
+        sender.setImage(image, for: .normal)
     }
     
     @objc
     private func loginButtonTapped(_ sender: UIButton) {
-        print(#function)
         do {
-            let id = try checkID()
-            try checkPW()
+            let id = try checkID(idTextField.text)
+            try checkPW(pwTextField.text)
             moveToWelcome(with: id)
+        } catch let appError as AppError {
+            showAlert(title: "\(appError)", message: "\(appError.message)")
         } catch {
-            let error = error as! AppError
-            showAlert(title: "\(error)", message: "\(error.message)")
+            print("\(error.localizedDescription)")
         }
     }
     
@@ -142,18 +129,18 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    private func checkID() throws -> String {
-        guard let input = idTextField.text,
-              checkFrom(input: input, regex: .id)
+    private func checkID(_ input: String?) throws -> String {
+        guard let id = input,
+              checkFrom(input: id, regex: .id)
         else {
             throw AppError.login(error: .invalidID)
         }
-        return input
+        return id
     }
     
-    private func checkPW() throws {
-        guard let input = pwTextField.text,
-              checkFrom(input: input, regex: .pw)
+    private func checkPW(_ input: String?) throws {
+        guard let pw = input,
+              checkFrom(input: pw, regex: .pw)
         else {
             throw AppError.login(error: .invalidPW)
         }
@@ -161,7 +148,6 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
     
     @objc
     private func makeNicknameButtonTapped(_ sender: UIButton) {
-        print(#function)
         let viewController = MakeNicknameViewController()
         viewController.delegate = self
         viewController.modalPresentationStyle = .formSheet
@@ -226,7 +212,7 @@ extension LoginViewController {
         }
         
         idClearButton.do {
-            $0.setImage(UIImage(named: Constants.Image.x_circle), for: .normal)
+            $0.setImage(UIImage(resource: .xCircle), for: .normal)
             $0.addTarget(self, action: #selector(textFieldClearButtonTapped), for: .touchUpInside)
             $0.tag = 0
         }
@@ -249,12 +235,12 @@ extension LoginViewController {
         }
         
         pwShowButton.do {
-            $0.setImage(UIImage(named: Constants.Image.eye_slash), for: .normal)
+            $0.setImage(UIImage(resource: .eyeSlash), for: .normal)
             $0.addTarget(self, action: #selector(pwShowButtonTapped), for: .touchUpInside)
         }
         
         pwClearButton.do {
-            $0.setImage(UIImage(named: Constants.Image.x_circle), for: .normal)
+            $0.setImage(UIImage(resource: .xCircle), for: .normal)
             $0.addTarget(self, action: #selector(textFieldClearButtonTapped), for: .touchUpInside)
             $0.tag = 1
         }
@@ -332,8 +318,7 @@ extension LoginViewController {
         
         idTextField.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(30)
-            $0.leading.equalTo(safeArea.snp.leading).offset(20)
-            $0.trailing.equalTo(safeArea.snp.trailing).offset(-20)
+            $0.horizontalEdges.equalTo(safeArea).inset(20)
             $0.height.equalTo(Constants.UI.textFieldAndButtonHeight)
         }
         
@@ -349,7 +334,7 @@ extension LoginViewController {
         
         pwTextField.snp.makeConstraints {
             $0.top.equalTo(idTextField.snp.bottom).offset(7)
-            $0.leading.trailing.height.equalTo(idTextField)
+            $0.horizontalEdges.height.equalTo(idTextField)
         }
         
         pwTextFieldRightView.snp.makeConstraints {
@@ -370,7 +355,7 @@ extension LoginViewController {
         
         loginButton.snp.makeConstraints {
             $0.top.equalTo(pwTextField.snp.bottom).offset(20)
-            $0.leading.trailing.height.equalTo(idTextField)
+            $0.horizontalEdges.height.equalTo(idTextField)
         }
         
         findIDButton.snp.makeConstraints {

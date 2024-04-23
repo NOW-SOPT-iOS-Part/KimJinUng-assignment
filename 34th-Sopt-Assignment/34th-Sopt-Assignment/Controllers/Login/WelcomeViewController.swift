@@ -64,7 +64,7 @@ extension WelcomeViewController {
         navigationItem.hidesBackButton = true
         
         logoImageView.do {
-            $0.image = UIImage(named: Constants.Image.logo)
+            $0.image = UIImage(resource: .logo)
             $0.contentMode = .scaleAspectFill
         }
         

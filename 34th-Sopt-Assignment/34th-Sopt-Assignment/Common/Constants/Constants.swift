@@ -27,14 +27,3 @@ extension Constants {
         static let nicknameRegex = "^[가-힣]{1,10}$"
     }
 }
-
-// MARK: - Image
-
-extension Constants {
-    struct Image {
-        static let eye_slash = "eye_slash"
-        static let eye = "eye"
-        static let logo = "logo"
-        static let x_circle = "x_circle"
-    }
-}
