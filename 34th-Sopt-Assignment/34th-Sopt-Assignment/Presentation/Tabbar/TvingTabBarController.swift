@@ -38,10 +38,10 @@ private extension TvingTabBarController {
         ]
         
         let rootViewControllers = [
-            UIViewController().then { $0.view.backgroundColor = .systemRed },
-            UIViewController().then { $0.view.backgroundColor = .systemOrange },
-            UIViewController().then { $0.view.backgroundColor = .systemGreen },
-            UIViewController().then { $0.view.backgroundColor = .systemBlue }
+            HomeViewController(),
+            ComingSoonViewController(),
+            SearchViewController(),
+            HistoryViewController()
         ]
         
         viewControllers = zip(rootViewControllers, tabBarItems).map { viewController, tabBarItemInfo in
