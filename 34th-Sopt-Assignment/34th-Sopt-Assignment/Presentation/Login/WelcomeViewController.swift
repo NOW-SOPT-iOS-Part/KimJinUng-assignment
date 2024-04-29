@@ -51,7 +51,9 @@ final class WelcomeViewController: UIViewController {
     
     @objc
     private func mainButtonTapped(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+        guard let window = view.window else { return }
+        window.rootViewController = TvingTabBarController()
+        window.makeKeyAndVisible()
     }
 }
 
