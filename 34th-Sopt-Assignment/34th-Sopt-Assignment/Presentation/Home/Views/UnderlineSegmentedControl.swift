@@ -50,7 +50,7 @@ final class UnderlineSegmentedControl: UISegmentedControl {
                 x: labelCenterX - (labelFrame.width / 2),
                 y: self.bounds.height - 2.0,
                 width: labelFrame.width,
-                height: 2.0
+                height: 4.0
             )
         }
     }
@@ -65,8 +65,8 @@ private extension UnderlineSegmentedControl {
             NSAttributedString.Key.foregroundColor: UIColor.white,
             .font: UIFont.pretendard(weight: .four, size: 17)
         ]
-        setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
-        setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .selected)
+        setTitleTextAttributes(attributes, for: .normal)
+        setTitleTextAttributes(attributes, for: .selected)
         apportionsSegmentWidthsByContent = true
         selectedSegmentIndex = 0
     }
