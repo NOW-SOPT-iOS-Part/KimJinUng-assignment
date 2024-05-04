@@ -100,7 +100,7 @@ private extension MainCell {
         override init(frame: CGRect) {
             super.init(frame: .zero)
             
-            addSubviews(imageView)
+            contentView.addSubviews(imageView)
             
             imageView.snp.makeConstraints {
                 $0.edges.equalToSuperview()
@@ -142,7 +142,7 @@ private extension MainCell {
     }
     
     func setViewHierarchy() {
-        addSubviews(collectionView, pageControl)
+        contentView.addSubviews(collectionView, pageControl)
     }
     
     // MARK: - AutoLayout

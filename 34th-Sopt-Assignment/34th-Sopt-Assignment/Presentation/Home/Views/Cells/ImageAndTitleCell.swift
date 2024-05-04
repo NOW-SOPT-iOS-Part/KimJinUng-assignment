@@ -51,7 +51,7 @@ private extension ImageAndTitleCell {
     }
     
     func setViewHierarchy() {
-        addSubviews(imageView, titleLabel)
+        contentView.addSubviews(imageView, titleLabel)
     }
     
     // MARK: - AutoLayout

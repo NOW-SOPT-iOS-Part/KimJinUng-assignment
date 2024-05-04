@@ -45,7 +45,7 @@ private extension LongLogoCell {
     }
     
     func setViewHierarchy() {
-        addSubviews(imageView)
+        contentView.addSubviews(imageView)
     }
     
     // MARK: - AutoLayout

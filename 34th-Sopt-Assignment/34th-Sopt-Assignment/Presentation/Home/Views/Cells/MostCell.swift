@@ -74,7 +74,7 @@ private extension MostCell {
     
     func setViewHierarchy() {
         vStackView.addArrangedSubviews(channelLabel, titleLabel, ratingLabel)
-        addSubviews(imageView, rankingLabel, vStackView)
+        contentView.addSubviews(imageView, rankingLabel, vStackView)
     }
     
     // MARK: - AutoLayout

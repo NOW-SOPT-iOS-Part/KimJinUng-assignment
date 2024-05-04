@@ -43,11 +43,10 @@ final class UnderlineSegmentedControl: UISegmentedControl {
         
         let segmentFrame = segmentFrames[selectedSegmentIndex]
         let labelFrame = labelFrames[selectedSegmentIndex]
-        let labelCenterX = segmentFrame.minX + labelFrame.minX + labelFrame.width / 2
         
         UIView.animate(withDuration: 0.1) {
             self.underlineView.frame = CGRect(
-                x: labelCenterX - (labelFrame.width / 2),
+                x: segmentFrame.minX + labelFrame.minX,
                 y: self.bounds.height - 2.0,
                 width: labelFrame.width,
                 height: 4.0
