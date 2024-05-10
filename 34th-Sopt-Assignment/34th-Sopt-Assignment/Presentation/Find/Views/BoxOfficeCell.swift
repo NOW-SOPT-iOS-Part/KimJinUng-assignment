@@ -46,7 +46,11 @@ private extension BoxOfficeCell {
     // MARK: - SetUI
     
     func setUI() {
-        [rankLabel, movieTitleLabel, numberLabel].forEach {
+        contentView.backgroundColor = .black
+        
+        rankLabel.setText("", color: .white, font: .pretendard(weight: .seven, size: 15))
+        
+        [movieTitleLabel, numberLabel].forEach {
             $0.setText("", color: .white, font: .pretendard(weight: .six, size: 13))
         }
     }
@@ -59,18 +63,16 @@ private extension BoxOfficeCell {
     
     func setAutoLayout() {
         rankLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
+            $0.leading.centerY.equalToSuperview()
         }
         
         movieTitleLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalTo(rankLabel.snp.trailing).offset(10)
+            $0.leading.equalTo(rankLabel.snp.trailing).offset(20)
         }
         
         numberLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.trailing.centerY.equalToSuperview()
         }
     }
 }
