@@ -185,6 +185,7 @@
 				DE9F2C032BD00DEA00E3189D /* Login */,
 				DEE84F382BDF5F73006605CB /* Tabbar */,
 				DEE84F372BDF5F58006605CB /* Home */,
+				DEA1AF7F2BEDFD1C00BDB474 /* Find */,
 				DEE84F3D2BDFBACB006605CB /* ComingSoon */,
 				DEE84F3E2BDFBB02006605CB /* Search */,
 				DEE84F3F2BDFBB09006605CB /* History */,
@@ -289,6 +290,40 @@
 			path = Regex;
 			sourceTree = "<group>";
 		};
+		DEA1AF7F2BEDFD1C00BDB474 /* Find */ = {
+			isa = PBXGroup;
+			children = (
+				DEA1AF822BEDFD3900BDB474 /* Models */,
+				DEA1AF812BEDFD3500BDB474 /* Views */,
+				DEA1AF802BEDFD2900BDB474 /* Controllers */,
+			);
+			path = Find;
+			sourceTree = "<group>";
+		};
+		DEA1AF802BEDFD2900BDB474 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DEA1AF752BEDD81A00BDB474 /* FindViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DEA1AF812BEDFD3500BDB474 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DEA1AF772BEDEA0300BDB474 /* BoxOfficeCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DEA1AF822BEDFD3900BDB474 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DEA1AF792BEDF40300BDB474 /* DailyBoxOffice.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		DEE84F372BDF5F58006605CB /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,7 +380,6 @@
 			isa = PBXGroup;
 			children = (
 				DEE84F3B2BDF6F48006605CB /* HomeViewController.swift */,
-				DEA1AF752BEDD81A00BDB474 /* FindViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -354,7 +388,6 @@
 			isa = PBXGroup;
 			children = (
 				DEF003292BE0412700EF73F8 /* Program.swift */,
-				DEA1AF792BEDF40300BDB474 /* DailyBoxOffice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -366,7 +399,6 @@
 				DEF003342BE05DD000EF73F8 /* ImageAndTitleCell.swift */,
 				DEF003362BE06F1E00EF73F8 /* MostCell.swift */,
 				DEF0033A2BE0780A00EF73F8 /* LongLogoCell.swift */,
-				DEA1AF772BEDEA0300BDB474 /* BoxOfficeCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
