@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-final class FindViewController: UIViewController {
+final class FindViewController: UIViewController, AlertShowable {
     
     // MARK: - UIComponent
     
@@ -24,6 +24,13 @@ final class FindViewController: UIViewController {
     
     // MARK: - Property
     
+    private var dailyBoxOfficeList = [DailyBoxOfficeList]() {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.boxOfficeListView.reloadData()
+            }
+        }
+    }
     
     // MARK: - LifeCycle
     
@@ -34,6 +41,34 @@ final class FindViewController: UIViewController {
         setViewHierarchy()
         setAutoLayout()
         setDelegate()
+        
+        fetchBoxOfficeList()
+    }
+    
+    private func fetchBoxOfficeList() {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        let dateString = formatter.string(from: yesterday)
+        
+        BoxOfficeService.shared.requestBoxOfficeList(date: dateString) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let data):
+                guard let dailyBoxOffice = data as? DailyBoxOffice else { return }
+                dailyBoxOfficeList = dailyBoxOffice.boxOfficeResult.dailyBoxOfficeList
+            case .requestErr:
+                showAlert(title: "요청 오류", message: "요청 과정에서 오류가 발생하였습니다.")
+            case .decodedErr:
+                showAlert(title: "디코딩 오류", message: "디코딩 타입을 확인해 주세요.")
+            case .pathErr:
+                showAlert(title: "경로 오류", message: "요청 경로가 올바르지 않습니다.")
+            case .serverErr:
+                showAlert(title: "서버 오류", message: "서버가 불안정합니다. 잠시 후 다시 시도해 주세요.")
+            case .networkFail:
+                showAlert(title: "네트워크 오류", message: "기기의 통신 상태가 불안정합니다. 잠시 후 다시 시도해 주세요.")
+            }
+        }
     }
     
     // MARK: - Action
@@ -56,7 +91,7 @@ extension FindViewController: UITableViewDelegate {
 
 extension FindViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return dailyBoxOfficeList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,6 +99,8 @@ extension FindViewController: UITableViewDataSource {
             withIdentifier: BoxOfficeCell.reuseIdentifier,
             for: indexPath
         ) as? BoxOfficeCell else { return UITableViewCell() }
+        let movie = dailyBoxOfficeList[indexPath.row]
+        cell.bind(rank: movie.rank, title: movie.title, number: movie.audienceNumber)
         return cell
     }
 }
