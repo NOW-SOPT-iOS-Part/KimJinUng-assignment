@@ -20,6 +20,8 @@ final class FindViewController: UIViewController {
     
     private let titleLabel = UILabel()
     
+    private let boxOfficeListView = UITableView()
+    
     // MARK: - Property
     
     
@@ -31,6 +33,7 @@ final class FindViewController: UIViewController {
         setUI()
         setViewHierarchy()
         setAutoLayout()
+        setDelegate()
     }
     
     // MARK: - Action
@@ -38,6 +41,30 @@ final class FindViewController: UIViewController {
     @objc
     private func backButtonTapped(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension FindViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension FindViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: BoxOfficeCell.reuseIdentifier,
+            for: indexPath
+        ) as? BoxOfficeCell else { return UITableViewCell() }
+        return cell
     }
 }
 
@@ -57,10 +84,15 @@ private extension FindViewController {
         titleLabel.do {
             $0.setText("일일 박스오피스 순위", color: .white, font: .pretendard(weight: .six, size: 15))
         }
+        
+        boxOfficeListView.do {
+            $0.backgroundColor = .black
+            $0.register(BoxOfficeCell.self, forCellReuseIdentifier: BoxOfficeCell.reuseIdentifier)
+        }
     }
     
     func setViewHierarchy() {
-        view.addSubviews(backButton, findTextField, titleLabel)
+        view.addSubviews(backButton, findTextField, titleLabel, boxOfficeListView)
     }
     
     // MARK: - AutoLayout
@@ -85,5 +117,18 @@ private extension FindViewController {
             $0.top.equalTo(backButton.snp.bottom).offset(40)
             $0.leading.equalTo(backButton)
         }
+        
+        boxOfficeListView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.bottom.equalTo(safeArea)
+        }
+    }
+    
+    // MARK: - Delegate
+    
+    func setDelegate() {
+        boxOfficeListView.delegate = self
+        boxOfficeListView.dataSource = self
     }
 }
