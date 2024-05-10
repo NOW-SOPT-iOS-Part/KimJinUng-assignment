@@ -18,14 +18,14 @@ final class BoxOfficeService {
 }
 
 extension BoxOfficeService {
-    func fetchBoxOfficeList(date: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func requestBoxOfficeList(date: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         boxOfficeProvider.request(.dailyBoxOffice(date: date)) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
                 let networkResult = judgeStatus(by: response.statusCode, response.data, DailyBoxOffice.self)
                 completion(networkResult)
-            case .failure(let failure):
+            case .failure:
                 completion(.networkFail)
             }
         }

@@ -23,11 +23,11 @@ struct BoxOfficeResult: Codable {
 // MARK: - DailyBoxOfficeList
 
 struct DailyBoxOfficeList: Codable {
-    let rank, movieTitle, audienceNumber: String
+    let rank, title, audienceNumber: String
     
     enum CodingKeys: String, CodingKey {
         case rank
-        case movieTitle = "movieNm"
+        case title = "movieNm"
         case audienceNumber = "audiAcc"
     }
 }
