@@ -8,19 +8,12 @@
 import Foundation
 
 extension Bundle {
-    enum Constants {
-        static let filename = "APIKeys"
-        static let filetype = "plist"
-        static let boxOfficeKey = "BoxOffice_API_KEY"
-    }
-    
-    var boxOfficeAPIKey: String? {
-        guard let file = self.path(forResource: Constants.filename, ofType: Constants.filetype),
-              let resource = NSDictionary(contentsOf: URL(fileURLWithPath: file)),
-              let key = resource[Constants.boxOfficeKey] as? String
+    var apiKeysDictionary: NSDictionary? {
+        guard let file = self.path(forResource: "APIKeys", ofType: "plist"),
+              let resource = NSDictionary(contentsOf: URL(fileURLWithPath: file))
         else {
             return nil
         }
-        return key
+        return resource
     }
 }

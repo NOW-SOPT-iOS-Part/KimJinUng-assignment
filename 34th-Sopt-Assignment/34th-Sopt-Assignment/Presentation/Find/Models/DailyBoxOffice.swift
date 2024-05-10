@@ -9,20 +9,20 @@ import Foundation
 
 // MARK: - DailyBoxOffice
 
-struct DailyBoxOffice: Decodable {
+struct DailyBoxOffice: Codable {
     let boxOfficeResult: BoxOfficeResult
 }
 
 // MARK: - BoxOfficeResult
 
-struct BoxOfficeResult: Decodable {
+struct BoxOfficeResult: Codable {
     let boxofficeType, showRange: String
     let dailyBoxOfficeList: [DailyBoxOfficeList]
 }
 
 // MARK: - DailyBoxOfficeList
 
-struct DailyBoxOfficeList: Decodable {
+struct DailyBoxOfficeList: Codable {
     let rank, movieTitle, audienceNumber: String
     
     enum CodingKeys: String, CodingKey {
