@@ -23,6 +23,8 @@ private extension TvingTabBarController {
     // MARK: - SetUI
     
     private func setUI() {
+        navigationController?.navigationBar.isHidden = true
+        
         tabBar.do {
             $0.backgroundColor = .black
             $0.unselectedItemTintColor = .gray3

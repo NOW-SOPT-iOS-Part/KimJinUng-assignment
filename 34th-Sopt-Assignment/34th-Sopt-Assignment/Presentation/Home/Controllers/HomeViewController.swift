@@ -72,6 +72,17 @@ final class HomeViewController: UIViewController {
             segmentViews[i].isHidden = i != sender.selectedSegmentIndex
         }
     }
+    
+    @objc
+    private func findButtonTapped(_ sender: UIBarButtonItem) {
+        print(">>>  : \(#function)")
+        moveToFind()
+    }
+    
+    private func moveToFind() {
+        let findViewController = FindViewController()
+        navigationController?.pushViewController(findViewController, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -315,8 +326,14 @@ private extension HomeViewController {
             target: nil,
             action: nil
         )
+        let findButton = UIBarButtonItem(
+            image: UIImage(systemName: "magnifyingglass")?.withTintColor(.white, renderingMode: .alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(findButtonTapped)
+        )
         navigationItem.leftBarButtonItem = leftButton
-        navigationItem.rightBarButtonItem = rightButton
+        navigationItem.rightBarButtonItems = [rightButton, findButton]
         
         navigationController?.hidesBarsOnSwipe = true
     }
