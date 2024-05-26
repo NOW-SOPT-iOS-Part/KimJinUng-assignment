@@ -85,7 +85,7 @@ private extension HomeViewController {
         
         output.viewDidLoad.subscribe(onNext: { [weak self] data in
             self?.sectionData = data
-        }).disposed(by: disposeBag)
+        }).dispose()
     }
     
     // MARK: - Action Binding

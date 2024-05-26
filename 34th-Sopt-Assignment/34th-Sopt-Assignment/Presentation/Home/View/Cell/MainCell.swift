@@ -94,7 +94,7 @@ private extension MainCell {
         // MARK: - UIComponent
         
         private let imageView = UIImageView().then {
-            $0.contentMode = .scaleAspectFill
+            $0.contentMode = .scaleToFill
         }
         
         // MARK: - Initializer
