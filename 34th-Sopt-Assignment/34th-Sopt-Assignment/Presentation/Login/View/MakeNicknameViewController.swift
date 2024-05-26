@@ -5,27 +5,43 @@
 //  Created by 김진웅 on 4/17/24.
 //
 
-import Then
 import UIKit
+
+import RxSwift
+import RxCocoa
 import SnapKit
+import Then
 
 protocol MakeNicknameViewDelegate: AnyObject {
     func configure(nickname: String)
 }
 
-final class MakeNicknameViewController: UIViewController, RegexCheckable, AlertShowable {
+final class MakeNicknameViewController: UIViewController, AlertShowable {
     
     // MARK: - Component
     
     private let titleLabel = UILabel()
-    
     private let nicknameTextField = TvingTextField(placeholder: "닉네임", type: .nickname)
-    
     private let saveButton = UIButton()
     
     // MARK: - Property
     
-    weak var delegate: MakeNicknameViewDelegate?
+    private weak var delegate: MakeNicknameViewDelegate?
+    
+    private let viewModel: MakeNicknameViewModel
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
+
+    init(delegate: MakeNicknameViewDelegate?, viewModel: MakeNicknameViewModel) {
+        self.delegate = delegate
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - LifeCycle
     
@@ -35,25 +51,48 @@ final class MakeNicknameViewController: UIViewController, RegexCheckable, AlertS
         setUI()
         setViewHierarchy()
         setAutoLayout()
+        
+        bindViewModel()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+}
+
+private extension MakeNicknameViewController {
     
-    // MARK: - Action
+    // MARK: - ViewModel Binding
     
-    @objc
-    private func nicknameTextFieldEditingChanged(_ sender: UITextField) {
-        var flag = false
+    func bindViewModel() {
+        let input = MakeNicknameViewModel.Input(
+            nicknameTextFieldDidChange: nicknameTextField.rx.text.asObservable(),
+            saveButtonDidTap: saveButton.rx.tap.asObservable()
+        )
         
-        if let input = sender.text, !input.isEmpty {
-            flag = true
-        }
-        toggleSaveButton(flag)
+        let output = viewModel.transform(from: input, disposeBag: disposeBag)
+        
+        output.isSaveEnabled.subscribe(onNext: { [weak self] value in
+            self?.toggleSaveButton(value)
+        }).disposed(by: disposeBag)
+        
+        output.isSucceedToSave.subscribe(onNext: { [weak self] nickname in
+            guard let self else { return }
+            delegate?.configure(nickname: nickname)
+            dismiss(animated: true)
+        }, onError: { [weak self] error in
+            if let appError = error as? AppError {
+                self?.showAlert(title: appError.title, message: appError.message)
+            }
+            print(error)
+        }).disposed(by: disposeBag)
     }
-    
-    private func toggleSaveButton(_ flag: Bool) {
+}
+
+// MARK: - Private method
+
+private extension MakeNicknameViewController {
+    func toggleSaveButton(_ flag: Bool) {
         let titleColor: UIColor = flag ? .white : .gray2
         let backgroundColor: UIColor = flag ? .tvingRed : .black
         let borderWidth: CGFloat = flag ? 0 : 1
@@ -62,28 +101,6 @@ final class MakeNicknameViewController: UIViewController, RegexCheckable, AlertS
         saveButton.backgroundColor = backgroundColor
         saveButton.layer.borderWidth = borderWidth
         saveButton.isEnabled = flag
-    }
-    
-    @objc
-    private func saveButtonTapped(_ sender: UIButton) {
-        do {
-            let nickname = try checkNickname(nicknameTextField.text)
-            delegate?.configure(nickname: nickname)
-            dismiss(animated: true)
-        } catch let appError as AppError {
-            showAlert(title: "\(appError)", message: "\(appError.message)")
-        } catch {
-            print("\(error.localizedDescription)")
-        }
-    }
-    
-    private func checkNickname(_ input: String?) throws -> String {
-        guard let nickname = input,
-              checkFrom(input: nickname, regex: .nickname)
-        else {
-            throw AppError.nickname
-        }
-        return nickname
     }
 }
 
@@ -100,16 +117,11 @@ private extension MakeNicknameViewController {
             font: .pretendard(.medium, size: 23)
         )
         
-        nicknameTextField.do {
-            $0.addTarget(self, action: #selector(nicknameTextFieldEditingChanged), for: .editingChanged)
-        }
-        
         saveButton.do {
             $0.setTitle(title: "저장하기", titleColor: .gray2, font: .pretendard(.semiBold, size: 14))
             $0.setLayer(borderWidth: 1, cornerRadius: 12)
             $0.isEnabled = false
             $0.backgroundColor = .black
-            $0.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         }
     }
     
