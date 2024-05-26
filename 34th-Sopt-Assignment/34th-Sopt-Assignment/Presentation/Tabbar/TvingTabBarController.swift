@@ -40,7 +40,7 @@ private extension TvingTabBarController {
         ]
         
         let rootViewControllers = [
-            HomeViewController(),
+            HomeViewController(viewModel: HomeViewModel()),
             ComingSoonViewController(),
             SearchViewController(),
             HistoryViewController()

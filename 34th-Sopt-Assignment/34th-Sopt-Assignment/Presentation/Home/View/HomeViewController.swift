@@ -6,8 +6,11 @@
 //
 
 import UIKit
-import Then
+
+import RxSwift
+import RxCocoa
 import SnapKit
+import Then
 
 final class HomeViewController: UIViewController {
     
@@ -41,14 +44,21 @@ final class HomeViewController: UIViewController {
     private var segmentViews: [UIView] {
         [homeCollectionView, realTimeView, tvProgramView, movieView, paramountView]
     }
+    private var sectionData: [Section] = []
     
-    private let mockData: [Section] = [
-        .main(Program.main),
-        .mostViewed(Program.mostViewed),
-        .longLogo(Program.longLogo),
-        .recommend(Program.recommend),
-        .paramounts(Program.paramounts)
-    ]
+    private let viewModel: HomeViewModel
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
+
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - LifeCycle
     
@@ -60,37 +70,55 @@ final class HomeViewController: UIViewController {
         setViewHierarchy()
         setAutoLayout()
         setDelegate()
+        
+        bindViewModel()
+        bindAction()
+    }
+}
+
+private extension HomeViewController {
+    
+    // MARK: - ViewModel Binding
+
+    func bindViewModel() {
+        let output = viewModel.transform(disposeBag: disposeBag)
+        
+        output.viewDidLoad.subscribe(onNext: { [weak self] data in
+            self?.sectionData = data
+        }).disposed(by: disposeBag)
     }
     
-    // MARK: - Action
-    
-    @objc
-    private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        for i in 0..<segmentViews.count {
-            segmentViews[i].isHidden = i != sender.selectedSegmentIndex
-        }
+    // MARK: - Action Binding
+
+    func bindAction() {
+        segmentedControl.rx.selectedSegmentIndex.subscribe(onNext: { [weak self] index in
+            guard let self else { return }
+            for i in 0..<segmentViews.count {
+                segmentViews[i].isHidden = i != index
+            }
+        }).disposed(by: disposeBag)
     }
-    
-    @objc
-    private func findButtonTapped(_ sender: UIBarButtonItem) {
-        moveToFind()
-    }
-    
-    private func moveToFind() {
+}
+
+// MARK: - Private Method
+
+private extension HomeViewController {
+    func moveToFind() {
         let findViewController = FindViewController()
         navigationController?.pushViewController(findViewController, animated: true)
     }
 }
 
+
 // MARK: - UICollectionViewDataSource
 
 extension HomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return mockData.count
+        return sectionData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch mockData[section] {
+        switch sectionData[section] {
         case .main:
             return 1
         case .recommend(let data), .paramounts(let data), .mostViewed(let data), .longLogo(let data):
@@ -102,7 +130,7 @@ extension HomeViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        switch mockData[indexPath.section] {
+        switch sectionData[indexPath.section] {
         case .main(let programs):
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: MainCell.reuseIdentifier,
@@ -148,7 +176,7 @@ extension HomeViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? SectionHeaderView else { return UICollectionReusableView() }
         
-        switch mockData[indexPath.section] {
+        switch sectionData[indexPath.section] {
         case .mostViewed:
             headerView.bind(title: "인기 LIVE 채널")
         case .paramounts:
@@ -177,7 +205,7 @@ extension HomeViewController: UICollectionViewDelegate {
 private extension HomeViewController {
     func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { section, _ in
-            switch self.mockData[section] {
+            switch self.sectionData[section] {
             case .main:
                 return self.configureMainLayout()
             case .mostViewed:
@@ -289,10 +317,6 @@ private extension HomeViewController {
     func setUI() {
         view.backgroundColor = .black
         
-        segmentedControl.do {
-            $0.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
-        }
-        
         homeCollectionView.do {
             $0.backgroundColor = .black
             $0.showsHorizontalScrollIndicator = false
@@ -385,5 +409,12 @@ private extension HomeViewController {
     func setDelegate() {
         homeCollectionView.delegate = self
         homeCollectionView.dataSource = self
+    }
+    
+    // MARK: - Action
+
+    @objc
+    private func findButtonTapped(_ sender: UIBarButtonItem) {
+        moveToFind()
     }
 }
