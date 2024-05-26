@@ -14,15 +14,10 @@ final class MostCell: UICollectionViewCell, ReuseIdentifiable {
     // MARK: - UIComponent
     
     private let imageView = UIImageView()
-    
     private let rankingLabel = UILabel()
-    
     private let vStackView = UIStackView(axis: .vertical)
-    
     private let channelLabel = UILabel()
-    
     private let titleLabel = UILabel()
-    
     private let ratingLabel = UILabel()
     
     // MARK: - Initializer
@@ -53,20 +48,18 @@ private extension MostCell {
     // MARK: - SetUI
     
     func setUI() {
-        imageView.do {
-            $0.layer.cornerRadius = 3
-        }
-        rankingLabel.do {
-            $0.setText("", color: .white, font: .pretendard(.bold, size: 19))
-        }
+        imageView.layer.cornerRadius = 3
+        
+        rankingLabel.setText("", color: .white, font: .pretendard(.bold, size: 19))
+        
         vStackView.do {
             $0.alignment = .leading
             $0.distribution = .fillEqually
             $0.spacing = 0
         }
-        channelLabel.do {
-            $0.setText("", color: .white, font: .pretendard(.regular, size: 10))
-        }
+        
+        channelLabel.setText("", color: .white, font: .pretendard(.regular, size: 10))
+        
         [titleLabel, ratingLabel].forEach {
             $0.setText("", color: .grayFrom(hex: .scale_9C9C9C), font: .pretendard(.regular, size: 10))
         }
@@ -84,10 +77,12 @@ private extension MostCell {
             $0.top.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-60)
         }
+        
         rankingLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(8)
             $0.leading.equalToSuperview().offset(6)
         }
+        
         vStackView.snp.makeConstraints {
             $0.top.equalTo(rankingLabel)
             $0.leading.equalTo(rankingLabel.snp.trailing).offset(3)

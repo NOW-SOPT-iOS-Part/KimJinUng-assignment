@@ -7,16 +7,13 @@
 
 import UIKit
 
+import Then
+
 final class UnderlineSegmentedControl: UISegmentedControl {
     
     // MARK: - UIComponent
     
-    private lazy var underlineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        addSubview(view)
-        return view
-    }()
+    private let underlineView = UIView(backgroundColor: .white)
     
     // MARK: - Initializer
     
@@ -64,10 +61,12 @@ private extension UnderlineSegmentedControl {
             NSAttributedString.Key.foregroundColor: UIColor.white,
             .font: UIFont.pretendard(.regular, size: 17)
         ]
-        setTitleTextAttributes(attributes, for: .normal)
-        setTitleTextAttributes(attributes, for: .selected)
+        setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
+        setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .selected)
         apportionsSegmentWidthsByContent = true
         selectedSegmentIndex = 0
+        
+        addSubviews(underlineView)
     }
     
     func removeBackgroundAndDivider() {

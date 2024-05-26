@@ -14,7 +14,6 @@ final class SectionHeaderView: UICollectionReusableView, ReuseIdentifiable {
     // MARK: - UIComponent
     
     private let titleLabel = UILabel()
-    
     private let viewAllButton = UIButton()
 
     // MARK: - Initializer
@@ -65,6 +64,7 @@ private extension SectionHeaderView {
         titleLabel.snp.makeConstraints {
             $0.bottom.leading.equalToSuperview()
         }
+        
         viewAllButton.snp.makeConstraints {
             $0.bottom.equalToSuperview()
             $0.trailing.equalToSuperview().offset(-15)

@@ -15,11 +15,8 @@ final class FindViewController: UIViewController, AlertShowable {
     // MARK: - UIComponent
     
     private let backButton = UIButton()
-    
     private let findTextField = TvingTextField(placeholder: "내용을 입력해주세요.")
-    
     private let titleLabel = UILabel()
-    
     private let boxOfficeListView = UITableView()
     
     // MARK: - Property
@@ -118,9 +115,7 @@ private extension FindViewController {
             $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         }
         
-        titleLabel.do {
-            $0.setText("일일 박스오피스 순위", color: .white, font: .pretendard(.semiBold, size: 15))
-        }
+        titleLabel.setText("일일 박스오피스 순위", color: .white, font: .pretendard(.semiBold, size: 15))
         
         boxOfficeListView.do {
             $0.backgroundColor = .black

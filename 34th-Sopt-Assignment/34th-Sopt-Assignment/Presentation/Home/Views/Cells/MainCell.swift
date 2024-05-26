@@ -17,7 +17,6 @@ final class MainCell: UICollectionViewCell, ReuseIdentifiable {
         frame: .zero, 
         collectionViewLayout: configureCollectionViewFlowLayout()
     )
-    
     private let pageControl = UIPageControl()
     
     // MARK: - Property
@@ -136,6 +135,7 @@ private extension MainCell {
             $0.showsHorizontalScrollIndicator = false
             $0.register(InnerCell.self, forCellWithReuseIdentifier: InnerCell.reuseIdentifier)
         }
+        
         pageControl.do {
             $0.transform = .init(scaleX: 0.7, y: 0.7)
             $0.currentPageIndicatorTintColor = .white

@@ -14,7 +14,6 @@ final class ImageAndTitleCell: UICollectionViewCell, ReuseIdentifiable {
     // MARK: - UIComponent
     
     private let imageView = UIImageView()
-    
     private let titleLabel = UILabel()    
     
     // MARK: - Initializer
@@ -45,6 +44,7 @@ private extension ImageAndTitleCell {
         imageView.do {
             $0.layer.cornerRadius = 3
         }
+        
         titleLabel.do {
             $0.setText("", color: .grayFrom(hex: .scale_9C9C9C), font: .pretendard(.medium, size: 10))
         }
@@ -61,6 +61,7 @@ private extension ImageAndTitleCell {
             $0.top.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-20)
         }
+        
         titleLabel.snp.makeConstraints {
             $0.bottom.leading.equalToSuperview()
         }

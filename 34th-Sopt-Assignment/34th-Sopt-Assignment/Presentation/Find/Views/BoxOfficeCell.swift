@@ -15,9 +15,7 @@ final class BoxOfficeCell: UITableViewCell, ReuseIdentifiable {
     // MARK: - UIComponent
     
     private let rankLabel = UILabel()
-    
     private let movieTitleLabel = UILabel()
-    
     private let numberLabel = UILabel()
     
     // MARK: - Initializer

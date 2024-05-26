@@ -22,22 +22,16 @@ final class HomeViewController: UIViewController {
     // MARK: - UIComponent
     
     private let topBackgroundView = UIView(backgroundColor: .clear)
-    
     private let segmentedControl = UnderlineSegmentedControl(
         items: ["홈", "실시간", "프로그램", "영화", "파라마운트+"]
     )
-    
     private lazy var homeCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: configureCompositionalLayout()
     )
-    
     private let realTimeView = UIView(backgroundColor: .gray4)
-    
     private let tvProgramView = UIView(backgroundColor: .gray3)
-    
     private let movieView = UIView(backgroundColor: .gray2)
-    
     private let paramountView = UIView(backgroundColor: .gray1)
     
     // MARK: - Property
@@ -234,7 +228,9 @@ private extension HomeViewController {
     }
     
     func configureMostViewedLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)
+        )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 8)
         
@@ -253,7 +249,9 @@ private extension HomeViewController {
     }
     
     func configureLongLogoLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)
+        )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 8)
         
@@ -293,13 +291,17 @@ private extension HomeViewController {
         segmentedControl.do {
             $0.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
         }
+        
         homeCollectionView.do {
             $0.backgroundColor = .black
             $0.showsHorizontalScrollIndicator = false
             $0.showsVerticalScrollIndicator = false
             $0.contentInsetAdjustmentBehavior = .never
             $0.register(MainCell.self, forCellWithReuseIdentifier: MainCell.reuseIdentifier)
-            $0.register(ImageAndTitleCell.self, forCellWithReuseIdentifier: ImageAndTitleCell.reuseIdentifier)
+            $0.register(
+                ImageAndTitleCell.self,
+                forCellWithReuseIdentifier: ImageAndTitleCell.reuseIdentifier
+            )
             $0.register(MostCell.self, forCellWithReuseIdentifier: MostCell.reuseIdentifier)
             $0.register(LongLogoCell.self, forCellWithReuseIdentifier: LongLogoCell.reuseIdentifier)
             $0.register(
@@ -308,6 +310,7 @@ private extension HomeViewController {
                 withReuseIdentifier: SectionHeaderView.reuseIdentifier
             )
         }
+        
         [realTimeView, tvProgramView, movieView, paramountView].forEach {
             $0.isHidden = true
         }
@@ -322,18 +325,21 @@ private extension HomeViewController {
         ).then {
             $0.isEnabled = false
         }
+        
         let rightButton = UIBarButtonItem(
             image: UIImage(resource: .profileDoosan).withRenderingMode(.alwaysOriginal),
             style: .plain,
             target: nil,
             action: nil
         )
+        
         let findButton = UIBarButtonItem(
             image: UIImage(systemName: "magnifyingglass")?.withTintColor(.white, renderingMode: .alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(findButtonTapped)
         )
+        
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItems = [rightButton, findButton]
         
@@ -345,6 +351,7 @@ private extension HomeViewController {
             topBackgroundView, segmentedControl, homeCollectionView, realTimeView,
             tvProgramView, movieView, paramountView
         )
+        
         view.bringSubviewToFront(topBackgroundView)
         view.bringSubviewToFront(segmentedControl)
     }
@@ -358,10 +365,12 @@ private extension HomeViewController {
             $0.top.horizontalEdges.equalTo(safeArea)
             $0.height.equalTo(40)
         }
+        
         topBackgroundView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(segmentedControl)
         }
+        
         segmentViews.forEach { view in
             view.snp.makeConstraints {
                 $0.top.horizontalEdges.equalToSuperview()

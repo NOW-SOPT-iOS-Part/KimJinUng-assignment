@@ -39,9 +39,7 @@ private extension LongLogoCell {
     // MARK: - SetUI
     
     func setUI() {
-        imageView.do {
-            $0.contentMode = .scaleAspectFill
-        }
+        imageView.contentMode = .scaleAspectFill
     }
     
     func setViewHierarchy() {
