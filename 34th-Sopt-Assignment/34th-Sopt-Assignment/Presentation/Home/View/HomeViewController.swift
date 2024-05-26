@@ -7,8 +7,8 @@
 
 import UIKit
 
-import RxSwift
 import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -83,7 +83,7 @@ private extension HomeViewController {
     func bindViewModel() {
         let output = viewModel.transform(disposeBag: disposeBag)
         
-        output.viewDidLoad.subscribe(onNext: { [weak self] data in
+        output.isViewDidLoad.subscribe(onNext: { [weak self] data in
             self?.sectionData = data
         }).dispose()
     }

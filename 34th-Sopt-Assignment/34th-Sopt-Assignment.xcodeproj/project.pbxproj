@@ -33,6 +33,7 @@
 		DE81F45D2C02D8AD00DA4804 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */; };
 		DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */; };
 		DE81F4622C034AED00DA4804 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4612C034AED00DA4804 /* HomeViewModel.swift */; };
+		DE81F4642C03727200DA4804 /* BoxOfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4632C03727200DA4804 /* BoxOfficeViewModel.swift */; };
 		DE9F2C052BD00E0B00E3189D /* MakeNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */; };
 		DE9F2C082BD0115E00E3189D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C072BD0115E00E3189D /* Constants.swift */; };
 		DE9F2C0A2BD0139400E3189D /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C092BD0139400E3189D /* UIColor+.swift */; };
@@ -99,6 +100,7 @@
 		DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewModel.swift; sourceTree = "<group>"; };
 		DE81F4612C034AED00DA4804 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		DE81F4632C03727200DA4804 /* BoxOfficeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeViewModel.swift; sourceTree = "<group>"; };
 		DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewController.swift; sourceTree = "<group>"; };
 		DE9F2C072BD0115E00E3189D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DE9F2C092BD0139400E3189D /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -351,35 +353,36 @@
 		DEA1AF7F2BEDFD1C00BDB474 /* Find */ = {
 			isa = PBXGroup;
 			children = (
-				DEA1AF822BEDFD3900BDB474 /* Models */,
-				DEA1AF812BEDFD3500BDB474 /* Views */,
-				DEA1AF802BEDFD2900BDB474 /* Controllers */,
+				DEA1AF822BEDFD3900BDB474 /* Model */,
+				DEA1AF802BEDFD2900BDB474 /* ViewModel */,
+				DEA1AF812BEDFD3500BDB474 /* View */,
 			);
 			path = Find;
 			sourceTree = "<group>";
 		};
-		DEA1AF802BEDFD2900BDB474 /* Controllers */ = {
+		DEA1AF802BEDFD2900BDB474 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DE81F4632C03727200DA4804 /* BoxOfficeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DEA1AF812BEDFD3500BDB474 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				DEA1AF752BEDD81A00BDB474 /* FindViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		DEA1AF812BEDFD3500BDB474 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 				DEA1AF772BEDEA0300BDB474 /* BoxOfficeCell.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
-		DEA1AF822BEDFD3900BDB474 /* Models */ = {
+		DEA1AF822BEDFD3900BDB474 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				DEA1AF792BEDF40300BDB474 /* DailyBoxOffice.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DEA1AF832BEDFD9300BDB474 /* Network */ = {
@@ -608,6 +611,7 @@
 				DEF0032C2BE044C100EF73F8 /* SectionHeaderView.swift in Sources */,
 				DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */,
 				DEA1AF782BEDEA0300BDB474 /* BoxOfficeCell.swift in Sources */,
+				DE81F4642C03727200DA4804 /* BoxOfficeViewModel.swift in Sources */,
 				DE81F4622C034AED00DA4804 /* HomeViewModel.swift in Sources */,
 				DEE84F442BDFBB73006605CB /* SearchViewController.swift in Sources */,
 				DEF003392BE0718500EF73F8 /* UIStackView+.swift in Sources */,

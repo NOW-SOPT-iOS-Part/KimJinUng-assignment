@@ -7,8 +7,10 @@
 
 import UIKit
 
-import Then
+import RxCocoa
+import RxSwift
 import SnapKit
+import Then
 
 final class FindViewController: UIViewController, AlertShowable {
     
@@ -29,6 +31,8 @@ final class FindViewController: UIViewController, AlertShowable {
         }
     }
     
+    private let disposeBag = DisposeBag()
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -39,6 +43,7 @@ final class FindViewController: UIViewController, AlertShowable {
         setAutoLayout()
         setDelegate()
         
+        bindAction()
         fetchBoxOfficeList()
     }
     
@@ -67,12 +72,22 @@ final class FindViewController: UIViewController, AlertShowable {
             }
         }
     }
+}
+
+private extension FindViewController {
     
-    // MARK: - Action
+    // MARK: - ViewModel Binding
+
+    func bindViewModel() {
+        
+    }
     
-    @objc
-    private func backButtonTapped(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+    // MARK: - Action Binding
+
+    func bindAction() {
+        backButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -110,10 +125,7 @@ private extension FindViewController {
         view.backgroundColor = .black
         navigationItem.hidesBackButton = true
         
-        backButton.do {
-            $0.setImage(UIImage(resource: .btnBefore), for: .normal)
-            $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        }
+        backButton.setImage(UIImage(resource: .btnBefore), for: .normal)
         
         titleLabel.setText("일일 박스오피스 순위", color: .white, font: .pretendard(.semiBold, size: 15))
         

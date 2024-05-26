@@ -6,7 +6,6 @@
 //
 
 import RxSwift
-import RxRelay
 
 final class LoginViewModel: ViewModelType, RegexCheckable {
     struct Input {

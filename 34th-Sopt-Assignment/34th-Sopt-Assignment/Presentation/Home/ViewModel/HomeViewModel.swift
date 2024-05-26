@@ -7,7 +7,6 @@
 
 import RxSwift
 import RxRelay
-import RxCocoa
 
 final class HomeViewModel: ViewModelType {
     struct Input {
@@ -15,7 +14,7 @@ final class HomeViewModel: ViewModelType {
     }
     
     struct Output {
-        let viewDidLoad: Observable<[HomeViewController.Section]>
+        var isViewDidLoad: Observable<[HomeViewController.Section]>
     }
     
     func transform(from input: Input = Input(), disposeBag: DisposeBag) -> Output {
@@ -26,9 +25,9 @@ final class HomeViewModel: ViewModelType {
             .recommend(Program.recommend),
             .paramounts(Program.paramounts)
         ]
-        let viewDidLoad = Observable.just(mockData)
+        let isViewDidLoad = Observable.just(mockData)
         
-        let output = Output(viewDidLoad: viewDidLoad)
+        let output = Output(isViewDidLoad: isViewDidLoad)
         return output
     }
 }
