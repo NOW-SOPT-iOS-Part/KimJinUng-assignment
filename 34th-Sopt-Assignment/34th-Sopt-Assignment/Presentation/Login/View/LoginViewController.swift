@@ -5,45 +5,49 @@
 //  Created by 김진웅 on 4/15/24.
 //
 
-import Then
 import UIKit
-import SnapKit
 
-final class LoginViewController: UIViewController, RegexCheckable, AlertShowable {
+import RxSwift
+import RxCocoa
+import SnapKit
+import Then
+
+final class LoginViewController: UIViewController, AlertShowable {
     
     // MARK: - Component
     
     private let titleLabel = UILabel()
-    
     private let idTextField = TvingTextField(placeholder: "아이디", type: .id)
-    
     private let idTextFieldRightView = UIView()
-    
     private let idClearButton = UIButton()
-    
     private let pwTextField = TvingTextField(placeholder: "비밀번호", type: .pw)
-    
     private let pwTextFieldRightView = UIView()
-    
     private let pwClearButton = UIButton()
-    
     private let pwShowButton = UIButton()
-    
     private let loginButton = UIButton()
-    
     private let findIDButton = UIButton()
-    
     private let divider = UIView()
-    
     private let findPWButton = UIButton()
-    
     private let helpButton = UIButton()
-    
     private let nicknameButton = UIButton()
     
     // MARK: - Property
     
     private var nickname: String?
+    
+    private let viewModel: LoginViewModel
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
+    
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - LifeCycle
     
@@ -54,31 +58,75 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
         setViewHierarchy()
         setAutoLayout()
         setDelegate()
+        
+        bindViewModel()
+        bindAction()
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+}
+
+private extension LoginViewController {
     
-    private func setDelegate() {
-        idTextField.delegate = self
-        pwTextField.delegate = self
-    }
-    
-    // MARK: - Action
-    
-    @objc
-    private func textFieldEditingChanged(_ sender: UITextField) {
-        var flag = false
+    // MARK: - ViewModel Binding
+
+    func bindViewModel() {
+        let input = LoginViewModel.Input(
+            idTextFieldDidChange: idTextField.rx.text.asObservable(),
+            passwordTextFieldDidChange: pwTextField.rx.text.asObservable(),
+            loginButtonDidTap: loginButton.rx.tap.asObservable()
+        )
         
-        if let idInput = idTextField.text, !idInput.isEmpty,
-           let pwInput = pwTextField.text, !pwInput.isEmpty {
-            flag = true
-        }
-        toggleLoginButton(flag)
+        let output = viewModel.transform(from: input, disposeBag: disposeBag)
+        
+        output.isLoginEnabled.subscribe(onNext: { [weak self] value in
+            self?.toggleLoginButton(value)
+        }).disposed(by: disposeBag)
+        
+        output.isSucceedToLogin.subscribe(onNext: { [weak self] id in
+            self?.moveToWelcome(with: id)
+        }, onError: { [weak self] error in
+            if let appError = error as? AppError {
+                self?.showAlert(title: appError.title, message: appError.message)
+            }
+            print(error)
+        }).disposed(by: disposeBag)
     }
     
-    private func toggleLoginButton(_ flag: Bool) {
+    // MARK: - Action Binding
+    
+    func bindAction() {
+        idClearButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            idTextField.text = nil
+            idTextField.insertText("")
+        }).disposed(by: disposeBag)
+        
+        pwClearButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            pwTextField.text = nil
+            pwTextField.insertText("")
+        }).disposed(by: disposeBag)
+        
+        pwShowButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            pwTextField.isSecureTextEntry.toggle()
+            let image = UIImage(resource: pwTextField.isSecureTextEntry ? .eyeSlash : .eye)
+            pwShowButton.setImage(image, for: .normal)
+        }).disposed(by: disposeBag)
+        
+        nicknameButton.rx.tap.subscribe(onNext: { [weak self] value in
+            self?.moveToNickname()
+        }).disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Private Method
+
+private extension LoginViewController {
+    func toggleLoginButton(_ flag: Bool) {
         let borderWidth: CGFloat = flag ? 0 : 1
         let titleColor: UIColor = flag ? .white : .gray2
         let backgroundColor: UIColor = flag ? .tvingRed : .black
@@ -89,67 +137,15 @@ final class LoginViewController: UIViewController, RegexCheckable, AlertShowable
         loginButton.isEnabled = flag
     }
     
-    @objc
-    private func textFieldClearButtonTapped(_ sender: UIButton) {
-        switch sender.tag {
-        case 0:
-            idTextField.text = nil
-            idTextField.insertText("")
-        case 1:
-            pwTextField.text = nil
-            pwTextField.insertText("")
-        default:
-            break
-        }
-    }
-    
-    @objc
-    private func pwShowButtonTapped(_ sender: UIButton) {
-        pwTextField.isSecureTextEntry.toggle()
-        let image = UIImage(resource: pwTextField.isSecureTextEntry ? .eyeSlash : .eye)
-        sender.setImage(image, for: .normal)
-    }
-    
-    @objc
-    private func loginButtonTapped(_ sender: UIButton) {
-        do {
-            let id = try checkID(idTextField.text)
-            try checkPW(pwTextField.text)
-            moveToWelcome(with: id)
-        } catch let appError as AppError {
-            showAlert(title: "\(appError)", message: "\(appError.message)")
-        } catch {
-            print("\(error.localizedDescription)")
-        }
-    }
-    
-    private func moveToWelcome(with id: String) {
-        guard let id = idTextField.text else { return }
+    func moveToWelcome(with id: String) {
         let viewController = WelcomeViewController(id: id, nickname: nickname)
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    private func checkID(_ input: String?) throws -> String {
-        guard let id = input,
-              checkFrom(input: id, regex: .id)
-        else {
-            throw AppError.login(error: .invalidID)
-        }
-        return id
-    }
-    
-    private func checkPW(_ input: String?) throws {
-        guard let pw = input,
-              checkFrom(input: pw, regex: .pw)
-        else {
-            throw AppError.login(error: .invalidPW)
-        }
-    }
-    
-    @objc
-    private func makeNicknameButtonTapped(_ sender: UIButton) {
-        let viewController = MakeNicknameViewController()
-        viewController.delegate = self
+    func moveToNickname() {
+        let viewController = MakeNicknameViewController(
+            delegate: self, viewModel: MakeNicknameViewModel()
+        )
         viewController.modalPresentationStyle = .formSheet
         if let sheet = viewController.sheetPresentationController {
             sheet.detents = [.medium()]
@@ -192,32 +188,15 @@ private extension LoginViewController {
             $0.textAlignment = .center
         }
         
-        idTextField.do {
-            $0.rightView = idTextFieldRightView
-            $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
-        }
+        idTextField.rightView = idTextFieldRightView
         
-        idClearButton.do {
-            $0.setImage(UIImage(resource: .xCircle), for: .normal)
-            $0.addTarget(self, action: #selector(textFieldClearButtonTapped), for: .touchUpInside)
-            $0.tag = 0
-        }
+        idClearButton.setImage(UIImage(resource: .xCircle), for: .normal)
         
-        pwTextField.do {
-            $0.rightView = pwTextFieldRightView
-            $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
-        }
+        pwTextField.rightView = pwTextFieldRightView
         
-        pwShowButton.do {
-            $0.setImage(UIImage(resource: .eyeSlash), for: .normal)
-            $0.addTarget(self, action: #selector(pwShowButtonTapped), for: .touchUpInside)
-        }
+        pwShowButton.setImage(UIImage(resource: .eyeSlash), for: .normal)
         
-        pwClearButton.do {
-            $0.setImage(UIImage(resource: .xCircle), for: .normal)
-            $0.addTarget(self, action: #selector(textFieldClearButtonTapped), for: .touchUpInside)
-            $0.tag = 1
-        }
+        pwClearButton.setImage(UIImage(resource: .xCircle), for: .normal)
         
         loginButton.do {
             $0.setTitle(
@@ -228,36 +207,27 @@ private extension LoginViewController {
             $0.setLayer(borderWidth: 1)
             $0.isEnabled = false
             $0.backgroundColor = .black
-            $0.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         }
         
-        findIDButton.do {
-            $0.setTitle(
-                title: "아이디 찾기",
-                titleColor: .gray2,
-                font: .pretendard(.semiBold, size: 14)
-            )
-        }
+        findIDButton.setTitle(
+            title: "아이디 찾기",
+            titleColor: .gray2,
+            font: .pretendard(.semiBold, size: 14)
+        )
         
-        divider.do {
-            $0.backgroundColor = .gray4
-        }
+        divider.backgroundColor = .gray4
         
-        findPWButton.do {
-            $0.setTitle(
-                title: "비밀번호 찾기",
-                titleColor: .gray2,
-                font: .pretendard(.semiBold, size: 14)
-            )
-        }
+        findPWButton.setTitle(
+            title: "비밀번호 찾기",
+            titleColor: .gray2,
+            font: .pretendard(.semiBold, size: 14)
+        )
         
-        helpButton.do {
-            $0.setTitle(
-                title: "아직 계정이 없으신가요?",
-                titleColor: .gray3,
-                font: .pretendard(.semiBold, size: 14)
-            )
-        }
+        helpButton.setTitle(
+            title: "아직 계정이 없으신가요?",
+            titleColor: .gray3,
+            font: .pretendard(.semiBold, size: 14)
+        )
         
         nicknameButton.do {
             $0.setTitle(
@@ -266,7 +236,6 @@ private extension LoginViewController {
                 font: .pretendard(.regular, size: 14)
             )
             $0.addUnderline()
-            $0.addTarget(self, action: #selector(makeNicknameButtonTapped), for: .touchUpInside)
         }
     }
     
@@ -361,5 +330,12 @@ private extension LoginViewController {
             $0.trailing.equalTo(safeArea.snp.trailing).offset(-50)
             $0.width.equalTo(128)
         }
+    }
+    
+    // MARK: - Delegate
+    
+    func setDelegate() {
+        idTextField.delegate = self
+        pwTextField.delegate = self
     }
 }
