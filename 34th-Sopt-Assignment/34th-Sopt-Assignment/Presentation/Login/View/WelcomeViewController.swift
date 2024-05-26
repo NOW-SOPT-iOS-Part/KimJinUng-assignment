@@ -5,25 +5,26 @@
 //  Created by 김진웅 on 4/18/24.
 //
 
-import Then
 import UIKit
+
+import RxSwift
+import RxCocoa
 import SnapKit
+import Then
 
 final class WelcomeViewController: UIViewController {
     
     // MARK: - Component
     
     private let logoImageView = UIImageView()
-    
     private let welcomeLabel = UILabel()
-    
     private let mainButton = UIButton()
     
     // MARK: - Property
     
     private let id: String
-    
     private let nickname: String?
+    private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
     
@@ -45,15 +46,21 @@ final class WelcomeViewController: UIViewController {
         setUI()
         setViewHierarchy()
         setAutoLayout()
+        
+        bindAction()
     }
+}
+
+private extension WelcomeViewController {
     
-    // MARK: - Action
-    
-    @objc
-    private func mainButtonTapped(_ sender: UIButton) {
-        guard let window = view.window else { return }
-        window.rootViewController = TvingTabBarController()
-        window.makeKeyAndVisible()
+    // MARK: - Binding Action
+
+    func bindAction() {
+        mainButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            view.window?.rootViewController = TvingTabBarController()
+            view.window?.makeKeyAndVisible()
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -91,7 +98,6 @@ private extension WelcomeViewController {
             )
             $0.setLayer()
             $0.backgroundColor = .tvingRed
-            $0.addTarget(self, action: #selector(mainButtonTapped), for: .touchUpInside)
         }
     }
     
