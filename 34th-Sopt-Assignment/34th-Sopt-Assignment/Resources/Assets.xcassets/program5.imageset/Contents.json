@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "program5 1.png",
+      "filename" : "program5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "program5.png",
+      "filename" : "program5@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "program5 2.png",
+      "filename" : "program5@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
