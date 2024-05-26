@@ -11,6 +11,8 @@ import SnapKit
 
 final class HomeViewController: UIViewController {
     
+    // MARK: - Section
+
     enum Section {
         case main([Program])
         case recommend([Program])
@@ -71,7 +73,6 @@ final class HomeViewController: UIViewController {
     
     @objc
     private func findButtonTapped(_ sender: UIBarButtonItem) {
-        print(">>>  : \(#function)")
         moveToFind()
     }
     
