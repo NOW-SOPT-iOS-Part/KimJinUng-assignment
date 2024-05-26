@@ -27,6 +27,8 @@
 		DE4640382BD7844D00FC13D8 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE46402F2BD7844D00FC13D8 /* Pretendard-Bold.otf */; };
 		DE4640392BD7844D00FC13D8 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE4640302BD7844D00FC13D8 /* Pretendard-Thin.otf */; };
 		DE46403C2BD7AD6000FC13D8 /* TvingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46403B2BD7AD6000FC13D8 /* TvingTextField.swift */; };
+		DE81F4542C02D37800DA4804 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DE81F4532C02D37800DA4804 /* RxCocoa */; };
+		DE81F4562C02D37800DA4804 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = DE81F4552C02D37800DA4804 /* RxRelay */; };
 		DE9F2C052BD00E0B00E3189D /* MakeNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */; };
 		DE9F2C082BD0115E00E3189D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C072BD0115E00E3189D /* Constants.swift */; };
 		DE9F2C0A2BD0139400E3189D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C092BD0139400E3189D /* UIColor+Extension.swift */; };
@@ -134,12 +136,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE81F4562C02D37800DA4804 /* RxRelay in Frameworks */,
 				DE1954A42BCD6A8100070C12 /* Then in Frameworks */,
 				DE1954A72BCD6A8D00070C12 /* SnapKit in Frameworks */,
 				DEA1AF8B2BEDFE3D00BDB474 /* CombineMoya in Frameworks */,
 				DEA1AF8D2BEDFE3D00BDB474 /* Moya in Frameworks */,
 				DEA1AF912BEDFE3D00BDB474 /* RxMoya in Frameworks */,
 				DE1954A92BCD6A8D00070C12 /* SnapKit-Dynamic in Frameworks */,
+				DE81F4542C02D37800DA4804 /* RxCocoa in Frameworks */,
 				DEA1AF8F2BEDFE3D00BDB474 /* ReactiveMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,6 +470,8 @@
 				DEA1AF8C2BEDFE3D00BDB474 /* Moya */,
 				DEA1AF8E2BEDFE3D00BDB474 /* ReactiveMoya */,
 				DEA1AF902BEDFE3D00BDB474 /* RxMoya */,
+				DE81F4532C02D37800DA4804 /* RxCocoa */,
+				DE81F4552C02D37800DA4804 /* RxRelay */,
 			);
 			productName = "34th-Sopt-Assignment";
 			productReference = DE1954882BCD644B00070C12 /* 34th-Sopt-Assignment.app */;
@@ -499,6 +505,7 @@
 				DE1954A22BCD6A8100070C12 /* XCRemoteSwiftPackageReference "Then" */,
 				DE1954A52BCD6A8D00070C12 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				DEA1AF892BEDFE3C00BDB474 /* XCRemoteSwiftPackageReference "Moya" */,
+				DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = DE1954892BCD644B00070C12 /* Products */;
 			projectDirPath = "";
@@ -820,6 +827,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 		DEA1AF892BEDFE3C00BDB474 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
@@ -845,6 +860,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DE1954A52BCD6A8D00070C12 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = "SnapKit-Dynamic";
+		};
+		DE81F4532C02D37800DA4804 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		DE81F4552C02D37800DA4804 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
 		};
 		DEA1AF8A2BEDFE3D00BDB474 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController(
             rootViewController: WelcomeViewController(id: "ingjwjw@naver.com", nickname: "김지눙")
         )
-        window?.rootViewController = TvingTabBarController()
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 
