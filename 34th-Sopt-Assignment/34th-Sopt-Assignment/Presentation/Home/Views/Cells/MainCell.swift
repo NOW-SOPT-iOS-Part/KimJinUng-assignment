@@ -62,7 +62,10 @@ extension MainCell: UICollectionViewDataSource {
         return data.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         guard let data = data,
               let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: InnerCell.reuseIdentifier,

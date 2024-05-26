@@ -1,5 +1,5 @@
 //
-//  UIStackView+Extension.swift
+//  UIStackView+.swift
 //  34th-Sopt-Assignment
 //
 //  Created by 김진웅 on 4/30/24.

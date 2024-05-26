@@ -23,7 +23,9 @@ final class HomeViewController: UIViewController {
     
     private let topBackgroundView = UIView(backgroundColor: .clear)
     
-    private let segmentedControl = UnderlineSegmentedControl(items: ["홈", "실시간", "프로그램", "영화", "파라마운트+"])
+    private let segmentedControl = UnderlineSegmentedControl(
+        items: ["홈", "실시간", "프로그램", "영화", "파라마운트+"]
+    )
     
     private lazy var homeCollectionView = UICollectionView(
         frame: .zero,

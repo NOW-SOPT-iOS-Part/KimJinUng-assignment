@@ -1,5 +1,5 @@
 //
-//  UILabel+Extension.swift
+//  UILabel+.swift
 //  34th-Sopt-Assignment
 //
 //  Created by 김진웅 on 4/18/24.

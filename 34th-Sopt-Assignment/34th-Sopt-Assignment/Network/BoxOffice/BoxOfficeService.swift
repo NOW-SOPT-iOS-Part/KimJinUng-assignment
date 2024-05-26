@@ -31,7 +31,11 @@ extension BoxOfficeService {
         }
     }
     
-    private func judgeStatus<T: Codable>(by statusCode: Int, _ data: Data, _ object: T.Type) -> NetworkResult<Any> {
+    private func judgeStatus<T: Codable>(
+        by statusCode: Int,
+        _ data: Data,
+        _ object: T.Type
+    ) -> NetworkResult<Any> {
         switch statusCode {
         case 200..<205:
             return isValidData(data: data, T.self)
