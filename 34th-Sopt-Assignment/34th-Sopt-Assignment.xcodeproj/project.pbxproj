@@ -268,12 +268,28 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
-		DE9F2C032BD00DEA00E3189D /* Login */ = {
+		DE81F4572C02D49500DA4804 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				DE19548F2BCD644B00070C12 /* LoginViewController.swift */,
 				DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */,
 				DE9F2C172BD0314C00E3189D /* WelcomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DE81F4582C02D49D00DA4804 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DE9F2C032BD00DEA00E3189D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				DE81F4582C02D49D00DA4804 /* ViewModel */,
+				DE81F4572C02D49500DA4804 /* View */,
 			);
 			path = Login;
 			sourceTree = "<group>";

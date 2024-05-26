@@ -97,7 +97,7 @@ private extension MakeNicknameViewController {
         titleLabel.setText(
             "닉네임을 입력해주세요",
             color: .black,
-            font: .pretendard(weight: .five, size: 23)
+            font: .pretendard(.medium, size: 23)
         )
         
         nicknameTextField.do {
@@ -105,7 +105,7 @@ private extension MakeNicknameViewController {
         }
         
         saveButton.do {
-            $0.setTitle(title: "저장하기", titleColor: .gray2, font: .pretendard(weight: .six, size: 14))
+            $0.setTitle(title: "저장하기", titleColor: .gray2, font: .pretendard(.semiBold, size: 14))
             $0.setLayer(borderWidth: 1, cornerRadius: 12)
             $0.isEnabled = false
             $0.backgroundColor = .black

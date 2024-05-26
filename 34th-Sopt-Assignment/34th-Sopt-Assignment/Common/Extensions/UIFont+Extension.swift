@@ -9,24 +9,24 @@ import UIKit
 
 extension UIFont {
     enum CustomWeight {
-        case one, two, three, four, five, six, seven, eight, nine
+        case thin, extraLight, light, regular, medium, semiBold, bold, extraBold, black
         
         var font: String {
             switch self {
-            case .one: "Pretendard-Thin"
-            case .two: "Pretendard-ExtraLight"
-            case .three: "Pretendard-Light"
-            case .four: "Pretendard-Regular"
-            case .five: "Pretendard-Medium"
-            case .six: "Pretendard-SemiBold"
-            case .seven: "Pretendard-Bold"
-            case .eight: "Pretendard-ExtraBold"
-            case .nine: "Pretendard-Black"
+            case .thin: "Pretendard-Thin"
+            case .extraLight: "Pretendard-ExtraLight"
+            case .light: "Pretendard-Light"
+            case .regular: "Pretendard-Regular"
+            case .medium: "Pretendard-Medium"
+            case .semiBold: "Pretendard-SemiBold"
+            case .bold: "Pretendard-Bold"
+            case .extraBold: "Pretendard-ExtraBold"
+            case .black: "Pretendard-Black"
             }
         }
     }
     
-    static func pretendard(weight: UIFont.CustomWeight, size: CGFloat) -> UIFont? {
+    static func pretendard(_ weight: UIFont.CustomWeight, size: CGFloat) -> UIFont? {
         return UIFont(name: weight.font, size: size)
     }
 }

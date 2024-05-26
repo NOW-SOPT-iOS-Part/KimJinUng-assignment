@@ -48,10 +48,10 @@ private extension BoxOfficeCell {
     func setUI() {
         contentView.backgroundColor = .black
         
-        rankLabel.setText("", color: .white, font: .pretendard(weight: .seven, size: 15))
+        rankLabel.setText("", color: .white, font: .pretendard(.bold, size: 15))
         
         [movieTitleLabel, numberLabel].forEach {
-            $0.setText("", color: .white, font: .pretendard(weight: .six, size: 13))
+            $0.setText("", color: .white, font: .pretendard(.semiBold, size: 13))
         }
     }
     

@@ -41,13 +41,13 @@ private extension SectionHeaderView {
     // MARK: - SetUI
 
     func setUI() {
-        titleLabel.setText("", color: .white, font: .pretendard(weight: .six, size: 15))
+        titleLabel.setText("", color: .white, font: .pretendard(.semiBold, size: 15))
         
         viewAllButton.do {
             $0.setTitle(
                 title: "전체보기",
                 titleColor: .gray2,
-                font: .pretendard(weight: .five, size: 11)
+                font: .pretendard(.medium, size: 11)
             )
             $0.setImage(UIImage(systemName: "chevron.right"), for: .normal)
             $0.tintColor = .gray2

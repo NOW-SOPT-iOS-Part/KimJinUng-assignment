@@ -119,7 +119,7 @@ private extension FindViewController {
         }
         
         titleLabel.do {
-            $0.setText("일일 박스오피스 순위", color: .white, font: .pretendard(weight: .six, size: 15))
+            $0.setText("일일 박스오피스 순위", color: .white, font: .pretendard(.semiBold, size: 15))
         }
         
         boxOfficeListView.do {

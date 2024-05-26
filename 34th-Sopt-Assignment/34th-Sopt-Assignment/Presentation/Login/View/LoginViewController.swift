@@ -188,7 +188,7 @@ private extension LoginViewController {
         view.backgroundColor = .black
         
         titleLabel.do {
-            $0.setText("TVING ID 로그인", color: .gray1, font: .pretendard(weight: .five, size: 23))
+            $0.setText("TVING ID 로그인", color: .gray1, font: .pretendard(.medium, size: 23))
             $0.textAlignment = .center
         }
         
@@ -223,7 +223,7 @@ private extension LoginViewController {
             $0.setTitle(
                 title: "로그인하기",
                 titleColor: .gray2,
-                font: .pretendard(weight: .six, size: 14)
+                font: .pretendard(.semiBold, size: 14)
             )
             $0.setLayer(borderWidth: 1)
             $0.isEnabled = false
@@ -235,7 +235,7 @@ private extension LoginViewController {
             $0.setTitle(
                 title: "아이디 찾기",
                 titleColor: .gray2,
-                font: .pretendard(weight: .six, size: 14)
+                font: .pretendard(.semiBold, size: 14)
             )
         }
         
@@ -247,7 +247,7 @@ private extension LoginViewController {
             $0.setTitle(
                 title: "비밀번호 찾기",
                 titleColor: .gray2,
-                font: .pretendard(weight: .six, size: 14)
+                font: .pretendard(.semiBold, size: 14)
             )
         }
         
@@ -255,7 +255,7 @@ private extension LoginViewController {
             $0.setTitle(
                 title: "아직 계정이 없으신가요?",
                 titleColor: .gray3,
-                font: .pretendard(weight: .six, size: 14)
+                font: .pretendard(.semiBold, size: 14)
             )
         }
         
@@ -263,7 +263,7 @@ private extension LoginViewController {
             $0.setTitle(
                 title: "닉네임 만들러가기",
                 titleColor: .gray2,
-                font: .pretendard(weight: .four, size: 14)
+                font: .pretendard(.regular, size: 14)
             )
             $0.addUnderline()
             $0.addTarget(self, action: #selector(makeNicknameButtonTapped), for: .touchUpInside)

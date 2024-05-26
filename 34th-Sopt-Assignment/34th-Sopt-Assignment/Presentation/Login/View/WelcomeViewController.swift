@@ -77,7 +77,7 @@ private extension WelcomeViewController {
                 반가워요!
                 """,
                 color: .white,
-                font: .pretendard(weight: .seven, size: 23)
+                font: .pretendard(.bold, size: 23)
             )
             $0.textAlignment = .center
             $0.numberOfLines = 3
@@ -87,7 +87,7 @@ private extension WelcomeViewController {
             $0.setTitle(
                 title: "메인으로",
                 titleColor: .white,
-                font: .pretendard(weight: .six, size: 14)
+                font: .pretendard(.semiBold, size: 14)
             )
             $0.setLayer()
             $0.backgroundColor = .tvingRed

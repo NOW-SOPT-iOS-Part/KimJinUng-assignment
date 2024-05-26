@@ -57,7 +57,7 @@ private extension MostCell {
             $0.layer.cornerRadius = 3
         }
         rankingLabel.do {
-            $0.setText("", color: .white, font: .pretendard(weight: .seven, size: 19))
+            $0.setText("", color: .white, font: .pretendard(.bold, size: 19))
         }
         vStackView.do {
             $0.alignment = .leading
@@ -65,10 +65,10 @@ private extension MostCell {
             $0.spacing = 0
         }
         channelLabel.do {
-            $0.setText("", color: .white, font: .pretendard(weight: .four, size: 10))
+            $0.setText("", color: .white, font: .pretendard(.regular, size: 10))
         }
         [titleLabel, ratingLabel].forEach {
-            $0.setText("", color: .grayFrom(hex: .scale_9C9C9C), font: .pretendard(weight: .four, size: 10))
+            $0.setText("", color: .grayFrom(hex: .scale_9C9C9C), font: .pretendard(.regular, size: 10))
         }
     }
     

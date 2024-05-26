@@ -20,15 +20,13 @@ extension BoxOfficeTargetType: TargetType {
     
     var path: String {
         switch self {
-        case .dailyBoxOffice:
-            "/searchDailyBoxOfficeList.json"
+        case .dailyBoxOffice: "/searchDailyBoxOfficeList.json"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .dailyBoxOffice:
-                .get
+        case .dailyBoxOffice: .get
         }
     }
     
@@ -45,8 +43,7 @@ extension BoxOfficeTargetType: TargetType {
     
     var headers: [String : String]? {
         switch self {
-        case .dailyBoxOffice:
-            ["Content-Type": "application/json"]
+        case .dailyBoxOffice: ["Content-Type": "application/json"]
         }
     }
 }
