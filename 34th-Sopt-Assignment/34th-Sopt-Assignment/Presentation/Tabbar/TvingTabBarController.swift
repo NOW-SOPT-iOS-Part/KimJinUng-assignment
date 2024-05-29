@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import Then
 
 final class TvingTabBarController: UITabBarController {
@@ -40,7 +41,7 @@ private extension TvingTabBarController {
         ]
         
         let rootViewControllers = [
-            HomeViewController(),
+            HomeViewController(viewModel: DefaultHomeViewModel()),
             ComingSoonViewController(),
             SearchViewController(),
             HistoryViewController()

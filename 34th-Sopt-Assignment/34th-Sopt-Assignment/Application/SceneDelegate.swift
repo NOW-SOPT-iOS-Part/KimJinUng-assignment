@@ -11,13 +11,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+        
+        let loginViewModel = DefaultLoginViewModel()
+        let loginViewController = LoginViewController(viewModel: loginViewModel)
         let navigationController = UINavigationController(
-            rootViewController: WelcomeViewController(id: "ingjwjw@naver.com", nickname: "김지눙")
+            rootViewController: loginViewController
         )
-        window?.rootViewController = TvingTabBarController()
+        
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

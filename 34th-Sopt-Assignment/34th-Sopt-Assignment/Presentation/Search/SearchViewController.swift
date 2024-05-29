@@ -46,7 +46,6 @@ private extension SearchViewController {
     // MARK: - AutoLayout
     
     func setAutoLayout() {
-        let safeArea = view.safeAreaLayoutGuide
         
     }
 }
