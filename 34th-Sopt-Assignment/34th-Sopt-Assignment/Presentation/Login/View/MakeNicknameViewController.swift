@@ -65,26 +65,26 @@ private extension MakeNicknameViewController {
     // MARK: - ViewModel Binding
     
     func bindViewModel() {
-        let input = MakeNicknameViewModel.Input(
-            nicknameTextFieldDidChange: nicknameTextField.rx.text.asObservable(),
-            saveButtonDidTap: saveButton.rx.tap.asObservable()
-        )
-        
-        let output = viewModel.transform(from: input, disposeBag: disposeBag)
-        
-        output.isSaveEnabled.subscribe(onNext: { [weak self] value in
-            self?.toggleSaveButton(value)
+        nicknameTextField.rx.text.subscribe(onNext: { [weak self] text in
+            self?.viewModel.nicknameTextFieldDidChange(text)
         }).disposed(by: disposeBag)
         
-        output.isSucceedToSave.subscribe(onNext: { [weak self] nickname in
-            guard let self else { return }
-            delegate?.configure(nickname: nickname)
-            dismiss(animated: true)
-        }, onError: { [weak self] error in
-            if let appError = error as? AppError {
-                self?.showAlert(title: appError.title, message: appError.message)
+        saveButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.viewModel.saveButtonDidTap()
+        }).disposed(by: disposeBag)
+        
+        viewModel.isSaveEnabled.subscribe(onNext: { [weak self] flag in
+            self?.toggleSaveButton(flag)
+        }).disposed(by: disposeBag)
+        
+        viewModel.isSucceedToSave.subscribe(onNext: { [weak self] result in
+            switch result {
+            case .success(let nickname):
+                self?.delegate?.configure(nickname: nickname)
+                self?.dismiss(animated: true)
+            case .failure(let error):
+                self?.showAlert(title: error.title, message: error.message)
             }
-            print(error)
         }).disposed(by: disposeBag)
     }
 }

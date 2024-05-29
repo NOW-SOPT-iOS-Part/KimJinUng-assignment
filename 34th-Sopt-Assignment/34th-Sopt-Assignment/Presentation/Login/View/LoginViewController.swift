@@ -73,25 +73,29 @@ private extension LoginViewController {
     // MARK: - ViewModel Binding
 
     func bindViewModel() {
-        let input = LoginViewModel.Input(
-            idTextFieldDidChange: idTextField.rx.text.asObservable(),
-            passwordTextFieldDidChange: pwTextField.rx.text.asObservable(),
-            loginButtonDidTap: loginButton.rx.tap.asObservable()
-        )
-        
-        let output = viewModel.transform(from: input, disposeBag: disposeBag)
-        
-        output.isLoginEnabled.subscribe(onNext: { [weak self] value in
-            self?.toggleLoginButton(value)
+        idTextField.rx.text.subscribe(onNext: { [weak self] text in
+            self?.viewModel.idTextFieldDidChange(text)
         }).disposed(by: disposeBag)
         
-        output.isSucceedToLogin.subscribe(onNext: { [weak self] id in
-            self?.moveToWelcome(with: id)
-        }, onError: { [weak self] error in
-            if let appError = error as? AppError {
-                self?.showAlert(title: appError.title, message: appError.message)
+        pwTextField.rx.text.subscribe(onNext: { [weak self] text in
+            self?.viewModel.passwordTextFieldDidChange(text)
+        }).disposed(by: disposeBag)
+        
+        loginButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.viewModel.loginButtonDidTap()
+        }).disposed(by: disposeBag)
+        
+        viewModel.isLoginEnabled.subscribe(onNext: { [weak self] flag in
+            self?.toggleLoginButton(flag)
+        }).disposed(by: disposeBag)
+        
+        viewModel.isSucceedToLogin.subscribe(onNext: { [weak self] result in
+            switch result {
+            case .success(let id):
+                self?.moveToWelcome(with: id)
+            case .failure(let error):
+                self?.showAlert(title: error.title, message: error.message)
             }
-            print(error)
         }).disposed(by: disposeBag)
     }
     
@@ -144,7 +148,7 @@ private extension LoginViewController {
     
     func moveToNickname() {
         let viewController = MakeNicknameViewController(
-            delegate: self, viewModel: MakeNicknameViewModel()
+            delegate: self, viewModel: DefaultMakeNicknameViewModel()
         )
         viewController.modalPresentationStyle = .formSheet
         if let sheet = viewController.sheetPresentationController {

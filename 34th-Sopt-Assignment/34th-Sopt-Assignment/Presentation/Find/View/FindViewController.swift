@@ -31,7 +31,19 @@ final class FindViewController: UIViewController, AlertShowable {
         }
     }
     
+    private let viewModel: FindViewModel
     private let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
+    
+    init(viewModel: FindViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - LifeCycle
     
@@ -43,34 +55,10 @@ final class FindViewController: UIViewController, AlertShowable {
         setAutoLayout()
         setDelegate()
         
+        bindViewModel()
         bindAction()
-        fetchBoxOfficeList()
-    }
-    
-    private func fetchBoxOfficeList() {
-        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
-        let dateString = formatter.string(from: yesterday)
         
-        BoxOfficeService.shared.requestBoxOfficeList(date: dateString) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let data):
-                guard let dailyBoxOffice = data as? DailyBoxOffice else { return }
-                dailyBoxOfficeList = dailyBoxOffice.boxOfficeResult.dailyBoxOfficeList
-            case .requestErr:
-                showAlert(title: "요청 오류", message: "요청 과정에서 오류가 발생하였습니다.")
-            case .decodedErr:
-                showAlert(title: "디코딩 오류", message: "디코딩 타입을 확인해 주세요.")
-            case .pathErr:
-                showAlert(title: "경로 오류", message: "요청 경로가 올바르지 않습니다.")
-            case .serverErr:
-                showAlert(title: "서버 오류", message: "서버가 불안정합니다. 잠시 후 다시 시도해 주세요.")
-            case .networkFail:
-                showAlert(title: "네트워크 오류", message: "기기의 통신 상태가 불안정합니다. 잠시 후 다시 시도해 주세요.")
-            }
-        }
+        viewModel.viewDidLoad()
     }
 }
 
@@ -79,7 +67,9 @@ private extension FindViewController {
     // MARK: - ViewModel Binding
 
     func bindViewModel() {
-        
+        viewModel.isViewDidLoad.subscribe(onNext: { [weak self] data in
+            self?.dailyBoxOfficeList = data
+        }).disposed(by: disposeBag)
     }
     
     // MARK: - Action Binding

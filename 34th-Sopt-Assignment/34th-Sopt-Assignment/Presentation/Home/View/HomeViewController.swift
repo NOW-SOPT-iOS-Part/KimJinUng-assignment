@@ -73,6 +73,8 @@ final class HomeViewController: UIViewController {
         
         bindViewModel()
         bindAction()
+        
+        viewModel.viewDidLoad()
     }
 }
 
@@ -81,11 +83,9 @@ private extension HomeViewController {
     // MARK: - ViewModel Binding
 
     func bindViewModel() {
-        let output = viewModel.transform(disposeBag: disposeBag)
-        
-        output.isViewDidLoad.subscribe(onNext: { [weak self] data in
+        viewModel.isViewDidLoad.subscribe(onNext: { [weak self] data in
             self?.sectionData = data
-        }).dispose()
+        }).disposed(by: disposeBag)
     }
     
     // MARK: - Action Binding
@@ -104,7 +104,8 @@ private extension HomeViewController {
 
 private extension HomeViewController {
     func moveToFind() {
-        let findViewController = FindViewController()
+        let findViewModel = DefaultFindViewModel()
+        let findViewController = FindViewController(viewModel: findViewModel)
         navigationController?.pushViewController(findViewController, animated: true)
     }
 }

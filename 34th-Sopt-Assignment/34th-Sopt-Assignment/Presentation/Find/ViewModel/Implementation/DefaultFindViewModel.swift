@@ -1,9 +1,11 @@
 //
-//  DefaultBoxOfficeViewModel.swift
+//  DefaultFindViewModel.swift
 //  34th-Sopt-Assignment
 //
 //  Created by 김진웅 on 5/26/24.
 //
+
+import Foundation
 
 import RxSwift
 import RxRelay
@@ -12,50 +14,28 @@ final class DefaultFindViewModel: FindViewModel {
     
     // MARK: - Output
     
-    private(set) var isViewDidLoad: Observable<[DailyBoxOfficeList]>?
+    private(set) lazy var isViewDidLoad: Observable<[DailyBoxOfficeList]> = setIsViewDidLoad()
     
-    // MARK: - Property
+    // MARK: - Input Relay
     
     private let viewDidLoadRelay = PublishRelay<String>()
-
-    // MARK: - Initializer
-
-    init() {
-        setOutput()
-    }
     
     // MARK: - Input
     
-    func viewDidLoad(_ dateString: String) {
-        viewDidLoadRelay.accept(dateString)
+    func viewDidLoad() {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
+        viewDidLoadRelay.accept(yesterday.toString(with: .yyyyMMdd))
     }
 }
 
 private extension DefaultFindViewModel {
-    func setOutput() {
-        isViewDidLoad = viewDidLoadRelay
-            .flatMap { [weak self] dateString -> Observable<[DailyBoxOfficeList]> in
+    func setIsViewDidLoad() -> Observable<[DailyBoxOfficeList]> {
+        return viewDidLoadRelay
+            .flatMap { dateString -> Observable<[DailyBoxOfficeList]> in
+                
+                // TODO: 네트워크 작업 수행 및 결과 리턴
                 
                 return .just([])
             }
-    }
-    
-    func fetchData(with dateString: String) -> [DailyBoxOfficeList] {
-        var temp = [DailyBoxOfficeList]()
-        
-        BoxOfficeService.shared.requestBoxOfficeList(
-            date: dateString
-        ) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let data):
-                guard let dailyBoxOffice = data as? DailyBoxOffice else { return }
-                temp = dailyBoxOffice.boxOfficeResult.dailyBoxOfficeList
-            default:
-                break
-            }
-        }
-        
-        return temp
     }
 }

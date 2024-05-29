@@ -1,5 +1,5 @@
 //
-//  LoginViewModel.swift
+//  DefaultLoginViewModel.swift
 //  34th-Sopt-Assignment
 //
 //  Created by 김진웅 on 5/26/24.
@@ -8,42 +8,38 @@
 import RxSwift
 import RxRelay
 
-final class DefaultLoginViewModel: LoginViewModel, RegexCheckable {
+final class DefaultLoginViewModel: LoginViewModel {
     
     // MARK: - Output
     
-    private(set) var isLoginEnabled: Observable<Bool>?
-    private(set) var isSucceedToLogin: Observable<Result<String, AppError>>?
+    private(set) lazy var isLoginEnabled: Observable<Bool> = setIsLoginEnabled()
+    private(set) lazy var isSucceedToLogin: Observable<Result<String, AppError>> = setIsSucceedToLogin()
     
-    private let idTextFieldRelay = PublishRelay<String?>()
-    private let passwordTextFieldRelay = PublishRelay<String?>()
-    private let loginButtonRelay = PublishRelay<Void>()
-    
-    // MARK: - Initializer
+    // MARK: - Input Relay
 
-    init() {
-        setOutput()
-    }
+    private let idTextFieldDidChangeRelay = PublishRelay<String?>()
+    private let passwordTextFieldDidChangeRelay = PublishRelay<String?>()
+    private let loginButtonDidTapRelay = PublishRelay<Void>()
     
     // MARK: - Input
 
     func idTextFieldDidChange(_ text: String?) {
-        idTextFieldRelay.accept(text)
+        idTextFieldDidChangeRelay.accept(text)
     }
     
     func passwordTextFieldDidChange(_ text: String?) {
-        passwordTextFieldRelay.accept(text)
+        passwordTextFieldDidChangeRelay.accept(text)
     }
     
     func loginButtonDidTap() {
-        loginButtonRelay.accept(())
+        loginButtonDidTapRelay.accept(())
     }
 }
 
-private extension DefaultLoginViewModel {
-    func setOutput() {
-        isLoginEnabled = Observable
-            .combineLatest(idTextFieldRelay, passwordTextFieldRelay)
+extension DefaultLoginViewModel: RegexCheckable {
+    private func setIsLoginEnabled() -> Observable<Bool> {
+        return Observable
+            .combineLatest(idTextFieldDidChangeRelay, passwordTextFieldDidChangeRelay)
             .map { id, pw in
                 guard let id, !id.isEmpty,
                       let pw, !pw.isEmpty else {
@@ -51,11 +47,13 @@ private extension DefaultLoginViewModel {
                 }
                 return true
             }
-        
-        isSucceedToLogin = loginButtonRelay
-            .withLatestFrom(Observable.combineLatest(idTextFieldRelay, passwordTextFieldRelay))
-            .flatMap { id, pw -> Observable<Result<String, AppError>> in
-                guard let id, let pw else {
+    }
+    
+    private func setIsSucceedToLogin() -> Observable<Result<String, AppError>> {
+        loginButtonDidTapRelay
+            .withLatestFrom(Observable.combineLatest(idTextFieldDidChangeRelay, passwordTextFieldDidChangeRelay))
+            .flatMap { [weak self] id, pw -> Observable<Result<String, AppError>> in
+                guard let self, let id, let pw else {
                     return .just(.failure(.unknown))
                 }
                 

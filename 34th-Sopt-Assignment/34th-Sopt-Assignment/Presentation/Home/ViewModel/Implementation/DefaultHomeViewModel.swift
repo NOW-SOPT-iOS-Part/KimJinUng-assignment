@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  DefaultHomeViewModel.swift
 //  34th-Sopt-Assignment
 //
 //  Created by 김진웅 on 5/26/24.
@@ -8,31 +8,15 @@
 import RxSwift
 import RxRelay
 
-protocol HomeViewModelInput {
-    func viewDidLoad()
-}
-
-protocol HomeViewModelOutput {
-    var isViewDidLoad: Observable<[HomeViewController.Section]>? { get }
-}
-
-typealias HomeViewModel = HomeViewModelInput & HomeViewModelOutput
-
 final class DefaultHomeViewModel: HomeViewModel {
     
     // MARK: - Output
 
-    private(set) var isViewDidLoad: Observable<[HomeViewController.Section]>?
+    private(set) lazy var isViewDidLoad: Observable<[HomeViewController.Section]> = setIsViewDidLoad()
     
-    // MARK: - Property
+    // MARK: - Input Relay
 
     private let viewDidLoadRelay = PublishRelay<Void>()
-    
-    // MARK: - Initializer
-
-    init() {
-        setOutput()
-    }
     
     // MARK: - Input
 
@@ -42,8 +26,8 @@ final class DefaultHomeViewModel: HomeViewModel {
 }
 
 private extension DefaultHomeViewModel {
-    func setOutput() {
-        isViewDidLoad = viewDidLoadRelay
+    func setIsViewDidLoad() -> Observable<[HomeViewController.Section]> {
+        return viewDidLoadRelay
             .flatMap { _ -> Observable<[HomeViewController.Section]> in
                 let mockData: [HomeViewController.Section] = [
                     .main(Program.main),
@@ -52,7 +36,7 @@ private extension DefaultHomeViewModel {
                     .recommend(Program.recommend),
                     .paramounts(Program.paramounts)
                 ]
-                return Observable.just(mockData)
+                return .just(mockData)
         }
     }
 }
