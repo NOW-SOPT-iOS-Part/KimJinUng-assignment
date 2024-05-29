@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE13EF722C0777E3008C6DDA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE13EF712C0777E3008C6DDA /* NetworkService.swift */; };
 		DE19548C2BCD644B00070C12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19548B2BCD644B00070C12 /* AppDelegate.swift */; };
 		DE19548E2BCD644B00070C12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19548D2BCD644B00070C12 /* SceneDelegate.swift */; };
 		DE1954902BCD644B00070C12 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19548F2BCD644B00070C12 /* LoginViewController.swift */; };
@@ -60,7 +61,7 @@
 		DEA1AF912BEDFE3D00BDB474 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = DEA1AF902BEDFE3D00BDB474 /* RxMoya */; };
 		DEA1AF932BEDFE7400BDB474 /* MoyaLoggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1AF922BEDFE7400BDB474 /* MoyaLoggingPlugin.swift */; };
 		DEA1AF962BEDFED900BDB474 /* BoxOfficeTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1AF952BEDFED900BDB474 /* BoxOfficeTargetType.swift */; };
-		DEA1AFA12BEE05CF00BDB474 /* BoxOfficeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1AFA02BEE05CF00BDB474 /* BoxOfficeService.swift */; };
+		DEA1AFA12BEE05CF00BDB474 /* DefaultNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1AFA02BEE05CF00BDB474 /* DefaultNetworkService.swift */; };
 		DEC466CF2BD77DE9001F5BAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEC466CD2BD77DE9001F5BAA /* LaunchScreen.storyboard */; };
 		DEC466D32BD77E17001F5BAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEC466D22BD77E17001F5BAA /* Assets.xcassets */; };
 		DEE84F362BDF5DBE006605CB /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE84F352BDF5DBE006605CB /* ReuseIdentifiable.swift */; };
@@ -82,6 +83,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE13EF712C0777E3008C6DDA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		DE1954882BCD644B00070C12 /* 34th-Sopt-Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "34th-Sopt-Assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE19548B2BCD644B00070C12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE19548D2BCD644B00070C12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,7 +129,7 @@
 		DEA1AF872BEDFDE000BDB474 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		DEA1AF922BEDFE7400BDB474 /* MoyaLoggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggingPlugin.swift; sourceTree = "<group>"; };
 		DEA1AF952BEDFED900BDB474 /* BoxOfficeTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeTargetType.swift; sourceTree = "<group>"; };
-		DEA1AFA02BEE05CF00BDB474 /* BoxOfficeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeService.swift; sourceTree = "<group>"; };
+		DEA1AFA02BEE05CF00BDB474 /* DefaultNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetworkService.swift; sourceTree = "<group>"; };
 		DEC466CB2BD77DD9001F5BAA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "34th-Sopt-Assignment/Resources/Info.plist"; sourceTree = SOURCE_ROOT; };
 		DEC466CE2BD77DE9001F5BAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "34th-Sopt-Assignment/Resources/Base.lproj/LaunchScreen.storyboard"; sourceTree = SOURCE_ROOT; };
 		DEC466D22BD77E17001F5BAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "34th-Sopt-Assignment/Resources/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
@@ -169,6 +171,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE13EF6F2C077789008C6DDA /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				DE13EF702C0777A3008C6DDA /* Interface */,
+				DE13EF732C0777FB008C6DDA /* Implementation */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		DE13EF702C0777A3008C6DDA /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				DE13EF712C0777E3008C6DDA /* NetworkService.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		DE13EF732C0777FB008C6DDA /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				DEA1AFA02BEE05CF00BDB474 /* DefaultNetworkService.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
 		DE19547F2BCD644B00070C12 = {
 			isa = PBXGroup;
 			children = (
@@ -442,18 +469,18 @@
 				DEA1AF852BEDFDBB00BDB474 /* Config.swift */,
 				DEA1AF872BEDFDE000BDB474 /* NetworkResult.swift */,
 				DEA1AF922BEDFE7400BDB474 /* MoyaLoggingPlugin.swift */,
-				DEA1AF942BEDFEC800BDB474 /* BoxOffice */,
+				DE13EF6F2C077789008C6DDA /* NetworkService */,
+				DEA1AF942BEDFEC800BDB474 /* TargetType */,
 			);
 			path = Network;
 			sourceTree = "<group>";
 		};
-		DEA1AF942BEDFEC800BDB474 /* BoxOffice */ = {
+		DEA1AF942BEDFEC800BDB474 /* TargetType */ = {
 			isa = PBXGroup;
 			children = (
 				DEA1AF952BEDFED900BDB474 /* BoxOfficeTargetType.swift */,
-				DEA1AFA02BEE05CF00BDB474 /* BoxOfficeService.swift */,
 			);
-			path = BoxOffice;
+			path = TargetType;
 			sourceTree = "<group>";
 		};
 		DEE84F372BDF5F58006605CB /* Home */ = {
@@ -656,7 +683,8 @@
 				DE9F2C182BD0314C00E3189D /* WelcomeViewController.swift in Sources */,
 				DEF0033B2BE0780A00EF73F8 /* LongLogoCell.swift in Sources */,
 				DE9F2C052BD00E0B00E3189D /* MakeNicknameViewController.swift in Sources */,
-				DEA1AFA12BEE05CF00BDB474 /* BoxOfficeService.swift in Sources */,
+				DEA1AFA12BEE05CF00BDB474 /* DefaultNetworkService.swift in Sources */,
+				DE13EF722C0777E3008C6DDA /* NetworkService.swift in Sources */,
 				DE9BA34C2C06577700C8D6EB /* LoginViewModel.swift in Sources */,
 				DE81F45D2C02D8AD00DA4804 /* DefaultLoginViewModel.swift in Sources */,
 				DE9F2C1A2BD039E500E3189D /* UILabel+.swift in Sources */,

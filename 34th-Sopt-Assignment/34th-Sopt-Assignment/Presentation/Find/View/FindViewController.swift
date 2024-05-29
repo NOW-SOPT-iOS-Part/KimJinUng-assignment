@@ -69,6 +69,11 @@ private extension FindViewController {
     func bindViewModel() {
         viewModel.isViewDidLoad.subscribe(onNext: { [weak self] data in
             self?.dailyBoxOfficeList = data
+        }, onError: { [weak self] error in
+            if let error = error as? AppError {
+                self?.showAlert(title: error.title, message: error.message)
+            }
+            print(error)
         }).disposed(by: disposeBag)
     }
     

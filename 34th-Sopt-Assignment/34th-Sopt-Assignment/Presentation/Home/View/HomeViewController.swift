@@ -104,12 +104,12 @@ private extension HomeViewController {
 
 private extension HomeViewController {
     func moveToFind() {
-        let findViewModel = DefaultFindViewModel()
+        let boxOfficeService = DefaultNetworkService<BoxOfficeTargetType>()
+        let findViewModel = DefaultFindViewModel(boxOfficeService: boxOfficeService)
         let findViewController = FindViewController(viewModel: findViewModel)
         navigationController?.pushViewController(findViewController, animated: true)
     }
 }
-
 
 // MARK: - UICollectionViewDataSource
 
