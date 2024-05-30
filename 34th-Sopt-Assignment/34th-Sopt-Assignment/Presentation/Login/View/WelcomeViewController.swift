@@ -54,13 +54,16 @@ final class WelcomeViewController: UIViewController {
 private extension WelcomeViewController {
     
     // MARK: - Binding Action
-
+    
     func bindAction() {
-        mainButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let self else { return }
-            view.window?.rootViewController = TvingTabBarController()
-            view.window?.makeKeyAndVisible()
-        }).disposed(by: disposeBag)
+        mainButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                view.window?.rootViewController = TvingTabBarController()
+                view.window?.makeKeyAndVisible()
+            })
+            .disposed(by: disposeBag)
     }
 }
 

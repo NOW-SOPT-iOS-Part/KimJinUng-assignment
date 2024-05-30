@@ -25,9 +25,7 @@ final class FindViewController: UIViewController, AlertShowable {
     
     private var dailyBoxOfficeList = [DailyBoxOfficeList]() {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.boxOfficeListView.reloadData()
-            }
+            boxOfficeListView.reloadData()
         }
     }
     
@@ -65,24 +63,30 @@ final class FindViewController: UIViewController, AlertShowable {
 private extension FindViewController {
     
     // MARK: - ViewModel Binding
-
+    
     func bindViewModel() {
-        viewModel.isViewDidLoad.subscribe(onNext: { [weak self] data in
-            self?.dailyBoxOfficeList = data
-        }, onError: { [weak self] error in
-            if let error = error as? AppError {
-                self?.showAlert(title: error.title, message: error.message)
-            }
-            print(error)
-        }).disposed(by: disposeBag)
+        viewModel.isViewDidLoad
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] data in
+                self?.dailyBoxOfficeList = data
+            }, onError: { [weak self] error in
+                if let error = error as? AppError {
+                    self?.showAlert(title: error.title, message: error.message)
+                }
+                print(error)
+            })
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Action Binding
-
+    
     func bindAction() {
-        backButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
-        }).disposed(by: disposeBag)
+        backButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
