@@ -8,9 +8,9 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-
+    var appCoordinator: AppCoordinator?
+    
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -18,15 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        
-        let loginViewModel = DefaultLoginViewModel()
-        let loginViewController = LoginViewController(viewModel: loginViewModel)
-        let navigationController = UINavigationController(
-            rootViewController: loginViewController
-        )
-        
+        let navigationController = UINavigationController()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        
+        appCoordinator = AppCoordinator(navigationController)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {}

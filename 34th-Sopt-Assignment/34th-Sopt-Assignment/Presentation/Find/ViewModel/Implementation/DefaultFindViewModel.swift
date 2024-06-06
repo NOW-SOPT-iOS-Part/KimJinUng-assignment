@@ -10,11 +10,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-final class DefaultFindViewModel: FindViewModel {
-    
-    // MARK: - Output
-    
-    private(set) lazy var isViewDidLoad: Observable<[DailyBoxOfficeList]> = setIsViewDidLoad()
+final class DefaultFindViewModel {
     
     // MARK: - Input Relay
     
@@ -29,6 +25,13 @@ final class DefaultFindViewModel: FindViewModel {
     init(boxOfficeService: DefaultNetworkService<BoxOfficeTargetType>) {
         self.boxOfficeService = boxOfficeService
     }
+}
+
+extension DefaultFindViewModel: FindViewModel {
+    
+    // MARK: - Output
+    
+    var isViewDidLoad: Observable<[DailyBoxOfficeList]> { setIsViewDidLoad() }
     
     // MARK: - Input
     

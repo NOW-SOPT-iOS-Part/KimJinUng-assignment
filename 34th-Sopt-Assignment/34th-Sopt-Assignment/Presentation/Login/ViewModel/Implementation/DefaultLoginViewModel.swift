@@ -8,21 +8,24 @@
 import RxSwift
 import RxRelay
 
-final class DefaultLoginViewModel: LoginViewModel {
-    
-    // MARK: - Output
-    
-    private(set) lazy var isLoginEnabled: Observable<Bool> = setIsLoginEnabled()
-    private(set) lazy var isSucceedToLogin: Observable<Result<String, AppError>> = setIsSucceedToLogin()
+final class DefaultLoginViewModel {
     
     // MARK: - Input Relay
-
+    
     private let idTextFieldDidChangeRelay = PublishRelay<String?>()
     private let passwordTextFieldDidChangeRelay = PublishRelay<String?>()
     private let loginButtonDidTapRelay = PublishRelay<Void>()
+}
+
+extension DefaultLoginViewModel: LoginViewModel {
+    
+    // MARK: - Output
+    
+    var isLoginEnabled: Observable<Bool> { setIsLoginEnabled() }
+    var isSucceedToLogin: Observable<Result<String, AppError>> { setIsSucceedToLogin() }
     
     // MARK: - Input
-
+    
     func idTextFieldDidChange(_ text: String?) {
         idTextFieldDidChangeRelay.accept(text)
     }
@@ -42,7 +45,8 @@ extension DefaultLoginViewModel: RegexCheckable {
             .combineLatest(idTextFieldDidChangeRelay, passwordTextFieldDidChangeRelay)
             .map { id, pw in
                 guard let id, !id.isEmpty,
-                      let pw, !pw.isEmpty else {
+                      let pw, !pw.isEmpty
+                else {
                     return false
                 }
                 return true
@@ -51,9 +55,13 @@ extension DefaultLoginViewModel: RegexCheckable {
     
     private func setIsSucceedToLogin() -> Observable<Result<String, AppError>> {
         loginButtonDidTapRelay
-            .withLatestFrom(Observable.combineLatest(idTextFieldDidChangeRelay, passwordTextFieldDidChangeRelay))
-            .flatMap { [weak self] id, pw -> Observable<Result<String, AppError>> in
-                guard let self, let id, let pw else {
+            .withLatestFrom(
+                Observable.combineLatest(idTextFieldDidChangeRelay, passwordTextFieldDidChangeRelay)
+            ).flatMap { [weak self] id, pw -> Observable<Result<String, AppError>> in
+                guard let self,
+                      let id,
+                      let pw
+                else {
                     return .just(.failure(.unknown))
                 }
                 

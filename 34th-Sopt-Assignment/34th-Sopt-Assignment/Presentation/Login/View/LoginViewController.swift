@@ -33,6 +33,8 @@ final class LoginViewController: UIViewController, AlertShowable {
     
     // MARK: - Property
     
+    weak var coordinator: LoginCoordinator?
+    
     private var nickname: String?
     
     private let viewModel: LoginViewModel
@@ -62,7 +64,7 @@ final class LoginViewController: UIViewController, AlertShowable {
         bindViewModel()
         bindAction()
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -71,59 +73,83 @@ final class LoginViewController: UIViewController, AlertShowable {
 private extension LoginViewController {
     
     // MARK: - ViewModel Binding
-
+    
     func bindViewModel() {
-        idTextField.rx.text.subscribe(onNext: { [weak self] text in
-            self?.viewModel.idTextFieldDidChange(text)
-        }).disposed(by: disposeBag)
+        idTextField.rx.text
+            .subscribe(onNext: { [weak self] text in
+                self?.viewModel.idTextFieldDidChange(text)
+            })
+            .disposed(by: disposeBag)
         
-        pwTextField.rx.text.subscribe(onNext: { [weak self] text in
-            self?.viewModel.passwordTextFieldDidChange(text)
-        }).disposed(by: disposeBag)
+        pwTextField.rx.text
+            .subscribe(onNext: { [weak self] text in
+                self?.viewModel.passwordTextFieldDidChange(text)
+            })
+            .disposed(by: disposeBag)
         
-        loginButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            self?.viewModel.loginButtonDidTap()
-        }).disposed(by: disposeBag)
+        loginButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.loginButtonDidTap()
+            })
+            .disposed(by: disposeBag)
         
-        viewModel.isLoginEnabled.subscribe(onNext: { [weak self] flag in
-            self?.toggleLoginButton(flag)
-        }).disposed(by: disposeBag)
+        viewModel.isLoginEnabled
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] flag in
+                self?.toggleLoginButton(flag)
+            })
+            .disposed(by: disposeBag)
         
-        viewModel.isSucceedToLogin.subscribe(onNext: { [weak self] result in
-            switch result {
-            case .success(let id):
-                self?.moveToWelcome(with: id)
-            case .failure(let error):
-                self?.showAlert(title: error.title, message: error.message)
-            }
-        }).disposed(by: disposeBag)
+        viewModel.isSucceedToLogin
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success(let id):
+                    self?.coordinator?.pushToWelcome(id: id, nickname: self?.nickname)
+                case .failure(let error):
+                    self?.showAlert(title: error.title, message: error.message)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Action Binding
     
     func bindAction() {
-        idClearButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let self else { return }
-            idTextField.text = nil
-            idTextField.insertText("")
-        }).disposed(by: disposeBag)
+        idClearButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                idTextField.text = nil
+                idTextField.insertText("")
+            })
+            .disposed(by: disposeBag)
         
-        pwClearButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let self else { return }
-            pwTextField.text = nil
-            pwTextField.insertText("")
-        }).disposed(by: disposeBag)
+        pwClearButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                pwTextField.text = nil
+                pwTextField.insertText("")
+            })
+            .disposed(by: disposeBag)
         
-        pwShowButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let self else { return }
-            pwTextField.isSecureTextEntry.toggle()
-            let image = UIImage(resource: pwTextField.isSecureTextEntry ? .eyeSlash : .eye)
-            pwShowButton.setImage(image, for: .normal)
-        }).disposed(by: disposeBag)
+        pwShowButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                pwTextField.isSecureTextEntry.toggle()
+                let image = UIImage(resource: pwTextField.isSecureTextEntry ? .eyeSlash : .eye)
+                pwShowButton.setImage(image, for: .normal)
+            })
+            .disposed(by: disposeBag)
         
-        nicknameButton.rx.tap.subscribe(onNext: { [weak self] value in
-            self?.moveToNickname()
-        }).disposed(by: disposeBag)
+        nicknameButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.presentNickname(delegate: self)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -139,24 +165,6 @@ private extension LoginViewController {
         loginButton.backgroundColor = backgroundColor
         loginButton.layer.borderWidth = borderWidth
         loginButton.isEnabled = flag
-    }
-    
-    func moveToWelcome(with id: String) {
-        let viewController = WelcomeViewController(id: id, nickname: nickname)
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    func moveToNickname() {
-        let viewController = MakeNicknameViewController(
-            delegate: self, viewModel: DefaultMakeNicknameViewModel()
-        )
-        viewController.modalPresentationStyle = .formSheet
-        if let sheet = viewController.sheetPresentationController {
-            sheet.detents = [.medium()]
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 24
-        }
-        present(viewController, animated: true)
     }
 }
 

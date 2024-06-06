@@ -15,7 +15,7 @@ import Then
 final class HomeViewController: UIViewController {
     
     // MARK: - Section
-
+    
     enum Section {
         case main([Program])
         case recommend([Program])
@@ -41,6 +41,8 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Property
     
+    weak var coordinator: HomeCoordinator?
+    
     private var segmentViews: [UIView] {
         [homeCollectionView, realTimeView, tvProgramView, movieView, paramountView]
     }
@@ -50,7 +52,7 @@ final class HomeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
-
+    
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -81,33 +83,28 @@ final class HomeViewController: UIViewController {
 private extension HomeViewController {
     
     // MARK: - ViewModel Binding
-
+    
     func bindViewModel() {
-        viewModel.isViewDidLoad.subscribe(onNext: { [weak self] data in
-            self?.sectionData = data
-        }).disposed(by: disposeBag)
+        viewModel.isViewDidLoad
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] data in
+                self?.sectionData = data
+            })
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Action Binding
-
+    
     func bindAction() {
-        segmentedControl.rx.selectedSegmentIndex.subscribe(onNext: { [weak self] index in
-            guard let self else { return }
-            for i in 0..<segmentViews.count {
-                segmentViews[i].isHidden = i != index
-            }
-        }).disposed(by: disposeBag)
-    }
-}
-
-// MARK: - Private Method
-
-private extension HomeViewController {
-    func moveToFind() {
-        let boxOfficeService = DefaultNetworkService<BoxOfficeTargetType>()
-        let findViewModel = DefaultFindViewModel(boxOfficeService: boxOfficeService)
-        let findViewController = FindViewController(viewModel: findViewModel)
-        navigationController?.pushViewController(findViewController, animated: true)
+        segmentedControl.rx.selectedSegmentIndex
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self else { return }
+                for i in 0..<segmentViews.count {
+                    segmentViews[i].isHidden = i != index
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -413,9 +410,9 @@ private extension HomeViewController {
     }
     
     // MARK: - Action
-
+    
     @objc
     private func findButtonTapped(_ sender: UIBarButtonItem) {
-        moveToFind()
+        coordinator?.pushToFind()
     }
 }

@@ -8,20 +8,23 @@
 import RxSwift
 import RxRelay
 
-final class DefaultMakeNicknameViewModel: MakeNicknameViewModel {
-    
-    // MARK: - Output
-
-    private(set) lazy var isSaveEnabled: Observable<Bool> = setIsSaveEnabled()
-    private(set) lazy var isSucceedToSave: Observable<Result<String, AppError>> = setIsSucceedToSave()
+final class DefaultMakeNicknameViewModel {
     
     // MARK: - Input Relay
 
     private let nicknameTextFieldRelay = PublishRelay<String?>()
     private let saveButtonRelay = PublishRelay<Void>()
+}
 
+extension DefaultMakeNicknameViewModel: MakeNicknameViewModel {
+    
+    // MARK: - Output
+    
+    var isSaveEnabled: Observable<Bool> { setIsSaveEnabled() }
+    var isSucceedToSave: Observable<Result<String, AppError>> { setIsSucceedToSave() }
+    
     // MARK: - Input
-
+    
     func nicknameTextFieldDidChange(_ text: String?) {
         nicknameTextFieldRelay.accept(text)
     }

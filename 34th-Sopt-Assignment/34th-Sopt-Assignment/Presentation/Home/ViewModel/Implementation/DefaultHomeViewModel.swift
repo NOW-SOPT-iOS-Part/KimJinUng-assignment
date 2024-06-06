@@ -8,18 +8,21 @@
 import RxSwift
 import RxRelay
 
-final class DefaultHomeViewModel: HomeViewModel {
-    
-    // MARK: - Output
-
-    private(set) lazy var isViewDidLoad: Observable<[HomeViewController.Section]> = setIsViewDidLoad()
+final class DefaultHomeViewModel {
     
     // MARK: - Input Relay
 
     private let viewDidLoadRelay = PublishRelay<Void>()
+}
+
+extension DefaultHomeViewModel: HomeViewModel {
+    
+    // MARK: - Output
+    
+    var isViewDidLoad: Observable<[HomeViewController.Section]> { setIsViewDidLoad() }
     
     // MARK: - Input
-
+    
     func viewDidLoad() {
         viewDidLoadRelay.accept(())
     }

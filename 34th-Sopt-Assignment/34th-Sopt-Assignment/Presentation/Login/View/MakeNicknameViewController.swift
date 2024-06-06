@@ -32,7 +32,7 @@ final class MakeNicknameViewController: UIViewController, AlertShowable {
     private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
-
+    
     init(delegate: MakeNicknameViewDelegate?, viewModel: MakeNicknameViewModel) {
         self.delegate = delegate
         self.viewModel = viewModel
@@ -65,27 +65,37 @@ private extension MakeNicknameViewController {
     // MARK: - ViewModel Binding
     
     func bindViewModel() {
-        nicknameTextField.rx.text.subscribe(onNext: { [weak self] text in
-            self?.viewModel.nicknameTextFieldDidChange(text)
-        }).disposed(by: disposeBag)
+        nicknameTextField.rx.text
+            .subscribe(onNext: { [weak self] text in
+                self?.viewModel.nicknameTextFieldDidChange(text)
+            })
+            .disposed(by: disposeBag)
         
-        saveButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            self?.viewModel.saveButtonDidTap()
-        }).disposed(by: disposeBag)
+        saveButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.saveButtonDidTap()
+            })
+            .disposed(by: disposeBag)
         
-        viewModel.isSaveEnabled.subscribe(onNext: { [weak self] flag in
-            self?.toggleSaveButton(flag)
-        }).disposed(by: disposeBag)
+        viewModel.isSaveEnabled
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] flag in
+                self?.toggleSaveButton(flag)
+            })
+            .disposed(by: disposeBag)
         
-        viewModel.isSucceedToSave.subscribe(onNext: { [weak self] result in
-            switch result {
-            case .success(let nickname):
-                self?.delegate?.configure(nickname: nickname)
-                self?.dismiss(animated: true)
-            case .failure(let error):
-                self?.showAlert(title: error.title, message: error.message)
-            }
-        }).disposed(by: disposeBag)
+        viewModel.isSucceedToSave
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success(let nickname):
+                    self?.delegate?.configure(nickname: nickname)
+                    self?.dismiss(animated: true)
+                case .failure(let error):
+                    self?.showAlert(title: error.title, message: error.message)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 

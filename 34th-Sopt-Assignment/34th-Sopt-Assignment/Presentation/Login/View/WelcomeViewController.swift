@@ -22,6 +22,8 @@ final class WelcomeViewController: UIViewController {
     
     // MARK: - Property
     
+    weak var coordinator: LoginCoordinator?
+    
     private let id: String
     private let nickname: String?
     private let disposeBag = DisposeBag()
@@ -54,13 +56,14 @@ final class WelcomeViewController: UIViewController {
 private extension WelcomeViewController {
     
     // MARK: - Binding Action
-
+    
     func bindAction() {
-        mainButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let self else { return }
-            view.window?.rootViewController = TvingTabBarController()
-            view.window?.makeKeyAndVisible()
-        }).disposed(by: disposeBag)
+        mainButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.finishLoginFlow()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
