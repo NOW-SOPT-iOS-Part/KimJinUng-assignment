@@ -22,6 +22,8 @@ final class WelcomeViewController: UIViewController {
     
     // MARK: - Property
     
+    weak var coordinator: LoginCoordinator?
+    
     private let id: String
     private let nickname: String?
     private let disposeBag = DisposeBag()
@@ -59,9 +61,7 @@ private extension WelcomeViewController {
         mainButton.rx.tap
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
-                guard let self else { return }
-                view.window?.rootViewController = TvingTabBarController()
-                view.window?.makeKeyAndVisible()
+                self?.coordinator?.moveToMain()
             })
             .disposed(by: disposeBag)
     }

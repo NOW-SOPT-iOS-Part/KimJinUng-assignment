@@ -33,6 +33,8 @@ final class LoginViewController: UIViewController, AlertShowable {
     
     // MARK: - Property
     
+    weak var coordinator: LoginCoordinator?
+    
     private var nickname: String?
     
     private let viewModel: LoginViewModel
@@ -103,7 +105,7 @@ private extension LoginViewController {
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .success(let id):
-                    self?.moveToWelcome(with: id)
+                    self?.coordinator?.moveToWelcome(id: id, nickname: self?.nickname)
                 case .failure(let error):
                     self?.showAlert(title: error.title, message: error.message)
                 }
@@ -144,8 +146,8 @@ private extension LoginViewController {
         
         nicknameButton.rx.tap
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] value in
-                self?.moveToNickname()
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.moveToNickname(delegate: self)
             })
             .disposed(by: disposeBag)
     }
@@ -163,24 +165,6 @@ private extension LoginViewController {
         loginButton.backgroundColor = backgroundColor
         loginButton.layer.borderWidth = borderWidth
         loginButton.isEnabled = flag
-    }
-    
-    func moveToWelcome(with id: String) {
-        let viewController = WelcomeViewController(id: id, nickname: nickname)
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    func moveToNickname() {
-        let viewController = MakeNicknameViewController(
-            delegate: self, viewModel: DefaultMakeNicknameViewModel()
-        )
-        viewController.modalPresentationStyle = .formSheet
-        if let sheet = viewController.sheetPresentationController {
-            sheet.detents = [.medium()]
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 24
-        }
-        present(viewController, animated: true)
     }
 }
 
