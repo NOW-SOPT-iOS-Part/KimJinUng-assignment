@@ -41,6 +41,8 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Property
     
+    weak var coordinator: HomeCoordinator?
+    
     private var segmentViews: [UIView] {
         [homeCollectionView, realTimeView, tvProgramView, movieView, paramountView]
     }
@@ -103,17 +105,6 @@ private extension HomeViewController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - Private Method
-
-private extension HomeViewController {
-    func moveToFind() {
-        let boxOfficeService = DefaultNetworkService<BoxOfficeTargetType>()
-        let findViewModel = DefaultFindViewModel(boxOfficeService: boxOfficeService)
-        let findViewController = FindViewController(viewModel: findViewModel)
-        navigationController?.pushViewController(findViewController, animated: true)
     }
 }
 
@@ -422,6 +413,6 @@ private extension HomeViewController {
     
     @objc
     private func findButtonTapped(_ sender: UIBarButtonItem) {
-        moveToFind()
+        coordinator?.pushToFind()
     }
 }

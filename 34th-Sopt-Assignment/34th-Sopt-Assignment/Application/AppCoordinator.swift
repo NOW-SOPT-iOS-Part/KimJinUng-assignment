@@ -18,12 +18,13 @@ final class AppCoordinator: Coordinator {
     
     init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
+        navigationController.navigationBar.isHidden = true
         
         start()
     }
     
     func start() {
-        isLoginSucceed ? startMain() : startLogin()
+        isLoginSucceed ? startMainFlow() : startLoginFlow()
     }
 }
 
@@ -39,15 +40,14 @@ extension AppCoordinator {
 }
 
 private extension AppCoordinator {
-    func startLogin() {
+    func startLoginFlow() {
         let coordinator = LoginCoordinator(navigationController: navigationController)
         coordinator.parentCoordinator = self
         childCoordinators.append(coordinator)
     }
     
-    func startMain() {
-        
-        // TODO: - 탭바 컨트롤러 실행하기
-        
+    func startMainFlow() {
+        let coordinator = TvingTabBarCoordinator(navigationController: navigationController)
+        childCoordinators.append(coordinator)
     }
 }

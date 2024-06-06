@@ -61,7 +61,7 @@ private extension WelcomeViewController {
         mainButton.rx.tap
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.moveToMain()
+                self?.coordinator?.finishLoginFlow()
             })
             .disposed(by: disposeBag)
     }

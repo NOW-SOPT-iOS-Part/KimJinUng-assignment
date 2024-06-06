@@ -11,20 +11,22 @@ import Then
 
 final class TvingTabBarController: UITabBarController {
     
+    // MARK: - Initializer
+    
+    init(viewControllers: [UIViewController]) {
+        super.init(nibName: nil, bundle: nil)
+        
+        configureViewControllers(viewControllers)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-    }
-}
-
-private extension TvingTabBarController {
-    
-    // MARK: - SetUI
-    
-    private func setUI() {
-        navigationController?.navigationBar.isHidden = true
         
         tabBar.do {
             $0.backgroundColor = .black
@@ -32,7 +34,11 @@ private extension TvingTabBarController {
             $0.tintColor = .white
             $0.barTintColor = .black
         }
-        
+    }
+}
+
+private extension TvingTabBarController {
+    func configureViewControllers(_ viewControllers: [UIViewController]) {
         let tabBarItems: [(title: String, image: UIImage?, tag: Int)] = [
             ("홈", UIImage(systemName: "house.fill"), 0),
             ("공개예정", UIImage(systemName: "play.tv.fill"), 1),
@@ -40,18 +46,12 @@ private extension TvingTabBarController {
             ("기록", UIImage(systemName: "stopwatch.fill"), 3)
         ]
         
-        let rootViewControllers = [
-            HomeViewController(viewModel: DefaultHomeViewModel()),
-            ComingSoonViewController(),
-            SearchViewController(),
-            HistoryViewController()
-        ]
-        
-        viewControllers = zip(rootViewControllers, tabBarItems).map { viewController, tabBarItemInfo in
-            let (title, image, tag) = tabBarItemInfo
-            let tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
-            viewController.tabBarItem = tabBarItem
-            return UINavigationController(rootViewController: viewController)
-        }
+        self.viewControllers = zip(viewControllers, tabBarItems)
+            .map { viewController, tabBarItemInfo in
+                let (title, image, tag) = tabBarItemInfo
+                let tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
+                viewController.tabBarItem = tabBarItem
+                return viewController
+            }
     }
 }

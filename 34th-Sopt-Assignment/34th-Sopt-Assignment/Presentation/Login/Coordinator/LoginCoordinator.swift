@@ -21,12 +21,15 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        showLogin()
+        let viewModel = DefaultLoginViewModel()
+        let viewController = LoginViewController(viewModel: viewModel)
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: false)
     }
 }
 
 extension LoginCoordinator {
-    func moveToNickname(delegate: MakeNicknameViewDelegate?) {
+    func presentNickname(delegate: MakeNicknameViewDelegate?) {
         let viewController = MakeNicknameViewController(
             delegate: delegate, viewModel: DefaultMakeNicknameViewModel()
         )
@@ -39,22 +42,14 @@ extension LoginCoordinator {
         navigationController.present(viewController, animated: true)
     }
     
-    func moveToWelcome(id: String, nickname: String?) {
+    func pushToWelcome(id: String, nickname: String?) {
         let viewController = WelcomeViewController(id: id, nickname: nickname)
+        viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func moveToMain() {
-        parentCoordinator?.didFinish(self)
+    func finishLoginFlow() {
         parentCoordinator?.isLoginSucceed = true
-    }
-}
-
-private extension LoginCoordinator {
-    func showLogin() {
-        let viewModel = DefaultLoginViewModel()
-        let viewController = LoginViewController(viewModel: viewModel)
-        viewController.coordinator = self
-        navigationController.pushViewController(viewController, animated: false)
+        parentCoordinator?.didFinish(self)
     }
 }

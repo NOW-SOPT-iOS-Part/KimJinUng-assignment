@@ -105,7 +105,7 @@ private extension LoginViewController {
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .success(let id):
-                    self?.coordinator?.moveToWelcome(id: id, nickname: self?.nickname)
+                    self?.coordinator?.pushToWelcome(id: id, nickname: self?.nickname)
                 case .failure(let error):
                     self?.showAlert(title: error.title, message: error.message)
                 }
@@ -147,7 +147,7 @@ private extension LoginViewController {
         nicknameButton.rx.tap
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.moveToNickname(delegate: self)
+                self?.coordinator?.presentNickname(delegate: self)
             })
             .disposed(by: disposeBag)
     }
