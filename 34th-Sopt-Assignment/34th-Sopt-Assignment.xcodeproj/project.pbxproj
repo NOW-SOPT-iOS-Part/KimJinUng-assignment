@@ -12,8 +12,6 @@
 		DE19548E2BCD644B00070C12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19548D2BCD644B00070C12 /* SceneDelegate.swift */; };
 		DE1954902BCD644B00070C12 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19548F2BCD644B00070C12 /* LoginViewController.swift */; };
 		DE1954A42BCD6A8100070C12 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DE1954A32BCD6A8100070C12 /* Then */; };
-		DE1954A72BCD6A8D00070C12 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE1954A62BCD6A8D00070C12 /* SnapKit */; };
-		DE1954A92BCD6A8D00070C12 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = DE1954A82BCD6A8D00070C12 /* SnapKit-Dynamic */; };
 		DE1954C22BCD735800070C12 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1954C12BCD735800070C12 /* UIFont+.swift */; };
 		DE1954C42BCD737D00070C12 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1954C32BCD737D00070C12 /* UITextField+.swift */; };
 		DE1954C62BCD73B600070C12 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1954C52BCD73B600070C12 /* UIView+.swift */; };
@@ -28,6 +26,7 @@
 		DE4640382BD7844D00FC13D8 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE46402F2BD7844D00FC13D8 /* Pretendard-Bold.otf */; };
 		DE4640392BD7844D00FC13D8 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE4640302BD7844D00FC13D8 /* Pretendard-Thin.otf */; };
 		DE46403C2BD7AD6000FC13D8 /* TvingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46403B2BD7AD6000FC13D8 /* TvingTextField.swift */; };
+		DE6093B12C18A03E00447EA4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE6093B02C18A03E00447EA4 /* SnapKit */; };
 		DE81F4542C02D37800DA4804 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DE81F4532C02D37800DA4804 /* RxCocoa */; };
 		DE81F4562C02D37800DA4804 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = DE81F4552C02D37800DA4804 /* RxRelay */; };
 		DE81F45D2C02D8AD00DA4804 /* DefaultLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45C2C02D8AD00DA4804 /* DefaultLoginViewModel.swift */; };
@@ -173,12 +172,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE81F4562C02D37800DA4804 /* RxRelay in Frameworks */,
+				DE6093B12C18A03E00447EA4 /* SnapKit in Frameworks */,
 				DE1954A42BCD6A8100070C12 /* Then in Frameworks */,
-				DE1954A72BCD6A8D00070C12 /* SnapKit in Frameworks */,
 				DEA1AF8B2BEDFE3D00BDB474 /* CombineMoya in Frameworks */,
 				DEA1AF8D2BEDFE3D00BDB474 /* Moya in Frameworks */,
 				DEA1AF912BEDFE3D00BDB474 /* RxMoya in Frameworks */,
-				DE1954A92BCD6A8D00070C12 /* SnapKit-Dynamic in Frameworks */,
 				DE81F4542C02D37800DA4804 /* RxCocoa in Frameworks */,
 				DEA1AF8F2BEDFE3D00BDB474 /* ReactiveMoya in Frameworks */,
 			);
@@ -646,14 +644,13 @@
 			name = "34th-Sopt-Assignment";
 			packageProductDependencies = (
 				DE1954A32BCD6A8100070C12 /* Then */,
-				DE1954A62BCD6A8D00070C12 /* SnapKit */,
-				DE1954A82BCD6A8D00070C12 /* SnapKit-Dynamic */,
 				DEA1AF8A2BEDFE3D00BDB474 /* CombineMoya */,
 				DEA1AF8C2BEDFE3D00BDB474 /* Moya */,
 				DEA1AF8E2BEDFE3D00BDB474 /* ReactiveMoya */,
 				DEA1AF902BEDFE3D00BDB474 /* RxMoya */,
 				DE81F4532C02D37800DA4804 /* RxCocoa */,
 				DE81F4552C02D37800DA4804 /* RxRelay */,
+				DE6093B02C18A03E00447EA4 /* SnapKit */,
 			);
 			productName = "34th-Sopt-Assignment";
 			productReference = DE1954882BCD644B00070C12 /* 34th-Sopt-Assignment.app */;
@@ -685,9 +682,9 @@
 			mainGroup = DE19547F2BCD644B00070C12;
 			packageReferences = (
 				DE1954A22BCD6A8100070C12 /* XCRemoteSwiftPackageReference "Then" */,
-				DE1954A52BCD6A8D00070C12 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				DEA1AF892BEDFE3C00BDB474 /* XCRemoteSwiftPackageReference "Moya" */,
 				DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				DE6093AF2C18A03E00447EA4 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = DE1954892BCD644B00070C12 /* Products */;
 			projectDirPath = "";
@@ -1019,7 +1016,7 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		DE1954A52BCD6A8D00070C12 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		DE6093AF2C18A03E00447EA4 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -1051,15 +1048,10 @@
 			package = DE1954A22BCD6A8100070C12 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
 		};
-		DE1954A62BCD6A8D00070C12 /* SnapKit */ = {
+		DE6093B02C18A03E00447EA4 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DE1954A52BCD6A8D00070C12 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = DE6093AF2C18A03E00447EA4 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		DE1954A82BCD6A8D00070C12 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE1954A52BCD6A8D00070C12 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 		DE81F4532C02D37800DA4804 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
