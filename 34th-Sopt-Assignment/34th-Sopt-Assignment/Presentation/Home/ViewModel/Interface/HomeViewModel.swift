@@ -6,13 +6,14 @@
 //
 
 import RxSwift
+import RxCocoa
 
 protocol HomeViewModelInput {
     func viewDidLoad()
 }
 
 protocol HomeViewModelOutput {
-    var isViewDidLoad: Observable<[HomeViewController.Section]> { get }
+    var isViewDidLoad: Driver<[HomeViewController.Section]> { get }
 }
 
 typealias HomeViewModel = HomeViewModelInput & HomeViewModelOutput

@@ -6,6 +6,7 @@
 //
 
 import RxSwift
+import RxCocoa
 
 protocol LoginViewModelInput {
     func idTextFieldDidChange(_ text: String?)
@@ -14,8 +15,8 @@ protocol LoginViewModelInput {
 }
 
 protocol LoginViewModelOutput {
-    var isLoginEnabled: Observable<Bool> { get }
-    var isSucceedToLogin: Observable<Result<String, AppError>> { get }
+    var isLoginEnabled: Driver<Bool> { get }
+    var isSucceedToLogin: Driver<Result<String, AppError>> { get }
 }
 
 typealias LoginViewModel = LoginViewModelInput & LoginViewModelOutput

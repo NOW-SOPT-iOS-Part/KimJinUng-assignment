@@ -6,6 +6,7 @@
 //
 
 import RxSwift
+import RxCocoa
 
 protocol MakeNicknameViewModelInput {
     func nicknameTextFieldDidChange(_ text: String?)
@@ -13,8 +14,8 @@ protocol MakeNicknameViewModelInput {
 }
 
 protocol MakeNicknameViewModelOutput {
-    var isSaveEnabled: Observable<Bool> { get }
-    var isSucceedToSave: Observable<Result<String, AppError>> { get }
+    var isSaveEnabled: Driver<Bool> { get }
+    var isSucceedToSave: Driver<Result<String, AppError>> { get }
 }
 
 typealias MakeNicknameViewModel = MakeNicknameViewModelInput & MakeNicknameViewModelOutput

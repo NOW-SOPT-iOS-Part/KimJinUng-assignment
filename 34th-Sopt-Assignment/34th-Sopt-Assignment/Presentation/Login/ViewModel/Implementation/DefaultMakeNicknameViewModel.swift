@@ -6,7 +6,7 @@
 //
 
 import RxSwift
-import RxRelay
+import RxCocoa
 
 final class DefaultMakeNicknameViewModel {
     
@@ -20,23 +20,8 @@ extension DefaultMakeNicknameViewModel: MakeNicknameViewModel {
     
     // MARK: - Output
     
-    var isSaveEnabled: Observable<Bool> { setIsSaveEnabled() }
-    var isSucceedToSave: Observable<Result<String, AppError>> { setIsSucceedToSave() }
-    
-    // MARK: - Input
-    
-    func nicknameTextFieldDidChange(_ text: String?) {
-        nicknameTextFieldRelay.accept(text)
-    }
-    
-    func saveButtonDidTap() {
-        saveButtonRelay.accept(())
-    }
-}
-
-extension DefaultMakeNicknameViewModel: RegexCheckable {
-    private func setIsSaveEnabled() -> Observable<Bool> {
-        return nicknameTextFieldRelay.map { value in
+    var isSaveEnabled: Driver<Bool> {
+        nicknameTextFieldRelay.map { value in
             guard let nickname = value,
                   !nickname.isEmpty
             else {
@@ -44,10 +29,11 @@ extension DefaultMakeNicknameViewModel: RegexCheckable {
             }
             return true
         }
+        .asDriver(onErrorJustReturn: false)
     }
     
-    private func setIsSucceedToSave() -> Observable<Result<String, AppError>> {
-        return saveButtonRelay
+    var isSucceedToSave: Driver<Result<String, AppError>> {
+        saveButtonRelay
             .withLatestFrom(nicknameTextFieldRelay)
             .flatMap { [weak self] nickname -> Observable<Result<String, AppError>> in
                 guard let self,
@@ -62,5 +48,18 @@ extension DefaultMakeNicknameViewModel: RegexCheckable {
                 
                 return .just(.success(nickname))
             }
+            .asDriver(onErrorJustReturn: .failure(.unknown))
+    }
+    
+    // MARK: - Input
+    
+    func nicknameTextFieldDidChange(_ text: String?) {
+        nicknameTextFieldRelay.accept(text)
+    }
+    
+    func saveButtonDidTap() {
+        saveButtonRelay.accept(())
     }
 }
+
+extension DefaultMakeNicknameViewModel: RegexCheckable {}

@@ -86,24 +86,22 @@ private extension HomeViewController {
     
     func bindViewModel() {
         viewModel.isViewDidLoad
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] data in
-                self?.sectionData = data
-            })
-            .disposed(by: disposeBag)
+            .drive(with: self) { owner, data in
+                owner.sectionData = data
+            }
+            .dispose()
     }
     
     // MARK: - Action Binding
     
     func bindAction() {
         segmentedControl.rx.selectedSegmentIndex
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] index in
-                guard let self else { return }
-                for i in 0..<segmentViews.count {
-                    segmentViews[i].isHidden = i != index
+            .asDriver()
+            .drive(with: self) { owner, index in
+                for i in 0..<owner.segmentViews.count {
+                    owner.segmentViews[i].isHidden = i != index
                 }
-            })
+            }
             .disposed(by: disposeBag)
     }
 }

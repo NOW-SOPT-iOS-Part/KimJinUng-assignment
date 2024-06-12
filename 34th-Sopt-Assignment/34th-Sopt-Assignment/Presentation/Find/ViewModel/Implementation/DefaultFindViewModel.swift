@@ -31,27 +31,29 @@ extension DefaultFindViewModel: FindViewModel {
     
     // MARK: - Output
     
-    var isViewDidLoad: Observable<[DailyBoxOfficeList]> { setIsViewDidLoad() }
-    
-    // MARK: - Input
-    
-    func viewDidLoad() {
-        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
-        viewDidLoadRelay.accept(yesterday.toString(with: .yyyyMMdd))
-    }
-}
-
-private extension DefaultFindViewModel {
-    func setIsViewDidLoad() -> Observable<[DailyBoxOfficeList]> {
-        return viewDidLoadRelay
+    var isViewDidLoad: Observable<[DailyBoxOfficeList]> {
+        viewDidLoadRelay
             .flatMap { [weak self] dateString -> Observable<[DailyBoxOfficeList]> in
                 guard let self else { return .error(AppError.unknown) }
                 return createObservableForDate(dateString)
             }
     }
     
+    // MARK: - Input
+    
+    func viewDidLoad() {
+        guard let yesterday = Calendar.current.date(
+            byAdding: .day,
+            value: -1,
+            to: Date()
+        ) else { return }
+        viewDidLoadRelay.accept(yesterday.toString(with: .yyyyMMdd))
+    }
+}
+
+private extension DefaultFindViewModel {
     func createObservableForDate(_ dateString: String) -> Observable<[DailyBoxOfficeList]> {
-        return Observable.create { [weak self] observer in
+        Observable.create { [weak self] observer in
             self?.boxOfficeService.request(
                 for: .dailyBoxOffice(date: dateString),
                 completion: { result in

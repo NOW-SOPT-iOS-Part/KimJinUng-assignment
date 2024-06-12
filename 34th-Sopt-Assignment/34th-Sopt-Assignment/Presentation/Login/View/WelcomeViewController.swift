@@ -59,10 +59,10 @@ private extension WelcomeViewController {
     
     func bindAction() {
         mainButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.finishLoginFlow()
-            })
+            .asDriver()
+            .drive(with: self) { owner, _ in
+                owner.coordinator?.finishLoginFlow()
+            }
             .disposed(by: disposeBag)
     }
 }

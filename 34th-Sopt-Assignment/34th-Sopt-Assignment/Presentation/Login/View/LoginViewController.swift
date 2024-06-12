@@ -94,22 +94,20 @@ private extension LoginViewController {
             .disposed(by: disposeBag)
         
         viewModel.isLoginEnabled
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] flag in
-                self?.toggleLoginButton(flag)
-            })
+            .drive(with: self) { owner, flag in
+                owner.toggleLoginButton(flag)
+            }
             .disposed(by: disposeBag)
         
         viewModel.isSucceedToLogin
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] result in
+            .drive(with: self) { owner, result in
                 switch result {
                 case .success(let id):
-                    self?.coordinator?.pushToWelcome(id: id, nickname: self?.nickname)
+                    owner.coordinator?.pushToWelcome(id: id, nickname: owner.nickname)
                 case .failure(let error):
-                    self?.showAlert(title: error.title, message: error.message)
+                    owner.showAlert(title: error.title, message: error.message)
                 }
-            })
+            }
             .disposed(by: disposeBag)
     }
     
@@ -117,38 +115,36 @@ private extension LoginViewController {
     
     func bindAction() {
         idClearButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self else { return }
-                idTextField.text = nil
-                idTextField.insertText("")
-            })
+            .asDriver()
+            .drive(with: self) { owner, _ in
+                owner.idTextField.text = nil
+                owner.idTextField.insertText("")
+            }
             .disposed(by: disposeBag)
         
         pwClearButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self else { return }
-                pwTextField.text = nil
-                pwTextField.insertText("")
-            })
+            .asDriver()
+            .drive(with: self) { owner, _ in
+                owner.pwTextField.text = nil
+                owner.pwTextField.insertText("")
+            }
             .disposed(by: disposeBag)
         
         pwShowButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                guard let self else { return }
-                pwTextField.isSecureTextEntry.toggle()
-                let image = UIImage(resource: pwTextField.isSecureTextEntry ? .eyeSlash : .eye)
-                pwShowButton.setImage(image, for: .normal)
-            })
+            .asDriver()
+            .drive(with: self) { owner, _ in
+                owner.pwTextField.isSecureTextEntry.toggle()
+                owner.pwShowButton.setImage(
+                    owner.pwTextField.isSecureTextEntry ? .eyeSlash : .eye , for: .normal
+                )
+            }
             .disposed(by: disposeBag)
         
         nicknameButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.presentNickname(delegate: self)
-            })
+            .asDriver()
+            .drive(with: self) { owner, _ in
+                owner.coordinator?.presentNickname(delegate: owner)
+            }
             .disposed(by: disposeBag)
     }
 }

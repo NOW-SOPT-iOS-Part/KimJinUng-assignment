@@ -6,12 +6,12 @@
 //
 
 import RxSwift
-import RxRelay
+import RxCocoa
 
 final class DefaultHomeViewModel {
     
     // MARK: - Input Relay
-
+    
     private let viewDidLoadRelay = PublishRelay<Void>()
 }
 
@@ -19,18 +19,8 @@ extension DefaultHomeViewModel: HomeViewModel {
     
     // MARK: - Output
     
-    var isViewDidLoad: Observable<[HomeViewController.Section]> { setIsViewDidLoad() }
-    
-    // MARK: - Input
-    
-    func viewDidLoad() {
-        viewDidLoadRelay.accept(())
-    }
-}
-
-private extension DefaultHomeViewModel {
-    func setIsViewDidLoad() -> Observable<[HomeViewController.Section]> {
-        return viewDidLoadRelay
+    var isViewDidLoad: Driver<[HomeViewController.Section]> {
+        viewDidLoadRelay
             .flatMap { _ -> Observable<[HomeViewController.Section]> in
                 let mockData: [HomeViewController.Section] = [
                     .main(Program.main),
@@ -40,6 +30,13 @@ private extension DefaultHomeViewModel {
                     .paramounts(Program.paramounts)
                 ]
                 return .just(mockData)
-        }
+            }
+            .asDriver(onErrorJustReturn: [])
+    }
+    
+    // MARK: - Input
+    
+    func viewDidLoad() {
+        viewDidLoadRelay.accept(())
     }
 }

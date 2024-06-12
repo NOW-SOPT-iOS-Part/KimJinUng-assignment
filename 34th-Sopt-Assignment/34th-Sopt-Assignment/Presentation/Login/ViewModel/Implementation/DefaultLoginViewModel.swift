@@ -6,7 +6,7 @@
 //
 
 import RxSwift
-import RxRelay
+import RxCocoa
 
 final class DefaultLoginViewModel {
     
@@ -21,27 +21,8 @@ extension DefaultLoginViewModel: LoginViewModel {
     
     // MARK: - Output
     
-    var isLoginEnabled: Observable<Bool> { setIsLoginEnabled() }
-    var isSucceedToLogin: Observable<Result<String, AppError>> { setIsSucceedToLogin() }
-    
-    // MARK: - Input
-    
-    func idTextFieldDidChange(_ text: String?) {
-        idTextFieldDidChangeRelay.accept(text)
-    }
-    
-    func passwordTextFieldDidChange(_ text: String?) {
-        passwordTextFieldDidChangeRelay.accept(text)
-    }
-    
-    func loginButtonDidTap() {
-        loginButtonDidTapRelay.accept(())
-    }
-}
-
-extension DefaultLoginViewModel: RegexCheckable {
-    private func setIsLoginEnabled() -> Observable<Bool> {
-        return Observable
+    var isLoginEnabled: Driver<Bool> {
+        Observable
             .combineLatest(idTextFieldDidChangeRelay, passwordTextFieldDidChangeRelay)
             .map { id, pw in
                 guard let id, !id.isEmpty,
@@ -51,12 +32,15 @@ extension DefaultLoginViewModel: RegexCheckable {
                 }
                 return true
             }
+            .asDriver(onErrorJustReturn: false)
     }
     
-    private func setIsSucceedToLogin() -> Observable<Result<String, AppError>> {
+    var isSucceedToLogin: Driver<Result<String, AppError>> {
         loginButtonDidTapRelay
             .withLatestFrom(
-                Observable.combineLatest(idTextFieldDidChangeRelay, passwordTextFieldDidChangeRelay)
+                Observable.combineLatest(
+                    idTextFieldDidChangeRelay, passwordTextFieldDidChangeRelay
+                )
             ).flatMap { [weak self] id, pw -> Observable<Result<String, AppError>> in
                 guard let self,
                       let id,
@@ -75,5 +59,22 @@ extension DefaultLoginViewModel: RegexCheckable {
                 
                 return .just(.success(id))
             }
+            .asDriver(onErrorJustReturn: .failure(.unknown))
+    }
+    
+    // MARK: - Input
+    
+    func idTextFieldDidChange(_ text: String?) {
+        idTextFieldDidChangeRelay.accept(text)
+    }
+    
+    func passwordTextFieldDidChange(_ text: String?) {
+        passwordTextFieldDidChangeRelay.accept(text)
+    }
+    
+    func loginButtonDidTap() {
+        loginButtonDidTapRelay.accept(())
     }
 }
+
+extension DefaultLoginViewModel: RegexCheckable {}

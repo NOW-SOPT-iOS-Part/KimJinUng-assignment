@@ -66,7 +66,7 @@ private extension FindViewController {
     
     func bindViewModel() {
         viewModel.isViewDidLoad
-            .observe(on: MainScheduler.instance)
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] data in
                 self?.dailyBoxOfficeList = data
             }, onError: { [weak self] error in
@@ -82,10 +82,10 @@ private extension FindViewController {
     
     func bindAction() {
         backButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            })
+            .asDriver()
+            .drive(with: self) { owner, _ in
+                owner.navigationController?.popViewController(animated: true)
+            }
             .disposed(by: disposeBag)
     }
 }

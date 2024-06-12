@@ -78,23 +78,21 @@ private extension MakeNicknameViewController {
             .disposed(by: disposeBag)
         
         viewModel.isSaveEnabled
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] flag in
-                self?.toggleSaveButton(flag)
-            })
+            .drive(with: self) { owner, flag in
+                owner.toggleSaveButton(flag)
+            }
             .disposed(by: disposeBag)
         
         viewModel.isSucceedToSave
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] result in
+            .drive(with: self) { owner, result in
                 switch result {
                 case .success(let nickname):
-                    self?.delegate?.configure(nickname: nickname)
-                    self?.dismiss(animated: true)
+                    owner.delegate?.configure(nickname: nickname)
+                    owner.dismiss(animated: true)
                 case .failure(let error):
-                    self?.showAlert(title: error.title, message: error.message)
+                    owner.showAlert(title: error.title, message: error.message)
                 }
-            })
+            }
             .disposed(by: disposeBag)
     }
 }
