@@ -56,7 +56,10 @@ final class MainCell: UICollectionViewCell, ReuseIdentifiable {
 // MARK: - UICollectionViewDataSource
 
 extension MainCell: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         guard let data else { return 0 }
         return data.count
     }

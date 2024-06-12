@@ -105,7 +105,10 @@ extension FindViewController: UITableViewDataSource {
         return dailyBoxOfficeList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: BoxOfficeCell.reuseIdentifier,
             for: indexPath
@@ -126,11 +129,18 @@ private extension FindViewController {
         
         backButton.setImage(UIImage(resource: .btnBefore), for: .normal)
         
-        titleLabel.setText("일일 박스오피스 순위", color: .white, font: .pretendard(.semiBold, size: 15))
+        titleLabel.setText(
+            "일일 박스오피스 순위",
+            color: .white,
+            font: .pretendard(.semiBold, size: 15)
+        )
         
         boxOfficeListView.do {
             $0.backgroundColor = .black
-            $0.register(BoxOfficeCell.self, forCellReuseIdentifier: BoxOfficeCell.reuseIdentifier)
+            $0.register(
+                BoxOfficeCell.self,
+                forCellReuseIdentifier: BoxOfficeCell.reuseIdentifier
+            )
         }
     }
     

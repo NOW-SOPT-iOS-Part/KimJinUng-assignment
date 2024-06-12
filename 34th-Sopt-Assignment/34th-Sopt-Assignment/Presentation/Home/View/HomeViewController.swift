@@ -115,11 +115,15 @@ extension HomeViewController: UICollectionViewDataSource {
         return sectionData.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         switch sectionData[section] {
         case .main:
             return 1
-        case .recommend(let data), .paramounts(let data), .mostViewed(let data), .longLogo(let data):
+        case .recommend(let data), .paramounts(let data),
+                .mostViewed(let data), .longLogo(let data):
             return data.count
         }
     }
@@ -320,13 +324,22 @@ private extension HomeViewController {
             $0.showsHorizontalScrollIndicator = false
             $0.showsVerticalScrollIndicator = false
             $0.contentInsetAdjustmentBehavior = .never
-            $0.register(MainCell.self, forCellWithReuseIdentifier: MainCell.reuseIdentifier)
+            $0.register(
+                MainCell.self,
+                forCellWithReuseIdentifier: MainCell.reuseIdentifier
+            )
             $0.register(
                 ImageAndTitleCell.self,
                 forCellWithReuseIdentifier: ImageAndTitleCell.reuseIdentifier
             )
-            $0.register(MostCell.self, forCellWithReuseIdentifier: MostCell.reuseIdentifier)
-            $0.register(LongLogoCell.self, forCellWithReuseIdentifier: LongLogoCell.reuseIdentifier)
+            $0.register(
+                MostCell.self,
+                forCellWithReuseIdentifier: MostCell.reuseIdentifier
+            )
+            $0.register(
+                LongLogoCell.self, 
+                forCellWithReuseIdentifier: LongLogoCell.reuseIdentifier
+            )
             $0.register(
                 SectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,

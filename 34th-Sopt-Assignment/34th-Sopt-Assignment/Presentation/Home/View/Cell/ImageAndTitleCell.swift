@@ -45,9 +45,11 @@ private extension ImageAndTitleCell {
             $0.layer.cornerRadius = 3
         }
         
-        titleLabel.do {
-            $0.setText("", color: .grayFrom(hex: .scale_9C9C9C), font: .pretendard(.medium, size: 10))
-        }
+        titleLabel.setText(
+            "",
+            color: .grayFrom(hex: .scale_9C9C9C),
+            font: .pretendard(.medium, size: 10)
+        )
     }
     
     func setViewHierarchy() {

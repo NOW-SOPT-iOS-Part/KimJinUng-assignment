@@ -128,7 +128,11 @@ private extension MakeNicknameViewController {
         )
         
         saveButton.do {
-            $0.setTitle(title: "저장하기", titleColor: .gray2, font: .pretendard(.semiBold, size: 14))
+            $0.setTitle(
+                title: "저장하기",
+                titleColor: .gray2,
+                font: .pretendard(.semiBold, size: 14)
+            )
             $0.setLayer(borderWidth: 1, cornerRadius: 12)
             $0.isEnabled = false
             $0.backgroundColor = .black

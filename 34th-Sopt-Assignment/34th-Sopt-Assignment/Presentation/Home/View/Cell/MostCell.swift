@@ -61,7 +61,11 @@ private extension MostCell {
         channelLabel.setText("", color: .white, font: .pretendard(.regular, size: 10))
         
         [titleLabel, ratingLabel].forEach {
-            $0.setText("", color: .grayFrom(hex: .scale_9C9C9C), font: .pretendard(.regular, size: 10))
+            $0.setText(
+                "",
+                color: .grayFrom(hex: .scale_9C9C9C),
+                font: .pretendard(.regular, size: 10)
+            )
         }
     }
     
