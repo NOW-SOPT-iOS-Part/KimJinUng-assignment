@@ -27,18 +27,19 @@
 		DE4640392BD7844D00FC13D8 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE4640302BD7844D00FC13D8 /* Pretendard-Thin.otf */; };
 		DE46403C2BD7AD6000FC13D8 /* TvingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46403B2BD7AD6000FC13D8 /* TvingTextField.swift */; };
 		DE6093B12C18A03E00447EA4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE6093B02C18A03E00447EA4 /* SnapKit */; };
+		DE6A2E6F2C1ED2E3004DA3BB /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A2E6E2C1ED2E3004DA3BB /* ViewModelType.swift */; };
+		DE7FFCB52C1F3C1100C73CDE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FFCB42C1F3C1100C73CDE /* LoginView.swift */; };
+		DE7FFCB72C1F421100C73CDE /* MakeNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */; };
 		DE81F4542C02D37800DA4804 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DE81F4532C02D37800DA4804 /* RxCocoa */; };
 		DE81F4562C02D37800DA4804 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = DE81F4552C02D37800DA4804 /* RxRelay */; };
-		DE81F45D2C02D8AD00DA4804 /* DefaultLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45C2C02D8AD00DA4804 /* DefaultLoginViewModel.swift */; };
-		DE81F4602C03178600DA4804 /* DefaultMakeNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45F2C03178600DA4804 /* DefaultMakeNicknameViewModel.swift */; };
+		DE81F45D2C02D8AD00DA4804 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */; };
+		DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */; };
 		DE81F4622C034AED00DA4804 /* DefaultHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4612C034AED00DA4804 /* DefaultHomeViewModel.swift */; };
 		DE81F4642C03727200DA4804 /* DefaultFindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4632C03727200DA4804 /* DefaultFindViewModel.swift */; };
 		DE9912FD2C0BB753002A73CB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9912FC2C0BB753002A73CB /* Coordinator.swift */; };
 		DE9912FF2C0BB7A5002A73CB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9912FE2C0BB7A5002A73CB /* AppCoordinator.swift */; };
 		DE9913042C0BB906002A73CB /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9913032C0BB906002A73CB /* LoginCoordinator.swift */; };
 		DE9BA3492C06401D00C8D6EB /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA3482C06401D00C8D6EB /* Date+.swift */; };
-		DE9BA34C2C06577700C8D6EB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA34B2C06577700C8D6EB /* LoginViewModel.swift */; };
-		DE9BA3502C0659AE00C8D6EB /* MakeNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA34F2C0659AE00C8D6EB /* MakeNicknameViewModel.swift */; };
 		DE9BA3542C065F0F00C8D6EB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA3532C065F0F00C8D6EB /* HomeViewModel.swift */; };
 		DE9BA3582C065FDE00C8D6EB /* FindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA3572C065FDE00C8D6EB /* FindViewModel.swift */; };
 		DE9F2C052BD00E0B00E3189D /* MakeNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */; };
@@ -109,16 +110,17 @@
 		DE46402F2BD7844D00FC13D8 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "34th-Sopt-Assignment/Resources/Font/Pretendard-Bold.otf"; sourceTree = SOURCE_ROOT; };
 		DE4640302BD7844D00FC13D8 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Thin.otf"; path = "34th-Sopt-Assignment/Resources/Font/Pretendard-Thin.otf"; sourceTree = SOURCE_ROOT; };
 		DE46403B2BD7AD6000FC13D8 /* TvingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvingTextField.swift; sourceTree = "<group>"; };
-		DE81F45C2C02D8AD00DA4804 /* DefaultLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLoginViewModel.swift; sourceTree = "<group>"; };
-		DE81F45F2C03178600DA4804 /* DefaultMakeNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMakeNicknameViewModel.swift; sourceTree = "<group>"; };
+		DE6A2E6E2C1ED2E3004DA3BB /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		DE7FFCB42C1F3C1100C73CDE /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameView.swift; sourceTree = "<group>"; };
+		DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewModel.swift; sourceTree = "<group>"; };
 		DE81F4612C034AED00DA4804 /* DefaultHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeViewModel.swift; sourceTree = "<group>"; };
 		DE81F4632C03727200DA4804 /* DefaultFindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFindViewModel.swift; sourceTree = "<group>"; };
 		DE9912FC2C0BB753002A73CB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DE9912FE2C0BB7A5002A73CB /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DE9913032C0BB906002A73CB /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		DE9BA3482C06401D00C8D6EB /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
-		DE9BA34B2C06577700C8D6EB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		DE9BA34F2C0659AE00C8D6EB /* MakeNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewModel.swift; sourceTree = "<group>"; };
 		DE9BA3532C065F0F00C8D6EB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		DE9BA3572C065FDE00C8D6EB /* FindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewModel.swift; sourceTree = "<group>"; };
 		DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewController.swift; sourceTree = "<group>"; };
@@ -330,12 +332,21 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
-		DE81F4572C02D49500DA4804 /* View */ = {
+		DE7FFCB32C1F36B100C73CDE /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				DE19548F2BCD644B00070C12 /* LoginViewController.swift */,
 				DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DE81F4572C02D49500DA4804 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				DE9F2C172BD0314C00E3189D /* WelcomeViewController.swift */,
+				DE7FFCB42C1F3C1100C73CDE /* LoginView.swift */,
+				DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -343,8 +354,8 @@
 		DE81F4582C02D49D00DA4804 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				DE9BA34A2C06576B00C8D6EB /* Interface */,
-				DE9BA34E2C06579600C8D6EB /* Implementation */,
+				DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */,
+				DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -353,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				DE9912FC2C0BB753002A73CB /* Coordinator.swift */,
+				DE6A2E6E2C1ED2E3004DA3BB /* ViewModelType.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -363,24 +375,6 @@
 				DE9913032C0BB906002A73CB /* LoginCoordinator.swift */,
 			);
 			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		DE9BA34A2C06576B00C8D6EB /* Interface */ = {
-			isa = PBXGroup;
-			children = (
-				DE9BA34B2C06577700C8D6EB /* LoginViewModel.swift */,
-				DE9BA34F2C0659AE00C8D6EB /* MakeNicknameViewModel.swift */,
-			);
-			path = Interface;
-			sourceTree = "<group>";
-		};
-		DE9BA34E2C06579600C8D6EB /* Implementation */ = {
-			isa = PBXGroup;
-			children = (
-				DE81F45C2C02D8AD00DA4804 /* DefaultLoginViewModel.swift */,
-				DE81F45F2C03178600DA4804 /* DefaultMakeNicknameViewModel.swift */,
-			);
-			path = Implementation;
 			sourceTree = "<group>";
 		};
 		DE9BA3512C065C0000C8D6EB /* Interface */ = {
@@ -420,6 +414,7 @@
 			children = (
 				DE9913022C0BB8FC002A73CB /* Coordinator */,
 				DE81F4582C02D49D00DA4804 /* ViewModel */,
+				DE7FFCB32C1F36B100C73CDE /* ViewController */,
 				DE81F4572C02D49500DA4804 /* View */,
 			);
 			path = Login;
@@ -723,7 +718,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE9BA3502C0659AE00C8D6EB /* MakeNicknameViewModel.swift in Sources */,
 				DE1954C62BCD73B600070C12 /* UIView+.swift in Sources */,
 				DEE84F462BDFBBA0006605CB /* HistoryViewController.swift in Sources */,
 				DE9BA3582C065FDE00C8D6EB /* FindViewModel.swift in Sources */,
@@ -731,6 +725,7 @@
 				DED033B32C1217C0006C53EC /* HomeCoordinator.swift in Sources */,
 				DED033B72C121ACA006C53EC /* SearchCoordinator.swift in Sources */,
 				DEA1AF962BEDFED900BDB474 /* BoxOfficeTargetType.swift in Sources */,
+				DE6A2E6F2C1ED2E3004DA3BB /* ViewModelType.swift in Sources */,
 				DE9913042C0BB906002A73CB /* LoginCoordinator.swift in Sources */,
 				DE1954C42BCD737D00070C12 /* UITextField+.swift in Sources */,
 				DEF003372BE06F1E00EF73F8 /* MostCell.swift in Sources */,
@@ -750,24 +745,25 @@
 				DEA1AFA12BEE05CF00BDB474 /* DefaultNetworkService.swift in Sources */,
 				DED033B92C121AE4006C53EC /* HistoryCoordinator.swift in Sources */,
 				DE13EF722C0777E3008C6DDA /* NetworkService.swift in Sources */,
-				DE9BA34C2C06577700C8D6EB /* LoginViewModel.swift in Sources */,
-				DE81F45D2C02D8AD00DA4804 /* DefaultLoginViewModel.swift in Sources */,
+				DE81F45D2C02D8AD00DA4804 /* LoginViewModel.swift in Sources */,
 				DE9F2C1A2BD039E500E3189D /* UILabel+.swift in Sources */,
 				DE1954C22BCD735800070C12 /* UIFont+.swift in Sources */,
 				DEA1AF7E2BEDFA7E00BDB474 /* Bundle+.swift in Sources */,
 				DE9912FD2C0BB753002A73CB /* Coordinator.swift in Sources */,
 				DEE84F4A2BDFBDF0006605CB /* UnderlineSegmentedControl.swift in Sources */,
 				DEF0032C2BE044C100EF73F8 /* SectionHeaderView.swift in Sources */,
-				DE81F4602C03178600DA4804 /* DefaultMakeNicknameViewModel.swift in Sources */,
+				DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */,
 				DEA1AF782BEDEA0300BDB474 /* BoxOfficeCell.swift in Sources */,
 				DE81F4642C03727200DA4804 /* DefaultFindViewModel.swift in Sources */,
 				DE81F4622C034AED00DA4804 /* DefaultHomeViewModel.swift in Sources */,
 				DEE84F442BDFBB73006605CB /* SearchViewController.swift in Sources */,
 				DEF003392BE0718500EF73F8 /* UIStackView+.swift in Sources */,
+				DE7FFCB52C1F3C1100C73CDE /* LoginView.swift in Sources */,
 				DEF0032F2BE0488300EF73F8 /* MainCell.swift in Sources */,
 				DED033B52C1219D3006C53EC /* ComingSoonCoordinator.swift in Sources */,
 				DE46403C2BD7AD6000FC13D8 /* TvingTextField.swift in Sources */,
 				DEA1AF932BEDFE7400BDB474 /* MoyaLoggingPlugin.swift in Sources */,
+				DE7FFCB72C1F421100C73CDE /* MakeNicknameView.swift in Sources */,
 				DEA1AF7A2BEDF40300BDB474 /* DailyBoxOffice.swift in Sources */,
 				DEE84F422BDFBB51006605CB /* ComingSoonViewController.swift in Sources */,
 				DE9BA3492C06401D00C8D6EB /* Date+.swift in Sources */,

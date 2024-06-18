@@ -21,7 +21,7 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = DefaultLoginViewModel()
+        let viewModel = LoginViewModel()
         let viewController = LoginViewController(viewModel: viewModel)
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: false)
@@ -31,7 +31,7 @@ final class LoginCoordinator: Coordinator {
 extension LoginCoordinator {
     func presentNickname(delegate: MakeNicknameViewDelegate?) {
         let viewController = MakeNicknameViewController(
-            delegate: delegate, viewModel: DefaultMakeNicknameViewModel()
+            delegate: delegate, viewModel: MakeNicknameViewModel()
         )
         viewController.modalPresentationStyle = .formSheet
         if let sheet = viewController.sheetPresentationController {
