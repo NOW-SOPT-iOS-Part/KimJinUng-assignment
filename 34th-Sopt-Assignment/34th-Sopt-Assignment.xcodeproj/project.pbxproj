@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE09FD652C21D7C100B553A3 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DE09FD642C21D7C100B553A3 /* RxCocoa */; };
+		DE09FD672C21D7C100B553A3 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = DE09FD662C21D7C100B553A3 /* RxRelay */; };
+		DE09FD6A2C21D80A00B553A3 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = DE09FD692C21D80A00B553A3 /* Differentiator */; };
+		DE09FD6C2C21D80A00B553A3 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = DE09FD6B2C21D80A00B553A3 /* RxDataSources */; };
+		DE09FD6E2C21E68200B553A3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09FD6D2C21E68200B553A3 /* HomeView.swift */; };
 		DE13EF722C0777E3008C6DDA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE13EF712C0777E3008C6DDA /* NetworkService.swift */; };
 		DE19548C2BCD644B00070C12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19548B2BCD644B00070C12 /* AppDelegate.swift */; };
 		DE19548E2BCD644B00070C12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19548D2BCD644B00070C12 /* SceneDelegate.swift */; };
@@ -30,17 +35,14 @@
 		DE6A2E6F2C1ED2E3004DA3BB /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A2E6E2C1ED2E3004DA3BB /* ViewModelType.swift */; };
 		DE7FFCB52C1F3C1100C73CDE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FFCB42C1F3C1100C73CDE /* LoginView.swift */; };
 		DE7FFCB72C1F421100C73CDE /* MakeNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */; };
-		DE81F4542C02D37800DA4804 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DE81F4532C02D37800DA4804 /* RxCocoa */; };
-		DE81F4562C02D37800DA4804 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = DE81F4552C02D37800DA4804 /* RxRelay */; };
 		DE81F45D2C02D8AD00DA4804 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */; };
 		DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */; };
-		DE81F4622C034AED00DA4804 /* DefaultHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4612C034AED00DA4804 /* DefaultHomeViewModel.swift */; };
+		DE81F4622C034AED00DA4804 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4612C034AED00DA4804 /* HomeViewModel.swift */; };
 		DE81F4642C03727200DA4804 /* DefaultFindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4632C03727200DA4804 /* DefaultFindViewModel.swift */; };
 		DE9912FD2C0BB753002A73CB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9912FC2C0BB753002A73CB /* Coordinator.swift */; };
 		DE9912FF2C0BB7A5002A73CB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9912FE2C0BB7A5002A73CB /* AppCoordinator.swift */; };
 		DE9913042C0BB906002A73CB /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9913032C0BB906002A73CB /* LoginCoordinator.swift */; };
 		DE9BA3492C06401D00C8D6EB /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA3482C06401D00C8D6EB /* Date+.swift */; };
-		DE9BA3542C065F0F00C8D6EB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA3532C065F0F00C8D6EB /* HomeViewModel.swift */; };
 		DE9BA3582C065FDE00C8D6EB /* FindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA3572C065FDE00C8D6EB /* FindViewModel.swift */; };
 		DE9F2C052BD00E0B00E3189D /* MakeNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */; };
 		DE9F2C082BD0115E00E3189D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C072BD0115E00E3189D /* Constants.swift */; };
@@ -91,6 +93,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE09FD6D2C21E68200B553A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DE13EF712C0777E3008C6DDA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		DE1954882BCD644B00070C12 /* 34th-Sopt-Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "34th-Sopt-Assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE19548B2BCD644B00070C12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,13 +118,12 @@
 		DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameView.swift; sourceTree = "<group>"; };
 		DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewModel.swift; sourceTree = "<group>"; };
-		DE81F4612C034AED00DA4804 /* DefaultHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeViewModel.swift; sourceTree = "<group>"; };
+		DE81F4612C034AED00DA4804 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		DE81F4632C03727200DA4804 /* DefaultFindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFindViewModel.swift; sourceTree = "<group>"; };
 		DE9912FC2C0BB753002A73CB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DE9912FE2C0BB7A5002A73CB /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DE9913032C0BB906002A73CB /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		DE9BA3482C06401D00C8D6EB /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
-		DE9BA3532C065F0F00C8D6EB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		DE9BA3572C065FDE00C8D6EB /* FindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewModel.swift; sourceTree = "<group>"; };
 		DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewController.swift; sourceTree = "<group>"; };
 		DE9F2C072BD0115E00E3189D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -173,13 +175,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE81F4562C02D37800DA4804 /* RxRelay in Frameworks */,
 				DE6093B12C18A03E00447EA4 /* SnapKit in Frameworks */,
 				DE1954A42BCD6A8100070C12 /* Then in Frameworks */,
 				DEA1AF8B2BEDFE3D00BDB474 /* CombineMoya in Frameworks */,
+				DE09FD6C2C21D80A00B553A3 /* RxDataSources in Frameworks */,
+				DE09FD652C21D7C100B553A3 /* RxCocoa in Frameworks */,
 				DEA1AF8D2BEDFE3D00BDB474 /* Moya in Frameworks */,
 				DEA1AF912BEDFE3D00BDB474 /* RxMoya in Frameworks */,
-				DE81F4542C02D37800DA4804 /* RxCocoa in Frameworks */,
+				DE09FD672C21D7C100B553A3 /* RxRelay in Frameworks */,
+				DE09FD6A2C21D80A00B553A3 /* Differentiator in Frameworks */,
 				DEA1AF8F2BEDFE3D00BDB474 /* ReactiveMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +191,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE09FD6F2C21E7F700B553A3 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DEE84F3B2BDF6F48006605CB /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		DE13EF6F2C077789008C6DDA /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,22 +389,6 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		DE9BA3512C065C0000C8D6EB /* Interface */ = {
-			isa = PBXGroup;
-			children = (
-				DE9BA3532C065F0F00C8D6EB /* HomeViewModel.swift */,
-			);
-			path = Interface;
-			sourceTree = "<group>";
-		};
-		DE9BA3522C065C0800C8D6EB /* Implementation */ = {
-			isa = PBXGroup;
-			children = (
-				DE81F4612C034AED00DA4804 /* DefaultHomeViewModel.swift */,
-			);
-			path = Implementation;
-			sourceTree = "<group>";
-		};
 		DE9BA3552C065FC600C8D6EB /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,6 +537,7 @@
 				DED033B12C1217B6006C53EC /* Coordinator */,
 				DEF003282BE0411F00EF73F8 /* Model */,
 				DEE84F482BDFBDCF006605CB /* ViewModel */,
+				DE09FD6F2C21E7F700B553A3 /* ViewController */,
 				DEE84F472BDFBDC8006605CB /* View */,
 			);
 			path = Home;
@@ -585,7 +582,7 @@
 		DEE84F472BDFBDC8006605CB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DEE84F3B2BDF6F48006605CB /* HomeViewController.swift */,
+				DE09FD6D2C21E68200B553A3 /* HomeView.swift */,
 				DEE84F492BDFBDF0006605CB /* UnderlineSegmentedControl.swift */,
 				DEF0032B2BE044C100EF73F8 /* SectionHeaderView.swift */,
 				DEF0032D2BE0487B00EF73F8 /* Cell */,
@@ -596,8 +593,7 @@
 		DEE84F482BDFBDCF006605CB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				DE9BA3512C065C0000C8D6EB /* Interface */,
-				DE9BA3522C065C0800C8D6EB /* Implementation */,
+				DE81F4612C034AED00DA4804 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -643,9 +639,11 @@
 				DEA1AF8C2BEDFE3D00BDB474 /* Moya */,
 				DEA1AF8E2BEDFE3D00BDB474 /* ReactiveMoya */,
 				DEA1AF902BEDFE3D00BDB474 /* RxMoya */,
-				DE81F4532C02D37800DA4804 /* RxCocoa */,
-				DE81F4552C02D37800DA4804 /* RxRelay */,
 				DE6093B02C18A03E00447EA4 /* SnapKit */,
+				DE09FD642C21D7C100B553A3 /* RxCocoa */,
+				DE09FD662C21D7C100B553A3 /* RxRelay */,
+				DE09FD692C21D80A00B553A3 /* Differentiator */,
+				DE09FD6B2C21D80A00B553A3 /* RxDataSources */,
 			);
 			productName = "34th-Sopt-Assignment";
 			productReference = DE1954882BCD644B00070C12 /* 34th-Sopt-Assignment.app */;
@@ -678,8 +676,9 @@
 			packageReferences = (
 				DE1954A22BCD6A8100070C12 /* XCRemoteSwiftPackageReference "Then" */,
 				DEA1AF892BEDFE3C00BDB474 /* XCRemoteSwiftPackageReference "Moya" */,
-				DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				DE6093AF2C18A03E00447EA4 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				DE09FD632C21D7C100B553A3 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				DE09FD682C21D80A00B553A3 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = DE1954892BCD644B00070C12 /* Products */;
 			projectDirPath = "";
@@ -721,7 +720,6 @@
 				DE1954C62BCD73B600070C12 /* UIView+.swift in Sources */,
 				DEE84F462BDFBBA0006605CB /* HistoryViewController.swift in Sources */,
 				DE9BA3582C065FDE00C8D6EB /* FindViewModel.swift in Sources */,
-				DE9BA3542C065F0F00C8D6EB /* HomeViewModel.swift in Sources */,
 				DED033B32C1217C0006C53EC /* HomeCoordinator.swift in Sources */,
 				DED033B72C121ACA006C53EC /* SearchCoordinator.swift in Sources */,
 				DEA1AF962BEDFED900BDB474 /* BoxOfficeTargetType.swift in Sources */,
@@ -752,10 +750,11 @@
 				DE9912FD2C0BB753002A73CB /* Coordinator.swift in Sources */,
 				DEE84F4A2BDFBDF0006605CB /* UnderlineSegmentedControl.swift in Sources */,
 				DEF0032C2BE044C100EF73F8 /* SectionHeaderView.swift in Sources */,
+				DE09FD6E2C21E68200B553A3 /* HomeView.swift in Sources */,
 				DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */,
 				DEA1AF782BEDEA0300BDB474 /* BoxOfficeCell.swift in Sources */,
 				DE81F4642C03727200DA4804 /* DefaultFindViewModel.swift in Sources */,
-				DE81F4622C034AED00DA4804 /* DefaultHomeViewModel.swift in Sources */,
+				DE81F4622C034AED00DA4804 /* HomeViewModel.swift in Sources */,
 				DEE84F442BDFBB73006605CB /* SearchViewController.swift in Sources */,
 				DEF003392BE0718500EF73F8 /* UIStackView+.swift in Sources */,
 				DE7FFCB52C1F3C1100C73CDE /* LoginView.swift in Sources */,
@@ -1004,6 +1003,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DE09FD632C21D7C100B553A3 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
+		DE09FD682C21D80A00B553A3 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
 		DE1954A22BCD6A8100070C12 /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
@@ -1020,14 +1035,6 @@
 				minimumVersion = 5.7.1;
 			};
 		};
-		DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.7.1;
-			};
-		};
 		DEA1AF892BEDFE3C00BDB474 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
@@ -1039,6 +1046,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DE09FD642C21D7C100B553A3 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE09FD632C21D7C100B553A3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		DE09FD662C21D7C100B553A3 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE09FD632C21D7C100B553A3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		DE09FD692C21D80A00B553A3 /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE09FD682C21D80A00B553A3 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		DE09FD6B2C21D80A00B553A3 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE09FD682C21D80A00B553A3 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
 		DE1954A32BCD6A8100070C12 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DE1954A22BCD6A8100070C12 /* XCRemoteSwiftPackageReference "Then" */;
@@ -1048,16 +1075,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DE6093AF2C18A03E00447EA4 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		DE81F4532C02D37800DA4804 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		DE81F4552C02D37800DA4804 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE81F4522C02D37800DA4804 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
 		};
 		DEA1AF8A2BEDFE3D00BDB474 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;

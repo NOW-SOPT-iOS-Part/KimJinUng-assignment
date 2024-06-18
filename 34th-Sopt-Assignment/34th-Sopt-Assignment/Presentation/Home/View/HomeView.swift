@@ -1,8 +1,8 @@
 //
-//  HomeViewController.swift
+//  HomeView.swift
 //  34th-Sopt-Assignment
 //
-//  Created by 김진웅 on 4/29/24.
+//  Created by 김진웅 on 6/19/24.
 //
 
 import UIKit
@@ -12,27 +12,18 @@ import RxSwift
 import SnapKit
 import Then
 
-final class HomeViewController: UIViewController {
+final class HomeView: UIView {
     
-    // MARK: - Section
+    // MARK: - Component
     
-    enum Section {
-        case main([Program])
-        case recommend([Program])
-        case mostViewed([Program])
-        case paramounts([Program])
-        case longLogo([Program])
-    }
-    
-    // MARK: - UIComponent
+    lazy var homeCollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: configureCompositionalLayout()
+    )
     
     private let topBackgroundView = UIView(backgroundColor: .clear)
     private let segmentedControl = UnderlineSegmentedControl(
         items: ["홈", "실시간", "프로그램", "영화", "파라마운트+"]
-    )
-    private lazy var homeCollectionView = UICollectionView(
-        frame: .zero,
-        collectionViewLayout: configureCompositionalLayout()
     )
     private let realTimeView = UIView(backgroundColor: .gray4)
     private let tvProgramView = UIView(backgroundColor: .gray3)
@@ -41,179 +32,55 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Property
     
-    weak var coordinator: HomeCoordinator?
-    
     private var segmentViews: [UIView] {
         [homeCollectionView, realTimeView, tvProgramView, movieView, paramountView]
     }
-    private var sectionData: [Section] = []
-    
-    private let viewModel: HomeViewModel
-    private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
     
-    init(viewModel: HomeViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setUI()
+        setViewHierarchy()
+        setAutoLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - LifeCycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setUI()
-        setNavigationBar()
-        setViewHierarchy()
-        setAutoLayout()
-        setDelegate()
-        
-        bindViewModel()
-        bindAction()
-        
-        viewModel.viewDidLoad()
-    }
-}
-
-private extension HomeViewController {
-    
-    // MARK: - ViewModel Binding
-    
-    func bindViewModel() {
-        viewModel.isViewDidLoad
-            .drive(with: self) { owner, data in
-                owner.sectionData = data
-            }
-            .dispose()
-    }
-    
-    // MARK: - Action Binding
-    
-    func bindAction() {
-        segmentedControl.rx.selectedSegmentIndex
-            .asDriver()
-            .drive(with: self) { owner, index in
-                for i in 0..<owner.segmentViews.count {
-                    owner.segmentViews[i].isHidden = i != index
-                }
-            }
-            .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension HomeViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sectionData.count
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        switch sectionData[section] {
-        case .main:
-            return 1
-        case .recommend(let data), .paramounts(let data),
-                .mostViewed(let data), .longLogo(let data):
-            return data.count
+    func updateSegmentView(_ index: Int) {
+        for (i, view) in segmentViews.enumerated() {
+            view.isHidden = i != index
         }
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        switch sectionData[indexPath.section] {
-        case .main(let programs):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: MainCell.reuseIdentifier,
-                for: indexPath
-            ) as? MainCell else { return UICollectionViewCell() }
-            cell.bind(data: programs)
-            return cell
-            
-        case .mostViewed(let data):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: MostCell.reuseIdentifier,
-                for: indexPath
-            ) as? MostCell else { return UICollectionViewCell() }
-            cell.bind(data: data[indexPath.row])
-            return cell
-            
-        case .recommend(let data), .paramounts(let data):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ImageAndTitleCell.reuseIdentifier,
-                for: indexPath
-            ) as? ImageAndTitleCell else { return UICollectionViewCell() }
-            cell.bind(data: data[indexPath.row])
-            return cell
-            
-        case .longLogo(let data):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: LongLogoCell.reuseIdentifier,
-                for: indexPath
-            ) as? LongLogoCell else { return UICollectionViewCell() }
-            cell.bind(image: data[indexPath.row].image)
-            return cell
-        }
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: SectionHeaderView.reuseIdentifier,
-            for: indexPath
-        ) as? SectionHeaderView else { return UICollectionReusableView() }
-        
-        switch sectionData[indexPath.section] {
-        case .mostViewed:
-            headerView.bind(title: "인기 LIVE 채널")
-        case .paramounts:
-            headerView.bind(title: "1회 무료! 파라마운트+ 인기 시리즈")
-        case .recommend:
-            headerView.bind(title: "티빙에서 꼭 봐야하는 콘텐츠")
-        case .main, .longLogo:
-            break
-        }
-        return headerView
+    func updateTopBackgroundColor(_ condition: Bool) {
+        topBackgroundView.backgroundColor = condition ? .clear : .black
     }
 }
 
-// MARK: - UICollectionViewDelegate
-
-extension HomeViewController: UICollectionViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let y = scrollView.bounds.minY
-        navigationController?.setNavigationBarHidden(y <= 0 ? false : true, animated: false)
-        topBackgroundView.backgroundColor = y <= 0 ? .clear : .black
+extension HomeView {
+    var selectedSegmentIndexChanged: Observable<Int> {
+        segmentedControl.rx.selectedSegmentIndex.asObservable()
     }
 }
 
 // MARK: - UICollectionViewCompositionalLayout
 
-private extension HomeViewController {
+private extension HomeView {
     func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { section, _ in
-            switch self.sectionData[section] {
+        return UICollectionViewCompositionalLayout { [weak self] section, _ in
+            switch HomeViewModel.SectionType.allCases[section] {
             case .main:
-                return self.configureMainLayout()
+                return self?.configureMainLayout()
             case .mostViewed:
-                return self.configureMostViewedLayout()
+                return self?.configureMostViewedLayout()
             case .recommend, .paramounts:
-                return self.configureImageAndTitleLayout()
+                return self?.configureImageAndTitleLayout()
             case .longLogo:
-                return self.configureLongLogoLayout()
+                return self?.configureLongLogoLayout()
             }
         }
     }
@@ -310,12 +177,12 @@ private extension HomeViewController {
     }
 }
 
-private extension HomeViewController {
+private extension HomeView {
     
     // MARK: - SetUI
     
     func setUI() {
-        view.backgroundColor = .black
+        backgroundColor = .black
         
         homeCollectionView.do {
             $0.backgroundColor = .black
@@ -335,7 +202,7 @@ private extension HomeViewController {
                 forCellWithReuseIdentifier: MostCell.reuseIdentifier
             )
             $0.register(
-                LongLogoCell.self, 
+                LongLogoCell.self,
                 forCellWithReuseIdentifier: LongLogoCell.reuseIdentifier
             )
             $0.register(
@@ -350,50 +217,20 @@ private extension HomeViewController {
         }
     }
     
-    func setNavigationBar() {
-        let leftButton = UIBarButtonItem(
-            image: UIImage(resource: .tvingTextLogo).withRenderingMode(.alwaysOriginal),
-            style: .plain,
-            target: nil,
-            action: nil
-        ).then {
-            $0.isEnabled = false
-        }
-        
-        let rightButton = UIBarButtonItem(
-            image: UIImage(resource: .profileDoosan).withRenderingMode(.alwaysOriginal),
-            style: .plain,
-            target: nil,
-            action: nil
-        )
-        
-        let findButton = UIBarButtonItem(
-            image: UIImage(systemName: "magnifyingglass")?.withTintColor(.white, renderingMode: .alwaysOriginal),
-            style: .plain,
-            target: self,
-            action: #selector(findButtonTapped)
-        )
-        
-        navigationItem.leftBarButtonItem = leftButton
-        navigationItem.rightBarButtonItems = [rightButton, findButton]
-        
-        navigationController?.hidesBarsOnSwipe = true
-    }
-    
     func setViewHierarchy() {
-        view.addSubviews(
+        addSubviews(
             topBackgroundView, segmentedControl, homeCollectionView, realTimeView,
             tvProgramView, movieView, paramountView
         )
         
-        view.bringSubviewToFront(topBackgroundView)
-        view.bringSubviewToFront(segmentedControl)
+        bringSubviewToFront(topBackgroundView)
+        bringSubviewToFront(segmentedControl)
     }
     
     // MARK: - AutoLayout
     
     func setAutoLayout() {
-        let safeArea = view.safeAreaLayoutGuide
+        let safeArea = safeAreaLayoutGuide
         
         segmentedControl.snp.makeConstraints {
             $0.top.horizontalEdges.equalTo(safeArea)
@@ -411,19 +248,5 @@ private extension HomeViewController {
                 $0.bottom.equalTo(safeArea)
             }
         }
-    }
-    
-    // MARK: - Delegate
-    
-    func setDelegate() {
-        homeCollectionView.delegate = self
-        homeCollectionView.dataSource = self
-    }
-    
-    // MARK: - Action
-    
-    @objc
-    private func findButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.pushToFind()
     }
 }
