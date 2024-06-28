@@ -35,15 +35,15 @@
 		DE6A2E6F2C1ED2E3004DA3BB /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A2E6E2C1ED2E3004DA3BB /* ViewModelType.swift */; };
 		DE7FFCB52C1F3C1100C73CDE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FFCB42C1F3C1100C73CDE /* LoginView.swift */; };
 		DE7FFCB72C1F421100C73CDE /* MakeNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */; };
+		DE8101792C2F0099001F7090 /* FindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8101782C2F0099001F7090 /* FindView.swift */; };
 		DE81F45D2C02D8AD00DA4804 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */; };
 		DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */; };
 		DE81F4622C034AED00DA4804 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4612C034AED00DA4804 /* HomeViewModel.swift */; };
-		DE81F4642C03727200DA4804 /* DefaultFindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4632C03727200DA4804 /* DefaultFindViewModel.swift */; };
+		DE81F4642C03727200DA4804 /* FindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4632C03727200DA4804 /* FindViewModel.swift */; };
 		DE9912FD2C0BB753002A73CB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9912FC2C0BB753002A73CB /* Coordinator.swift */; };
 		DE9912FF2C0BB7A5002A73CB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9912FE2C0BB7A5002A73CB /* AppCoordinator.swift */; };
 		DE9913042C0BB906002A73CB /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9913032C0BB906002A73CB /* LoginCoordinator.swift */; };
 		DE9BA3492C06401D00C8D6EB /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA3482C06401D00C8D6EB /* Date+.swift */; };
-		DE9BA3582C065FDE00C8D6EB /* FindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BA3572C065FDE00C8D6EB /* FindViewModel.swift */; };
 		DE9F2C052BD00E0B00E3189D /* MakeNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */; };
 		DE9F2C082BD0115E00E3189D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C072BD0115E00E3189D /* Constants.swift */; };
 		DE9F2C0A2BD0139400E3189D /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9F2C092BD0139400E3189D /* UIColor+.swift */; };
@@ -116,15 +116,15 @@
 		DE6A2E6E2C1ED2E3004DA3BB /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		DE7FFCB42C1F3C1100C73CDE /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameView.swift; sourceTree = "<group>"; };
+		DE8101782C2F0099001F7090 /* FindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindView.swift; sourceTree = "<group>"; };
 		DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewModel.swift; sourceTree = "<group>"; };
 		DE81F4612C034AED00DA4804 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		DE81F4632C03727200DA4804 /* DefaultFindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFindViewModel.swift; sourceTree = "<group>"; };
+		DE81F4632C03727200DA4804 /* FindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewModel.swift; sourceTree = "<group>"; };
 		DE9912FC2C0BB753002A73CB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DE9912FE2C0BB7A5002A73CB /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DE9913032C0BB906002A73CB /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		DE9BA3482C06401D00C8D6EB /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
-		DE9BA3572C065FDE00C8D6EB /* FindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewModel.swift; sourceTree = "<group>"; };
 		DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewController.swift; sourceTree = "<group>"; };
 		DE9F2C072BD0115E00E3189D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DE9F2C092BD0139400E3189D /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -349,6 +349,15 @@
 			children = (
 				DE19548F2BCD644B00070C12 /* LoginViewController.swift */,
 				DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */,
+				DE9F2C172BD0314C00E3189D /* WelcomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DE8101772C2F007F001F7090 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DEA1AF752BEDD81A00BDB474 /* FindViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -356,7 +365,6 @@
 		DE81F4572C02D49500DA4804 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DE9F2C172BD0314C00E3189D /* WelcomeViewController.swift */,
 				DE7FFCB42C1F3C1100C73CDE /* LoginView.swift */,
 				DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */,
 			);
@@ -387,22 +395,6 @@
 				DE9913032C0BB906002A73CB /* LoginCoordinator.swift */,
 			);
 			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		DE9BA3552C065FC600C8D6EB /* Implementation */ = {
-			isa = PBXGroup;
-			children = (
-				DE81F4632C03727200DA4804 /* DefaultFindViewModel.swift */,
-			);
-			path = Implementation;
-			sourceTree = "<group>";
-		};
-		DE9BA3562C065FCF00C8D6EB /* Interface */ = {
-			isa = PBXGroup;
-			children = (
-				DE9BA3572C065FDE00C8D6EB /* FindViewModel.swift */,
-			);
-			path = Interface;
 			sourceTree = "<group>";
 		};
 		DE9F2C032BD00DEA00E3189D /* Login */ = {
@@ -456,6 +448,7 @@
 			children = (
 				DEA1AF822BEDFD3900BDB474 /* Model */,
 				DEA1AF802BEDFD2900BDB474 /* ViewModel */,
+				DE8101772C2F007F001F7090 /* ViewController */,
 				DEA1AF812BEDFD3500BDB474 /* View */,
 			);
 			path = Find;
@@ -464,8 +457,7 @@
 		DEA1AF802BEDFD2900BDB474 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				DE9BA3562C065FCF00C8D6EB /* Interface */,
-				DE9BA3552C065FC600C8D6EB /* Implementation */,
+				DE81F4632C03727200DA4804 /* FindViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -473,7 +465,7 @@
 		DEA1AF812BEDFD3500BDB474 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DEA1AF752BEDD81A00BDB474 /* FindViewController.swift */,
+				DE8101782C2F0099001F7090 /* FindView.swift */,
 				DEA1AF772BEDEA0300BDB474 /* BoxOfficeCell.swift */,
 			);
 			path = View;
@@ -719,10 +711,10 @@
 			files = (
 				DE1954C62BCD73B600070C12 /* UIView+.swift in Sources */,
 				DEE84F462BDFBBA0006605CB /* HistoryViewController.swift in Sources */,
-				DE9BA3582C065FDE00C8D6EB /* FindViewModel.swift in Sources */,
 				DED033B32C1217C0006C53EC /* HomeCoordinator.swift in Sources */,
 				DED033B72C121ACA006C53EC /* SearchCoordinator.swift in Sources */,
 				DEA1AF962BEDFED900BDB474 /* BoxOfficeTargetType.swift in Sources */,
+				DE8101792C2F0099001F7090 /* FindView.swift in Sources */,
 				DE6A2E6F2C1ED2E3004DA3BB /* ViewModelType.swift in Sources */,
 				DE9913042C0BB906002A73CB /* LoginCoordinator.swift in Sources */,
 				DE1954C42BCD737D00070C12 /* UITextField+.swift in Sources */,
@@ -753,7 +745,7 @@
 				DE09FD6E2C21E68200B553A3 /* HomeView.swift in Sources */,
 				DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */,
 				DEA1AF782BEDEA0300BDB474 /* BoxOfficeCell.swift in Sources */,
-				DE81F4642C03727200DA4804 /* DefaultFindViewModel.swift in Sources */,
+				DE81F4642C03727200DA4804 /* FindViewModel.swift in Sources */,
 				DE81F4622C034AED00DA4804 /* HomeViewModel.swift in Sources */,
 				DEE84F442BDFBB73006605CB /* SearchViewController.swift in Sources */,
 				DEF003392BE0718500EF73F8 /* UIStackView+.swift in Sources */,
