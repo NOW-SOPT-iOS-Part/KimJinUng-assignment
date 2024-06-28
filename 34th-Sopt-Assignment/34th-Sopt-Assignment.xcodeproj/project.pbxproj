@@ -36,6 +36,9 @@
 		DE7FFCB72C1F421100C73CDE /* MakeNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */; };
 		DE8101792C2F0099001F7090 /* FindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8101782C2F0099001F7090 /* FindView.swift */; };
 		DE81017B2C2F0C77001F7090 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81017A2C2F0C77001F7090 /* MovieService.swift */; };
+		DE81017E2C2F20EE001F7090 /* LoginViewModel_ObservablePattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81017D2C2F20EE001F7090 /* LoginViewModel_ObservablePattern.swift */; };
+		DE8101812C2F212F001F7090 /* LoginViewController_ObservablePattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8101802C2F212F001F7090 /* LoginViewController_ObservablePattern.swift */; };
+		DE8101842C2F22EE001F7090 /* ObservablePattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8101832C2F22EE001F7090 /* ObservablePattern.swift */; };
 		DE81F45D2C02D8AD00DA4804 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */; };
 		DE81F4602C03178600DA4804 /* MakeNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */; };
 		DE81F4622C034AED00DA4804 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE81F4612C034AED00DA4804 /* HomeViewModel.swift */; };
@@ -116,6 +119,9 @@
 		DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameView.swift; sourceTree = "<group>"; };
 		DE8101782C2F0099001F7090 /* FindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindView.swift; sourceTree = "<group>"; };
 		DE81017A2C2F0C77001F7090 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
+		DE81017D2C2F20EE001F7090 /* LoginViewModel_ObservablePattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel_ObservablePattern.swift; sourceTree = "<group>"; };
+		DE8101802C2F212F001F7090 /* LoginViewController_ObservablePattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController_ObservablePattern.swift; sourceTree = "<group>"; };
+		DE8101832C2F22EE001F7090 /* ObservablePattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePattern.swift; sourceTree = "<group>"; };
 		DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNicknameViewModel.swift; sourceTree = "<group>"; };
 		DE81F4612C034AED00DA4804 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -290,6 +296,7 @@
 		DE1954BF2BCD734100070C12 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DE8101822C2F22E2001F7090 /* ObservablePattern */,
 				DE9912FB2C0BB748002A73CB /* Interface */,
 				DE9F2C062BD0114300E3189D /* Constants */,
 				DE46403A2BD7AD4500FC13D8 /* Component */,
@@ -331,6 +338,7 @@
 				DE19548F2BCD644B00070C12 /* LoginViewController.swift */,
 				DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */,
 				DE9F2C172BD0314C00E3189D /* WelcomeViewController.swift */,
+				DE81017F2C2F2120001F7090 /* ObservablePattern */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -341,6 +349,30 @@
 				DEA1AF752BEDD81A00BDB474 /* FindViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DE81017C2C2F20C5001F7090 /* ObservablePattern */ = {
+			isa = PBXGroup;
+			children = (
+				DE81017D2C2F20EE001F7090 /* LoginViewModel_ObservablePattern.swift */,
+			);
+			path = ObservablePattern;
+			sourceTree = "<group>";
+		};
+		DE81017F2C2F2120001F7090 /* ObservablePattern */ = {
+			isa = PBXGroup;
+			children = (
+				DE8101802C2F212F001F7090 /* LoginViewController_ObservablePattern.swift */,
+			);
+			path = ObservablePattern;
+			sourceTree = "<group>";
+		};
+		DE8101822C2F22E2001F7090 /* ObservablePattern */ = {
+			isa = PBXGroup;
+			children = (
+				DE8101832C2F22EE001F7090 /* ObservablePattern.swift */,
+			);
+			path = ObservablePattern;
 			sourceTree = "<group>";
 		};
 		DE81F4572C02D49500DA4804 /* View */ = {
@@ -357,6 +389,7 @@
 			children = (
 				DE81F45C2C02D8AD00DA4804 /* LoginViewModel.swift */,
 				DE81F45F2C03178600DA4804 /* MakeNicknameViewModel.swift */,
+				DE81017C2C2F20C5001F7090 /* ObservablePattern */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -735,6 +768,7 @@
 				DE46403C2BD7AD6000FC13D8 /* TvingTextField.swift in Sources */,
 				DEA1AF932BEDFE7400BDB474 /* MoyaLoggingPlugin.swift in Sources */,
 				DE7FFCB72C1F421100C73CDE /* MakeNicknameView.swift in Sources */,
+				DE8101842C2F22EE001F7090 /* ObservablePattern.swift in Sources */,
 				DEA1AF7A2BEDF40300BDB474 /* DailyBoxOffice.swift in Sources */,
 				DEE84F422BDFBB51006605CB /* ComingSoonViewController.swift in Sources */,
 				DE9BA3492C06401D00C8D6EB /* Date+.swift in Sources */,
@@ -742,6 +776,7 @@
 				DE9F2C102BD0235400E3189D /* AlertShowable.swift in Sources */,
 				DE19548E2BCD644B00070C12 /* SceneDelegate.swift in Sources */,
 				DE1954C82BCD7E3A00070C12 /* UIButton+.swift in Sources */,
+				DE81017E2C2F20EE001F7090 /* LoginViewModel_ObservablePattern.swift in Sources */,
 				DEA1AF862BEDFDBB00BDB474 /* Config.swift in Sources */,
 				DE9F2C082BD0115E00E3189D /* Constants.swift in Sources */,
 				DE9F2C0A2BD0139400E3189D /* UIColor+.swift in Sources */,
@@ -749,6 +784,7 @@
 				DE9912FF2C0BB7A5002A73CB /* AppCoordinator.swift in Sources */,
 				DEE84F3C2BDF6F48006605CB /* HomeViewController.swift in Sources */,
 				DEA1AF882BEDFDE000BDB474 /* NetworkResult.swift in Sources */,
+				DE8101812C2F212F001F7090 /* LoginViewController_ObservablePattern.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

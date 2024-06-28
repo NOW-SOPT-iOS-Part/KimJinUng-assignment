@@ -21,8 +21,14 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
+        // RxSwift 코드
         let viewModel = LoginViewModel()
         let viewController = LoginViewController(viewModel: viewModel)
+        
+        // Observable_Pattern 코드
+//        let viewModel = LoginViewModel_ObservablePattern()
+//        let viewController = LoginViewController_ObservablePattern(viewModel: viewModel)
+        
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: false)
     }
