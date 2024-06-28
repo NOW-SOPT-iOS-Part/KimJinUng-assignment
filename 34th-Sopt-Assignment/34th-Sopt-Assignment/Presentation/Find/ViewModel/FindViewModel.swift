@@ -1,5 +1,5 @@
 //
-//  DefaultFindViewModel.swift
+//  FindViewModel.swift
 //  34th-Sopt-Assignment
 //
 //  Created by 김진웅 on 5/26/24.
@@ -8,50 +8,51 @@
 import Foundation
 
 import RxSwift
-import RxRelay
+import RxCocoa
 
-final class DefaultFindViewModel {
-    
-    // MARK: - Input Relay
-    
-    private let viewDidLoadRelay = PublishRelay<String>()
-    
-    // MARK: - Property
-    
+final class FindViewModel {
     private let boxOfficeService: DefaultNetworkService<BoxOfficeTargetType>
     
-    // MARK: - Initializer
+    private let _dailyBoxOfficeList = BehaviorRelay<[DailyBoxOfficeList]>(value: [])
     
     init(boxOfficeService: DefaultNetworkService<BoxOfficeTargetType>) {
         self.boxOfficeService = boxOfficeService
     }
 }
 
-extension DefaultFindViewModel: FindViewModel {
-    
-    // MARK: - Output
-    
-    var isViewDidLoad: Observable<[DailyBoxOfficeList]> {
-        viewDidLoadRelay
-            .flatMap { [weak self] dateString -> Observable<[DailyBoxOfficeList]> in
-                guard let self else { return .error(AppError.unknown) }
-                return createObservableForDate(dateString)
-            }
+extension FindViewModel: ViewModelType {
+    struct Input {
+        let viewDidLoad: Observable<Date>
+        let backButtonDidTap: Observable<Void>
     }
     
-    // MARK: - Input
+    struct Output {
+        let dailyBoxOfficeList: Driver<[DailyBoxOfficeList]>
+        let popViewController: Driver<Void>
+    }
     
-    func viewDidLoad() {
-        guard let yesterday = Calendar.current.date(
-            byAdding: .day,
-            value: -1,
-            to: Date()
-        ) else { return }
-        viewDidLoadRelay.accept(yesterday.toString(with: .yyyyMMdd))
+    func transform(from input: Input, with disposeBag: DisposeBag) -> Output {
+        input.viewDidLoad
+            .flatMap { [weak self] date -> Observable<[DailyBoxOfficeList]> in
+                guard let self else { return .error(AppError.unknown) }
+                return createObservableForDate(date.toString(with: .yyyyMMdd))
+            }
+            .bind(to: _dailyBoxOfficeList)
+            .disposed(by: disposeBag)
+        
+        let popViewController = input.backButtonDidTap
+            .asDriver(onErrorJustReturn: ())
+        
+        let output = Output(
+            dailyBoxOfficeList: _dailyBoxOfficeList.asDriver(),
+            popViewController: popViewController
+        )
+        
+        return output
     }
 }
 
-private extension DefaultFindViewModel {
+private extension FindViewModel {
     func createObservableForDate(_ dateString: String) -> Observable<[DailyBoxOfficeList]> {
         Observable.create { [weak self] observer in
             self?.boxOfficeService.request(
@@ -64,7 +65,10 @@ private extension DefaultFindViewModel {
         }
     }
     
-    func handleResult(_ result: NetworkResult<DailyBoxOffice>, observer: AnyObserver<[DailyBoxOfficeList]>) {
+    func handleResult(
+        _ result: NetworkResult<DailyBoxOffice>,
+        observer: AnyObserver<[DailyBoxOfficeList]>
+    ) {
         switch result {
         case .success(let dailyBoxOffice):
             observer.onNext(dailyBoxOffice.boxOfficeResult.dailyBoxOfficeList)
