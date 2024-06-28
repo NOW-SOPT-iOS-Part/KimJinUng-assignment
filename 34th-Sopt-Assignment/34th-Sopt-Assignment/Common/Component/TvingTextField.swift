@@ -25,7 +25,7 @@ final class TvingTextField: UITextField {
             textColor: .white,
             backgroundColor: .grayFrom(hex: .scale_2E2E2E),
             placeholderColor: .grayFrom(hex: .scale_9C9C9C),
-            font: .pretendard(weight: .six, size: 15)
+            font: .pretendard(.semiBold, size: 15)
         )
         setAutoType()
         setLayer(borderColor: .white)

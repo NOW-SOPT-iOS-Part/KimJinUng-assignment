@@ -46,7 +46,6 @@ private extension HistoryViewController {
     // MARK: - AutoLayout
     
     func setAutoLayout() {
-        let safeArea = view.safeAreaLayoutGuide
         
     }
 }

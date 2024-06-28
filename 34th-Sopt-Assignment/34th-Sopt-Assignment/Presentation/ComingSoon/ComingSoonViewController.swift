@@ -46,7 +46,6 @@ private extension ComingSoonViewController {
     // MARK: - AutoLayout
     
     func setAutoLayout() {
-        let safeArea = view.safeAreaLayoutGuide
         
     }
 }
