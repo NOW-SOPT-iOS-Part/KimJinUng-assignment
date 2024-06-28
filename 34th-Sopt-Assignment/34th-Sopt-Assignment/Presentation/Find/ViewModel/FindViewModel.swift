@@ -11,12 +11,12 @@ import RxSwift
 import RxCocoa
 
 final class FindViewModel {
-    private let boxOfficeService: DefaultNetworkService<BoxOfficeTargetType>
+    private let movieService: MovieServiceType
     
     private let _dailyBoxOfficeList = BehaviorRelay<[DailyBoxOfficeList]>(value: [])
     
-    init(boxOfficeService: DefaultNetworkService<BoxOfficeTargetType>) {
-        self.boxOfficeService = boxOfficeService
+    init(movieService: MovieServiceType) {
+        self.movieService = movieService
     }
 }
 
@@ -34,8 +34,14 @@ extension FindViewModel: ViewModelType {
     func transform(from input: Input, with disposeBag: DisposeBag) -> Output {
         input.viewDidLoad
             .flatMap { [weak self] date -> Observable<[DailyBoxOfficeList]> in
-                guard let self else { return .error(AppError.unknown) }
-                return createObservableForDate(date.toString(with: .yyyyMMdd))
+                let dateString = date.toString(with: .yyyyMMdd)
+                guard let result = self?.movieService.fetchDailyBoxOfficeList(
+                    dateString: dateString
+                ) else {
+                    return .error(AppError.unknown)
+                }
+                
+                return result
             }
             .bind(to: _dailyBoxOfficeList)
             .disposed(by: disposeBag)
@@ -49,45 +55,5 @@ extension FindViewModel: ViewModelType {
         )
         
         return output
-    }
-}
-
-private extension FindViewModel {
-    func createObservableForDate(_ dateString: String) -> Observable<[DailyBoxOfficeList]> {
-        Observable.create { [weak self] observer in
-            self?.boxOfficeService.request(
-                for: .dailyBoxOffice(date: dateString),
-                completion: { result in
-                    self?.handleResult(result, observer: observer)
-                }
-            )
-            return Disposables.create()
-        }
-    }
-    
-    func handleResult(
-        _ result: NetworkResult<DailyBoxOffice>,
-        observer: AnyObserver<[DailyBoxOfficeList]>
-    ) {
-        switch result {
-        case .success(let dailyBoxOffice):
-            observer.onNext(dailyBoxOffice.boxOfficeResult.dailyBoxOfficeList)
-            observer.onCompleted()
-        case .requestErr:
-            print("요청 오류")
-            observer.onError(AppError.unknown)
-        case .decodedErr:
-            print("디코딩 오류")
-            observer.onError(AppError.unknown)
-        case .pathErr:
-            print("경로 오류")
-            observer.onError(AppError.unknown)
-        case .serverErr:
-            print("서버 오류")
-            observer.onError(AppError.unknown)
-        case .networkFail:
-            print("네트워크 오류")
-            observer.onError(AppError.unknown)
-        }
     }
 }

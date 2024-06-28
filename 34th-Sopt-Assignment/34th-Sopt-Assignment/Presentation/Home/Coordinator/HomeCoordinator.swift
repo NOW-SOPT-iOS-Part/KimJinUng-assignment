@@ -28,8 +28,8 @@ final class HomeCoordinator: Coordinator {
 
 extension HomeCoordinator {
     func pushToFind() {
-        let boxOfficeService = DefaultNetworkService<BoxOfficeTargetType>()
-        let findViewModel = FindViewModel(boxOfficeService: boxOfficeService)
+        let movieService = MovieService()
+        let findViewModel = FindViewModel(movieService: movieService)
         let findViewController = FindViewController(viewModel: findViewModel)
         navigationController.pushViewController(findViewController, animated: true)
     }

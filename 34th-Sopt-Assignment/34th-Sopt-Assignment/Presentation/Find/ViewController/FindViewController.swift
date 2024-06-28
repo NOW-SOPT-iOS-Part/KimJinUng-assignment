@@ -31,6 +31,10 @@ final class FindViewController: UIViewController, AlertShowable {
     
     // MARK: - LifeCycle
     
+    override func loadView() {
+        view = rootView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
