@@ -76,6 +76,13 @@
 		DED033B52C1219D3006C53EC /* ComingSoonCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED033B42C1219D3006C53EC /* ComingSoonCoordinator.swift */; };
 		DED033B72C121ACA006C53EC /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED033B62C121ACA006C53EC /* SearchCoordinator.swift */; };
 		DED033B92C121AE4006C53EC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED033B82C121AE3006C53EC /* HistoryCoordinator.swift */; };
+		DED5DBF72C345840006ECE7E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5DBF62C345840006ECE7E /* BaseViewController.swift */; };
+		DED5DBF92C345850006ECE7E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5DBF82C345850006ECE7E /* BaseView.swift */; };
+		DED5DBFB2C34588B006ECE7E /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5DBFA2C34588B006ECE7E /* BaseCollectionViewCell.swift */; };
+		DED5DBFD2C3458AC006ECE7E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5DBFC2C3458AC006ECE7E /* BaseCollectionReusableView.swift */; };
+		DED5DBFF2C3458E1006ECE7E /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5DBFE2C3458E1006ECE7E /* BaseTableViewCell.swift */; };
+		DED5DC022C34594A006ECE7E /* LoginViewController_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5DC012C34594A006ECE7E /* LoginViewController_Base.swift */; };
+		DED5DC052C345988006ECE7E /* LoginView_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5DC042C345988006ECE7E /* LoginView_Base.swift */; };
 		DEE84F362BDF5DBE006605CB /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE84F352BDF5DBE006605CB /* ReuseIdentifiable.swift */; };
 		DEE84F3A2BDF6086006605CB /* TvingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE84F392BDF6086006605CB /* TvingTabBarController.swift */; };
 		DEE84F3C2BDF6F48006605CB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE84F3B2BDF6F48006605CB /* HomeViewController.swift */; };
@@ -156,6 +163,13 @@
 		DED033B42C1219D3006C53EC /* ComingSoonCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonCoordinator.swift; sourceTree = "<group>"; };
 		DED033B62C121ACA006C53EC /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		DED033B82C121AE3006C53EC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
+		DED5DBF62C345840006ECE7E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		DED5DBF82C345850006ECE7E /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		DED5DBFA2C34588B006ECE7E /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		DED5DBFC2C3458AC006ECE7E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
+		DED5DBFE2C3458E1006ECE7E /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		DED5DC012C34594A006ECE7E /* LoginViewController_Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController_Base.swift; sourceTree = "<group>"; };
+		DED5DC042C345988006ECE7E /* LoginView_Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView_Base.swift; sourceTree = "<group>"; };
 		DEE84F352BDF5DBE006605CB /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 		DEE84F392BDF6086006605CB /* TvingTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvingTabBarController.swift; sourceTree = "<group>"; };
 		DEE84F3B2BDF6F48006605CB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -296,6 +310,7 @@
 		DE1954BF2BCD734100070C12 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DED5DBF52C345824006ECE7E /* Base */,
 				DE8101822C2F22E2001F7090 /* ObservablePattern */,
 				DE9912FB2C0BB748002A73CB /* Interface */,
 				DE9F2C062BD0114300E3189D /* Constants */,
@@ -339,6 +354,7 @@
 				DE9F2C042BD00E0B00E3189D /* MakeNicknameViewController.swift */,
 				DE9F2C172BD0314C00E3189D /* WelcomeViewController.swift */,
 				DE81017F2C2F2120001F7090 /* ObservablePattern */,
+				DED5DC002C345933006ECE7E /* Base */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -380,6 +396,7 @@
 			children = (
 				DE7FFCB42C1F3C1100C73CDE /* LoginView.swift */,
 				DE7FFCB62C1F421100C73CDE /* MakeNicknameView.swift */,
+				DED5DC032C34597B006ECE7E /* Base */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -535,6 +552,34 @@
 				DED033B22C1217C0006C53EC /* HomeCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		DED5DBF52C345824006ECE7E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DED5DBF62C345840006ECE7E /* BaseViewController.swift */,
+				DED5DBF82C345850006ECE7E /* BaseView.swift */,
+				DED5DBFA2C34588B006ECE7E /* BaseCollectionViewCell.swift */,
+				DED5DBFC2C3458AC006ECE7E /* BaseCollectionReusableView.swift */,
+				DED5DBFE2C3458E1006ECE7E /* BaseTableViewCell.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		DED5DC002C345933006ECE7E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DED5DC012C34594A006ECE7E /* LoginViewController_Base.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		DED5DC032C34597B006ECE7E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DED5DC042C345988006ECE7E /* LoginView_Base.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		DEE84F372BDF5F58006605CB /* Home */ = {
@@ -728,6 +773,7 @@
 				DED033B32C1217C0006C53EC /* HomeCoordinator.swift in Sources */,
 				DED033B72C121ACA006C53EC /* SearchCoordinator.swift in Sources */,
 				DEA1AF962BEDFED900BDB474 /* BoxOfficeTargetType.swift in Sources */,
+				DED5DBF72C345840006ECE7E /* BaseViewController.swift in Sources */,
 				DE8101792C2F0099001F7090 /* FindView.swift in Sources */,
 				DE6A2E6F2C1ED2E3004DA3BB /* ViewModelType.swift in Sources */,
 				DE9913042C0BB906002A73CB /* LoginCoordinator.swift in Sources */,
@@ -744,11 +790,13 @@
 				DE9F2C162BD0263800E3189D /* RegexCheckable.swift in Sources */,
 				DEA1AF762BEDD81A00BDB474 /* FindViewController.swift in Sources */,
 				DEF003352BE05DD000EF73F8 /* ImageAndTitleCell.swift in Sources */,
+				DED5DBFF2C3458E1006ECE7E /* BaseTableViewCell.swift in Sources */,
 				DE9F2C182BD0314C00E3189D /* WelcomeViewController.swift in Sources */,
 				DEF0033B2BE0780A00EF73F8 /* LongLogoCell.swift in Sources */,
 				DE9F2C052BD00E0B00E3189D /* MakeNicknameViewController.swift in Sources */,
 				DED033B92C121AE4006C53EC /* HistoryCoordinator.swift in Sources */,
 				DE81F45D2C02D8AD00DA4804 /* LoginViewModel.swift in Sources */,
+				DED5DC052C345988006ECE7E /* LoginView_Base.swift in Sources */,
 				DE9F2C1A2BD039E500E3189D /* UILabel+.swift in Sources */,
 				DE1954C22BCD735800070C12 /* UIFont+.swift in Sources */,
 				DEA1AF7E2BEDFA7E00BDB474 /* Bundle+.swift in Sources */,
@@ -766,18 +814,21 @@
 				DEF0032F2BE0488300EF73F8 /* MainCell.swift in Sources */,
 				DED033B52C1219D3006C53EC /* ComingSoonCoordinator.swift in Sources */,
 				DE46403C2BD7AD6000FC13D8 /* TvingTextField.swift in Sources */,
+				DED5DBFD2C3458AC006ECE7E /* BaseCollectionReusableView.swift in Sources */,
 				DEA1AF932BEDFE7400BDB474 /* MoyaLoggingPlugin.swift in Sources */,
 				DE7FFCB72C1F421100C73CDE /* MakeNicknameView.swift in Sources */,
 				DE8101842C2F22EE001F7090 /* ObservablePattern.swift in Sources */,
 				DEA1AF7A2BEDF40300BDB474 /* DailyBoxOffice.swift in Sources */,
 				DEE84F422BDFBB51006605CB /* ComingSoonViewController.swift in Sources */,
 				DE9BA3492C06401D00C8D6EB /* Date+.swift in Sources */,
+				DED5DBFB2C34588B006ECE7E /* BaseCollectionViewCell.swift in Sources */,
 				DED033B02C121245006C53EC /* TvingTabBarCoordinator.swift in Sources */,
 				DE9F2C102BD0235400E3189D /* AlertShowable.swift in Sources */,
 				DE19548E2BCD644B00070C12 /* SceneDelegate.swift in Sources */,
 				DE1954C82BCD7E3A00070C12 /* UIButton+.swift in Sources */,
 				DE81017E2C2F20EE001F7090 /* LoginViewModel_ObservablePattern.swift in Sources */,
 				DEA1AF862BEDFDBB00BDB474 /* Config.swift in Sources */,
+				DED5DC022C34594A006ECE7E /* LoginViewController_Base.swift in Sources */,
 				DE9F2C082BD0115E00E3189D /* Constants.swift in Sources */,
 				DE9F2C0A2BD0139400E3189D /* UIColor+.swift in Sources */,
 				DE9F2C142BD025CB00E3189D /* Regex.swift in Sources */,
@@ -785,6 +836,7 @@
 				DEE84F3C2BDF6F48006605CB /* HomeViewController.swift in Sources */,
 				DEA1AF882BEDFDE000BDB474 /* NetworkResult.swift in Sources */,
 				DE8101812C2F212F001F7090 /* LoginViewController_ObservablePattern.swift in Sources */,
+				DED5DBF92C345850006ECE7E /* BaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
