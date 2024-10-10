@@ -21,8 +21,18 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = DefaultLoginViewModel()
-        let viewController = LoginViewController(viewModel: viewModel)
+        /// RxSwift 코드
+//        let viewModel = LoginViewModel()
+//        let viewController = LoginViewController(viewModel: viewModel)
+        
+        /// Observable_Pattern 코드
+//        let viewModel = LoginViewModel_ObservablePattern()
+//        let viewController = LoginViewController_ObservablePattern(viewModel: viewModel)
+        
+        /// Base UI 코드
+        let viewModel = LoginViewModel_ObservablePattern()
+        let viewController = LoginViewController_Base(viewModel: viewModel)
+        
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: false)
     }
@@ -31,7 +41,7 @@ final class LoginCoordinator: Coordinator {
 extension LoginCoordinator {
     func presentNickname(delegate: MakeNicknameViewDelegate?) {
         let viewController = MakeNicknameViewController(
-            delegate: delegate, viewModel: DefaultMakeNicknameViewModel()
+            delegate: delegate, viewModel: MakeNicknameViewModel()
         )
         viewController.modalPresentationStyle = .formSheet
         if let sheet = viewController.sheetPresentationController {

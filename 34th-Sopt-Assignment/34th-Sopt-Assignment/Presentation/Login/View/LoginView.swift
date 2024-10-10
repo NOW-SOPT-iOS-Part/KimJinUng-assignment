@@ -1,8 +1,8 @@
 //
-//  LoginViewController.swift
+//  LoginView.swift
 //  34th-Sopt-Assignment
 //
-//  Created by 김진웅 on 4/15/24.
+//  Created by 김진웅 on 6/17/24.
 //
 
 import UIKit
@@ -12,7 +12,7 @@ import RxSwift
 import SnapKit
 import Then
 
-final class LoginViewController: UIViewController, AlertShowable {
+final class LoginView: UIView {
     
     // MARK: - Component
     
@@ -31,127 +31,25 @@ final class LoginViewController: UIViewController, AlertShowable {
     private let helpButton = UIButton()
     private let nicknameButton = UIButton()
     
-    // MARK: - Property
-    
-    weak var coordinator: LoginCoordinator?
-    
-    private var nickname: String?
-    
-    private let viewModel: LoginViewModel
-    private let disposeBag = DisposeBag()
-    
     // MARK: - Initializer
     
-    init(viewModel: LoginViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setUI()
+        setViewHierarchy()
+        setAutoLayout()
+        setDelegate()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - LifeCycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setUI()
-        setViewHierarchy()
-        setAutoLayout()
-        setDelegate()
-        
-        bindViewModel()
-        bindAction()
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-}
-
-private extension LoginViewController {
-    
-    // MARK: - ViewModel Binding
-    
-    func bindViewModel() {
-        idTextField.rx.text
-            .subscribe(onNext: { [weak self] text in
-                self?.viewModel.idTextFieldDidChange(text)
-            })
-            .disposed(by: disposeBag)
-        
-        pwTextField.rx.text
-            .subscribe(onNext: { [weak self] text in
-                self?.viewModel.passwordTextFieldDidChange(text)
-            })
-            .disposed(by: disposeBag)
-        
-        loginButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.viewModel.loginButtonDidTap()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.isLoginEnabled
-            .drive(with: self) { owner, flag in
-                owner.toggleLoginButton(flag)
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.isSucceedToLogin
-            .drive(with: self) { owner, result in
-                switch result {
-                case .success(let id):
-                    owner.coordinator?.pushToWelcome(id: id, nickname: owner.nickname)
-                case .failure(let error):
-                    owner.showAlert(title: error.title, message: error.message)
-                }
-            }
-            .disposed(by: disposeBag)
+        endEditing(true)
     }
     
-    // MARK: - Action Binding
-    
-    func bindAction() {
-        idClearButton.rx.tap
-            .asDriver()
-            .drive(with: self) { owner, _ in
-                owner.idTextField.text = nil
-                owner.idTextField.insertText("")
-            }
-            .disposed(by: disposeBag)
-        
-        pwClearButton.rx.tap
-            .asDriver()
-            .drive(with: self) { owner, _ in
-                owner.pwTextField.text = nil
-                owner.pwTextField.insertText("")
-            }
-            .disposed(by: disposeBag)
-        
-        pwShowButton.rx.tap
-            .asDriver()
-            .drive(with: self) { owner, _ in
-                owner.pwTextField.isSecureTextEntry.toggle()
-                owner.pwShowButton.setImage(
-                    owner.pwTextField.isSecureTextEntry ? .eyeSlash : .eye , for: .normal
-                )
-            }
-            .disposed(by: disposeBag)
-        
-        nicknameButton.rx.tap
-            .asDriver()
-            .drive(with: self) { owner, _ in
-                owner.coordinator?.presentNickname(delegate: owner)
-            }
-            .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - Private Method
-
-private extension LoginViewController {
     func toggleLoginButton(_ flag: Bool) {
         let borderWidth: CGFloat = flag ? 0 : 1
         let titleColor: UIColor = flag ? .white : .gray2
@@ -162,11 +60,38 @@ private extension LoginViewController {
         loginButton.layer.borderWidth = borderWidth
         loginButton.isEnabled = flag
     }
+    
+    func clearIDTextField() {
+        idTextField.text = nil
+        idTextField.insertText("")
+    }
+    
+    func clearPWTextField() {
+        pwTextField.text = nil
+        pwTextField.insertText("")
+    }
+    
+    func togglePasswordTextFieldVisibility() {
+        pwTextField.isSecureTextEntry.toggle()
+        pwShowButton.setImage(
+            pwTextField.isSecureTextEntry ? .eyeSlash : .eye , for: .normal
+        )
+    }
+}
+
+extension LoginView {
+    var idTextFieldDidChange: Observable<String?> { idTextField.rx.text.asObservable() }
+    var pwTextFieldDidChange: Observable<String?> { pwTextField.rx.text.asObservable() }
+    var loginButtonDidTap: Observable<Void> { loginButton.rx.tap.asObservable() }
+    var idClearButtonDidTap: Observable<Void> { idClearButton.rx.tap.asObservable() }
+    var pwClearButtonDidTap: Observable<Void> { pwClearButton.rx.tap.asObservable() }
+    var pwShowButtonDidTap: Observable<Void> { pwShowButton.rx.tap.asObservable() }
+    var nicknameButtonDidTap: Observable<Void> { nicknameButton.rx.tap.asObservable() }
 }
 
 // MARK: - UITextFieldDelegate
 
-extension LoginViewController: UITextFieldDelegate {
+extension LoginView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 1
     }
@@ -176,20 +101,12 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - MakeNicknameViewDelegate
-
-extension LoginViewController: MakeNicknameViewDelegate {
-    func configure(nickname: String) {
-        self.nickname = nickname
-    }
-}
-
-private extension LoginViewController {
+private extension LoginView {
     
     // MARK: - SetUI
     
     func setUI() {
-        view.backgroundColor = .black
+        backgroundColor = .black
         
         titleLabel.do {
             $0.setText("TVING ID 로그인", color: .gray1, font: .pretendard(.medium, size: 23))
@@ -248,7 +165,7 @@ private extension LoginViewController {
     }
     
     func setViewHierarchy() {
-        view.addSubviews(
+        addSubviews(
             titleLabel, idTextField, pwTextField, loginButton, findIDButton,
             divider, findPWButton, helpButton, nicknameButton
         )
@@ -260,7 +177,7 @@ private extension LoginViewController {
     // MARK: - AutoLayout
     
     func setAutoLayout() {
-        let safeArea = view.safeAreaLayoutGuide
+        let safeArea = safeAreaLayoutGuide
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()

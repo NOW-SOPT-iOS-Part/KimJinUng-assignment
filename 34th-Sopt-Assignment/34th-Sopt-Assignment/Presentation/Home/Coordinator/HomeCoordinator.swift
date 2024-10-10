@@ -19,7 +19,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = DefaultHomeViewModel()
+        let viewModel = HomeViewModel()
         let viewController = HomeViewController(viewModel: viewModel)
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: false)
@@ -28,8 +28,8 @@ final class HomeCoordinator: Coordinator {
 
 extension HomeCoordinator {
     func pushToFind() {
-        let boxOfficeService = DefaultNetworkService<BoxOfficeTargetType>()
-        let findViewModel = DefaultFindViewModel(boxOfficeService: boxOfficeService)
+        let movieService = MovieService()
+        let findViewModel = FindViewModel(movieService: movieService)
         let findViewController = FindViewController(viewModel: findViewModel)
         navigationController.pushViewController(findViewController, animated: true)
     }
